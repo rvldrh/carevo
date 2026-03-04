@@ -1,0 +1,163 @@
+# yaml-language-server: $schema=https://spec.openapis.org/oas/3.1/schema/2025-09-15
+openapi: 3.1.0
+info:
+  title: SIMK Auth API
+  version: 0.1.0
+
+servers:
+  - url: http://localhost:3000
+    description: Local dev
+  - url: https://simk-api.omoxyz.com
+    description: Production
+
+tags:
+  - name: Auth
+
+paths:
+  /v1/auth/register:
+    post:
+      tags: [Auth]
+      summary: Register a new user
+      operationId: registerUser
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RegisterRequest"
+      responses:
+        "201":
+          description: User regiestered successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RegisterRequest"
+  /v1/auth/login:
+    post:
+      tags: [Auth]
+      summary: Login using email and password
+      operationId: loginUser
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LoginRequest"
+      responses:
+        "200":
+          description: Login successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthResponse"
+        "401":
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /v1/auth/logout:
+    post:
+      tags: [Auth]
+      summary: Logout user (invalidate refresh token)
+      operationId: logoutUser
+      security:
+        - BearerAuth: []
+      responses:
+        "204":
+          description: Logged out successfully
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    RegisterRequest:
+      type: object
+      required: [email, password]
+      properties:
+        email:
+          type: string
+          format: email
+          example: user@example.com
+        password:
+          type: string
+          minLength: 8
+          example: StrongPassword123
+
+    AuthResponse:
+      type: object
+      required: [accessToken, expiresIn, user]
+      properties:
+        accessToken:
+          type: string
+          description: JWT access token
+        refreshToken:
+          type: string
+          description: Optional if not using cookies
+        expiresIn:
+          type: integer
+          description: Access token expiry in seconds
+          example: 900
+        user:
+          $ref: "#/components/schemas/User"
+
+    LoginRequest:
+      type: object
+      required: [email, password]
+      properties:
+        email:
+          type: string
+          format: email
+          example: user@example.com
+        password:
+          type: string
+          example: StrongPassword123
+
+    User:
+      type: object
+      required: [id, email, createdAt]
+      properties:
+        id:
+          type: string
+          example: usr_123
+        email:
+          type: string
+          format: email
+        createdAt:
+          type: string
+          format: date-time
+
+    ErrorResponse:
+      type: object
+      required: [error, message]
+      properties:
+        error:
+          type: string
+          example: INVALID_CREDENTIALS
+        message:
+          type: string
+          example: Email or password is incorrect
+        requestId:
+          type: string
+          example: req-abc123
+
+  responses:
+    BadRequest:
+      description: Invalid request
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorResponse"
+
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorResponse"

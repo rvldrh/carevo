@@ -2,6 +2,7 @@
   "name": "carevo",
   "private": true,
   "scripts": {
+    "postinstall": "lefthook install",
     "build": "turbo run build",
     "dev": "turbo run dev",
     "lint": "turbo run lint",
@@ -9,6 +10,7 @@
     "check-types": "turbo run check-types"
   },
   "devDependencies": {
+    "lefthook": "^2.1.2",
     "prettier": "^3.7.4",
     "turbo": "^2.8.13",
     "typescript": "5.9.2"

@@ -1,0 +1,5 @@
+pre-commit:
+  jobs:
+    - name: branch up-to-date check
+      script: up-to-date-check.sh
+      runner: bash

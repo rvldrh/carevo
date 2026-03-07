@@ -6,10 +6,11 @@
   "author": "",
   "type": "module",
   "scripts": {
-    "build": "tsdown"
+    "build": "tsdown",
+    "generate": "orval -c ./orval.config.ts"
   },
   "exports": {
-    ".": {
+    "./api": {
       "import": "./dist/index.mjs",
       "types": "./dist/index.d.ts"
     }

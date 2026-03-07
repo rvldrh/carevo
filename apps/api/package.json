@@ -1,12 +1,41 @@
 {
-  "name": "api",
-  "version": "1.0.0",
+  "name": "@carevo/api",
+  "version": "0.1.0",
   "description": "",
-  "license": "ISC",
-  "author": "",
-  "type": "commonjs",
-  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsdown",
+    "dev": "tsx watch src/index.ts",
+    "start": "node entrypoint.mjs run",
+    "migrate": "tsx src/migrate.ts",
+    "docker": "docker build -f ./Dockerfile -t carevo/api:latest ../.."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "npm@11.6.2",
+  "dependencies": {
+    "@fastify/cookie": "^11.0.2",
+    "@fastify/cors": "^11.2.0",
+    "@fastify/oauth2": "^8.2.0",
+    "@fastify/rate-limit": "^10.3.0",
+    "@fastify/throttle": "^3.0.2",
+    "@fastify/under-pressure": "^9.0.3",
+    "argon2": "^0.44.0",
+    "drizzle-orm": "^0.45.1",
+    "fastify": "^5.8.1",
+    "jose": "^6.2.0",
+    "pg": "^8.20.0",
+    "pino": "^10.3.1",
+    "uuid": "^13.0.0",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@types/node": "^25.3.3",
+    "@types/pg": "^8.18.0",
+    "dotenv-cli": "^11.0.0",
+    "drizzle-kit": "^0.31.9",
+    "tsdown": "^0.20.3",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.2"
   }
 }

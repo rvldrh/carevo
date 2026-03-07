@@ -1,12 +1,13 @@
 {
-  "name": "web",
+  "name": "@carevo/web",
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "turbo run dev",
-    "build": "turbo run build",
+    "dev": "next dev --port 3000",
+    "build": "next build",
     "start": "next start",
-    "lint": "turbo run lint"
+    "lint": "eslint --max-warnings 0",
+    "check-types": "next typegen && tsc --noEmit"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",

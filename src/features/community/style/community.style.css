@@ -1,0 +1,25 @@
+
+@layer base {
+  :root {
+    --community-bg: 210 20% 97%;
+    --community-card: 0 0% 100%;
+  }
+
+  body {
+    background: hsl(var(--community-bg));
+  }
+}
+
+@layer components {
+
+  .community-container {
+    @apply w-full max-w-[1200px] mx-auto px-6 py-8 grid;
+    grid-template-columns: 260px 1fr 280px;
+    gap: 24px;
+  }
+
+  .community-card {
+    @apply bg-white rounded-2xl p-4;
+  }
+
+}

@@ -30,7 +30,7 @@ export default function ProjectDetailPage() {
             <div className="bg-[#F45B5B] rounded-[28px] p-6 lg:p-8">
               <div className="relative aspect-[742/551] w-full">
                 <Image
-                  src="/icons/portfolio-card.svg"
+                  src="/illustration/portfolio-card.svg"
                   alt="Green Forest Donation App mockups"
                   fill
                   className="object-contain"

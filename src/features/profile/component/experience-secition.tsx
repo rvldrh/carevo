@@ -3,10 +3,10 @@
 import { useState } from "react";
 import IconButton from "@/components/ui/button/icon-button";
 import Modal from "@/components/ui/modal/container/modal-container";
-import { ModalForm } from "@/components/ui/modal/ModalForm";
+import { ModalForm } from "@/components/ui/modal/component/ModalForm";
 
 import { experienceFields } from "@/features/profile/config/experience-fields";
-import { ModalButtons } from "@/components/ui/modal/ModalButtons";
+import { ModalButtons } from "@/components/ui/modal/component/ModalButtons";
 
 export default function ExperienceSection() {
   const [openModalAdd, setOpenModalAdd] = useState(false);

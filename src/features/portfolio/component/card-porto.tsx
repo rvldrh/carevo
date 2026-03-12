@@ -68,18 +68,14 @@ export default function CardPorto(){
         </div>
       </div>
 
-      {/* Navbar */}
       <div className="flex z-[2] w-full h-[76px] items-end gap-[428px] pl-10 fixed top-0 left-0 bg-foundation-sky-bluelight-hover">
         <Link href="/">
-          {/* <LetsIconsBack className="w-[53px] h-[53px]" /> */}
         </Link>
 
         <div className="inline-flex items-center justify-center gap-2.5 p-4">
           <h1 className="font-bold text-black text-[40px]">GREEN FOREST</h1>
         </div>
       </div>
-
-      {/* Image */}
       <Image
         src="/images/rectangle-14.svg"
         alt="Green Forest Preview"

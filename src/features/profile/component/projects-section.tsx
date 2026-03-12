@@ -4,7 +4,7 @@ import { useState } from "react";
 import IconButton from "@/components/ui/button/icon-button";
 import ProjectCard from "@/components/ui/card/project-card";
 import Modal from "@/components/ui/modal/container/modal-container";
-import { ModalForm } from "@/components/ui/modal/ModalForm";
+import { ModalForm } from "@/components/ui/modal/component/ModalForm";
 
 import { projectFields } from "@/features/profile/config/project-fields";
 
@@ -42,7 +42,7 @@ export default function ProjectSection() {
                 key={item}
                 title="Green Forest - App"
                 date="20 Feb 2026"
-                image="/icons/portfolio-card.svg"
+                image="/illustration/portfolio-card.svg"
                 href="/main/project/"
                 />
             ))}

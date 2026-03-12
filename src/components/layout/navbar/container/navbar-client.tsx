@@ -2,10 +2,10 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import NavMenu from "./nav-menu";
-import MobileMenu from "./mobile-menu";
+import NavMenu from "../component/nav-menu";
+import MobileMenu from "../component/mobile-menu";
 import Image from "next/image";
-import ProfileDropdown from "@/components/layout/navbar/profile-dropdown";
+import ProfileDropdown from "@/components/layout/navbar/component/profile-dropdown";
 
 export default function NavbarClient() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);

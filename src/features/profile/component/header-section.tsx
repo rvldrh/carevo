@@ -3,9 +3,9 @@
 import { useEffect, useState } from "react";
 import IconButton from "@/components/ui/button/icon-button";
 import Modal from "@/components/ui/modal/container/modal-container";
-import ModalOverlay from "@/components/ui/modal/ModalOverlay";
+import ModalOverlay from "@/components/ui/modal/component/ModalOverlay";
 import { FieldConfig } from "@/shared/types/ModalForm";
-import { ModalForm } from "@/components/ui/modal/ModalForm";
+import { ModalForm } from "@/components/ui/modal/component/ModalForm";
 import { headerFields } from "../config/header-fields";
 
 export default function HeaderSection() {

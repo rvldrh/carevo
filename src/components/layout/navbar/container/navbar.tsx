@@ -1,4 +1,4 @@
-import NavbarClient from "./navbar-client";
+import NavbarClient from "@/components/layout/navbar/container/navbar-client";
 
 export default function Navbar() {
   return (

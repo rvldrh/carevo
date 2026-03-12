@@ -13,7 +13,7 @@ export default function CvPreview() {
       className="absolute left-[4%] bottom-[-33%] hidden lg:block"
     >
       <Image
-        src="/icons/cv.svg"
+        src="/illustration/cv.svg"
         alt="cv"
         width={550}
         height={550}

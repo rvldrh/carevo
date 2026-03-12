@@ -3,8 +3,8 @@
 import IconButton from "@/components/ui/button/icon-button";
 import CertificateCard from "@/components/ui/card/certificate-card";
 import Modal from "@/components/ui/modal/container/modal-container";
-import { ModalButtons } from "@/components/ui/modal/ModalButtons";
-import { ModalForm } from "@/components/ui/modal/ModalForm";
+import { ModalButtons } from "@/components/ui/modal/component/ModalButtons";
+import { ModalForm } from "@/components/ui/modal/component/ModalForm";
 import { useState } from "react";
 import { certificateFields } from "@/features/profile/config/certificate-fields";
 

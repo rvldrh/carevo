@@ -1,9 +1,9 @@
-import CertificateSection from "@/features/profile/component/certificate-section";
-import CollaborationSection from "@/features/profile/component/collaborate-section";
-import ExperienceSection from "@/features/profile/component/experience-secition";
-import HeaderSection from "@/features/profile/component/header-section";
-import ProjectSection from "@/features/profile/component/projects-section";
-import RoleSection from "@/features/profile/component/role-section";
+import CertificateSection from "@/features/profile/certificate/container/certificate-container";
+import CollaborationSection from "@/features/profile/collaborate/container/collaboration-container";
+import ExperienceSection from "@/features/profile/experience/container/experience-container";
+import HeaderSection from "@/features/profile/header/container/header-container";
+import ProjectSection from "@/features/profile/project/container/project-container";
+import RoleSection from "@/features/profile/role/role-section";
 
 
 export default function ProfilePage() {

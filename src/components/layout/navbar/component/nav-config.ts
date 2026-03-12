@@ -13,7 +13,7 @@ export const navLinks: NavLink[] = [
   {
     path: "/main/community",
     label: "Community",
-    icon: "/icons/G roup.webp",
+    icon: "/icons/Group.webp",
   },
   {
     path: "/asah",

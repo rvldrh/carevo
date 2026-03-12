@@ -8,13 +8,12 @@ import RoleSection from "@/features/profile/component/role-section";
 
 export default function ProfilePage() {
   return (
-    <div className="w-full min-h-screen bg-[#eef1fb]">
+    <div className="w-full min-h-screen bg-[var(--white)] py-12">
       <div className="max-w mx-auto">
         <HeaderSection />
         <ExperienceSection />
         <RoleSection />
         <ProjectSection />
-        <RoleSection />
         <CertificateSection />
         <CollaborationSection />
       </div>

@@ -46,21 +46,21 @@ export default function ProfileDropdown() {
           >
             <Link
               className="block px-4 py-2 hover:bg-gray-100"
-              href="/profile"
+              href="/main/profile"
             >
               Profile
             </Link>
 
             <Link
               className="block px-4 py-2 hover:bg-gray-100"
-              href="/setting"
+              href="/main/setting"
             >
               Setting
             </Link>
 
             <Link
               className="block px-4 py-2 hover:bg-gray-100"
-              href="/logout"
+              href="/auth/logout"
             >
               Logout
             </Link>

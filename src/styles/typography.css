@@ -1,0 +1,35 @@
+:root {
+
+  /* HEADINGS */
+
+  --font-h1-size: 48px;
+  --font-h1-line: 58px;
+  --font-h1-weight: 600;
+
+  --font-h2-size: 40px;
+  --font-h2-line: 48px;
+  --font-h2-weight: 600;
+
+  --font-h3-size: 32px;
+  --font-h3-line: 38px;
+  --font-h3-weight: 600;
+
+  --font-h4-size: 28px;
+  --font-h4-line: 34px;
+  --font-h4-weight: 600;
+
+  --font-h5-size: 24px;
+  --font-h5-line: 28px;
+  --font-h5-weight: 600;
+
+  /* BODY */
+
+  --font-body-lg: 16px;
+  --font-body-md: 14px;
+  --font-body-sm: 12px;
+
+  --line-body-lg: 24px;
+  --line-body-md: 20px;
+  --line-body-sm: 16px;
+
+}

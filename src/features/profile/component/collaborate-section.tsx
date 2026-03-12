@@ -2,11 +2,11 @@ import IconButton from "@/components/ui/button/icon-button";
 
 export default function CollaborationSection() {
   return (
-    <section className="w-full py-26 border-t border-[#dfe3f5] relative">
+    <section className="w-full py-26 border-t bg-[var(--white)] border-[var(--gray-300)] relative">
       <IconButton
         icon="/icons/edit.svg"
         alt="edit"
-        className="absolute top-6 right-[103px]"
+        className="absolute top-6 right-[22%]"
       />
 
       <h2 className="text-3xl font-bold text-center mb-14">

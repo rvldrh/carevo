@@ -6,7 +6,6 @@ export default function RoleSection() {
 
         <div className="flex gap-12 text-lg font-semibold">
           <p>CyberSecurity</p>
-          <p>UI/UX Designer</p>
         </div>
       </div>
     </section>

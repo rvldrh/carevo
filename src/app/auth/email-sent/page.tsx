@@ -1,4 +1,4 @@
-import EmailSentPage from "@/features/auth/container/email-sent-page"
+import EmailSentPage from "@/features/auth/components/container/email-sent-page"
 
 const page = () => {
   return <EmailSentPage />

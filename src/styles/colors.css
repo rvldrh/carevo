@@ -1,7 +1,5 @@
 :root {
 
-  /* ================= PRIMITIVE COLORS ================= */
-
   --purple-100: #edf0fe;
   --purple-200: #e4e7fe;
   --purple-300: #c8ecfc;
@@ -38,8 +36,6 @@
 
   --white: #ffffff;
   --black: #000000;
-
-  /* ================= SEMANTIC TOKENS ================= */
 
   --color-primary: var(--purple-500);
   --color-primary-hover: var(--purple-600);

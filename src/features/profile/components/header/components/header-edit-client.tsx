@@ -5,7 +5,7 @@ import IconButton from "@/components/ui/button/icon-button";
 import Modal from "@/components/ui/modal/container/modal-container";
 import ModalOverlay from "@/components/ui/modal/component/ModalOverlay";
 import { ModalForm } from "@/components/ui/modal/component/ModalForm";
-import { headerFields } from "@/features/profile/config/header-fields";
+import { headerFields } from "@/features/profile/constatnts/header-fields";
 
 export default function HeaderEditClient() {
   const [openModal, setOpenModal] = useState(false);

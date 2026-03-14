@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import "./globals.css"
 import QueryProvider from "@/providers/react-query-provider"
+import {Toaster} from 'sonner'
 
 export const metadata: Metadata = {
   title: "",
@@ -19,6 +20,7 @@ export default function RootLayout({
 
         <QueryProvider>
           {children}
+          <Toaster position="top-right" richColors />
         </QueryProvider>
 
       </body>

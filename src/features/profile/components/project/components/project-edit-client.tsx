@@ -4,7 +4,7 @@ import { useState } from "react";
 import IconButton from "@/components/ui/button/icon-button";
 import Modal from "@/components/ui/modal/container/modal-container";
 import { ModalForm } from "@/components/ui/modal/component/ModalForm";
-import { projectFields } from "@/features/profile/config/project-fields";
+import { projectFields } from "@/features/profile/constatnts/project-fields";
 
 export default function ProjectEditorClient() {
   const [openAdd, setOpenAdd] = useState(false);

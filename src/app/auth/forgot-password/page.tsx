@@ -1,4 +1,4 @@
-import ForgotPasswordPage from '@/features/auth/components/container/forgot-password-page'
+import ForgotPasswordPage from '@/features/auth/page/forgot-password-page'
 
 const page = () => {
   return <ForgotPasswordPage />

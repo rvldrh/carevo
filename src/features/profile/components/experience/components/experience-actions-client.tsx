@@ -5,7 +5,7 @@ import IconButton from "@/components/ui/button/icon-button";
 import Modal from "@/components/ui/modal/container/modal-container";
 import { ModalForm } from "@/components/ui/modal/component/ModalForm";
 import { ModalButtons } from "@/components/ui/modal/component/ModalButtons";
-import { experienceFields } from "@/features/profile/config/experience-fields";
+import { experienceFields } from "@/features/profile/constatnts/experience-fields";
 
 export default function ExperienceActionsClient() {
   const [openModalAdd, setOpenModalAdd] = useState(false);

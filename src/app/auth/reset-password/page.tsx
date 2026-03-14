@@ -1,4 +1,4 @@
-import ChangePasswordPage from '@/features/auth/components/container/change-password-page'
+import ChangePasswordPage from '@/features/auth/page/change-password-page'
 
 const page = () => {
   return <ChangePasswordPage />

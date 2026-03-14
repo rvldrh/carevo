@@ -1,5 +1,5 @@
-import ChangePasswordIllustration from "./change-password-illustration";
-import ChangePasswordFormClient from "./change-password-form-client";
+import ChangePasswordIllustration from "@/features/auth/components/reset-password/components/change-password-illustration";
+import ChangePasswordFormClient from "@/features/auth/components/reset-password/components/change-password-form";
 
 export default function ChangePasswordLayout() {
   return (

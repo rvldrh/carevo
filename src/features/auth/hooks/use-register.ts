@@ -1,19 +1,28 @@
 "use client"
 
 import { useMutation } from "@tanstack/react-query"
-import { registerUserService, RegisterUserInput } from "@/services/auth/auth.service"
+import { registerUserService } from "@/services/auth/auth.service"
+import { AxiosError } from "axios"
+import { toast } from "sonner"
+
+interface ApiError {
+  message?: string
+}
 
 export function useRegister() {
-
   return useMutation({
-    mutationFn: (data: RegisterUserInput) => registerUserService(data),
+    mutationFn: registerUserService,
 
-    onSuccess: (data) => {
-      console.log("Register success:", data)
+    onSuccess: () => {
+      toast.success("Akun berhasil dibuat")
     },
 
-    onError: (error) => {
-      console.error("Register failed:", error)
+    onError: (error: AxiosError<ApiError>) => {
+      const message =
+        error.response?.data?.message ??
+        "Registrasi gagal"
+
+      toast.error(message)
     }
   })
 }

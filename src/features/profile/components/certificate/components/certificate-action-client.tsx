@@ -5,7 +5,7 @@ import IconButton from "@/components/ui/button/icon-button";
 import Modal from "@/components/ui/modal/container/modal-container";
 import { ModalButtons } from "@/components/ui/modal/component/ModalButtons";
 import { ModalForm } from "@/components/ui/modal/component/ModalForm";
-import { certificateFields } from "@/features/profile/config/certificate-fields";
+import { certificateFields } from "@/features/profile/constatnts/certificate-fields";
 
 export default function CertificateActionsClient() {
   const [openModalAdd, setOpenModalAdd] = useState(false);

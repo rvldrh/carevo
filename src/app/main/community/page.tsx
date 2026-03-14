@@ -1,4 +1,4 @@
-import CommunityPage from "@/features/community/container/community-page"
+import CommunityPage from "@/features/community/page/community-page"
 
 const page = () => {
   return <CommunityPage />

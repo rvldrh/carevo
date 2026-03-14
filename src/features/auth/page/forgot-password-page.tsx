@@ -1,6 +1,5 @@
 import ForgotPasswordForm from "@/features/auth/components/forgot-password/forgot-password-form";
-import RegisterIllustration from "@/features/auth/components/register/register-illustratio";
-import ForgotPasswordIllustration from "../forgot-password/forgot-password-illustration";
+import ForgotPasswordIllustration from "../components/forgot-password/forgot-password-illustration";
 
 export default function ForgotPasswordPage() {
   return (

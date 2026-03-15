@@ -2,18 +2,19 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import NavMenu from "../component/nav-menu";
-import MobileMenu from "../component/mobile-menu";
+import NavMenu from "@/components/layout/navbar/component/nav-menu";
+import MobileMenu from "@/components/layout/navbar/component/mobile-menu";
 import Image from "next/image";
 import ProfileDropdown from "@/components/layout/navbar/component/profile-dropdown";
+import SearchBar from "@/components/layout/navbar/component/search-bar";
 
 export default function NavbarClient() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
     <div className="w-full px-6 lg:px-[138px]">
-      {" "}
       <div className="flex items-center h-[70px]">
+
         <Link href="/" className="flex items-center gap-2">
           <Image
             src="/icons/logo.svg"
@@ -31,6 +32,10 @@ export default function NavbarClient() {
           />
         </Link>
 
+        <div className="ml-10 hidden lg:block">
+          <SearchBar />
+        </div>
+
         <div className="ml-auto">
           <NavMenu />
         </div>
@@ -38,7 +43,6 @@ export default function NavbarClient() {
         <div className="ml-10 hidden md:block">
           <ProfileDropdown />
         </div>
-        
 
         <button
           className="md:hidden ml-auto"
@@ -52,7 +56,9 @@ export default function NavbarClient() {
             className="w-6 h-6"
           />
         </button>
+
       </div>
+
       <MobileMenu
         pathname={""}
         mobileMenuOpen={mobileMenuOpen}

@@ -16,8 +16,13 @@ export const navLinks: NavLink[] = [
     icon: "/icons/Group.webp",
   },
   {
-    path: "/asah",
+    path: "/main/asah",
     label: "Asah",
     icon: "/icons/asah.webp",
+  },
+  {
+    path: "/buildCV",
+    label: "Bangun CV",
+    icon: "/icons/cv.svg",
   },
 ]

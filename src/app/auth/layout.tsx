@@ -1,7 +1,12 @@
+import NavPublic from "@/components/layout/navbar/container/nav-public";
+
 export default function AuthLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  return <>{children}</>;
+  return <>
+  <NavPublic />
+  {children}
+  </>;
 }

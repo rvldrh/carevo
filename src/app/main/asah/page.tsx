@@ -1,4 +1,4 @@
-import AsahPage from '@/features/asah/page/asah-page'
+import AsahPage from '@/features/asah/modules/main/asah-page'
 
 const page = () => {
   return <AsahPage />

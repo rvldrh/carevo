@@ -10,7 +10,7 @@ interface Props {
 
 export default function AsahCard({ certificate }: Props) {
   return (
-    <Link href={`/main/asah/certificate/${certificate.provider.toLowerCase()}`}>
+    <Link href={`/main/asah/certificate`}>
       <div className="w-64 h-72 bg-white rounded-2xl p-3 flex flex-col gap-3 cursor-pointer hover:scale-105 transition">
 
         <Image

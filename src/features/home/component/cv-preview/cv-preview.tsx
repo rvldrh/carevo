@@ -7,17 +7,17 @@ import { transition } from "@/shared/utils/animation";
 export default function CvPreview() {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 150 }}
+      initial={{ opacity: 0, y: 120 }}
       animate={{ opacity: 1, y: 0 }}
       transition={transition}
-      className="absolute left-[4%] bottom-[-33%] hidden lg:block"
+      className="absolute top-full left-0 mt-6 hidden lg:block"
     >
       <Image
         src="/illustration/cv.svg"
         alt="cv"
-        width={550}
-        height={550}
-        className="w-[clamp(280px,30vw,520px)] h-auto"
+        width={420}
+        height={420}
+        className="w-[clamp(260px,28vw,420px)] h-auto"
       />
     </motion.div>
   );

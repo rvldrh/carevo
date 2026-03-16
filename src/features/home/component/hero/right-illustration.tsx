@@ -1,18 +1,25 @@
 "use client";
 
 import Image from "next/image";
+import { motion } from "framer-motion";
+import { transition } from "@/shared/utils/animation";
 
-export default function RightIllustration() {
+export default function HeroImage() {
   return (
-    <div className="absolute right-0 top-[140px] hidden lg:block">
+    <motion.div
+      initial={{ opacity: 0, x: 120 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={transition}
+      className="flex justify-end w-full lg:w-auto"
+    >
       <Image
-        src="/illustration/team.svg"
-        alt="team"
+        src="/illustration/hero.svg"
+        alt="hero illustration"
         width={520}
         height={520}
-        className="w-[clamp(360px,30vw,520px)] h-auto"
+        className="w-[clamp(320px,32vw,520px)] h-auto"
         priority
       />
-    </div>
+    </motion.div>
   );
 }

@@ -1,41 +1,38 @@
 "use client";
 
 import { motion } from "framer-motion";
-import HeroButtons from "@/features/home/component/hero/hero-button";
+import CvPreview from "../cv-preview/cv-preview";
 import { transition } from "@/shared/utils/animation";
 
 export default function HeroContent() {
   return (
-    <div className="flex flex-col gap-5 max-w-[480px]">
-
-      <motion.h1
-        initial={{ opacity: 0, x: 160 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={transition}
-        className="text-[32px] sm:text-[36px] lg:text-[40px] font-bold leading-[1.15] text-black"
-      >
+    <motion.div
+      initial={{ opacity: 0, y: 80 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={transition}
+      className="relative flex flex-col max-w-[560px]"
+    >
+      <h1 className="text-[clamp(32px,3vw,44px)] font-bold leading-tight">
         Bangun Personal Branding Profesional dengan AI
-      </motion.h1>
+      </h1>
 
-      <motion.p
-        initial={{ opacity: 0, x: 110 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={transition}
-        className="text-[15px] sm:text-[16px] leading-[26px] text-black"
-      >
-        Satu Platform untuk CV Profesional dan Portfolio Digital. Kelola
-        pengalaman, tampilkan karya terbaik, dan kembangkan skillmu dalam satu
-        tempat agar lebih siap menghadapi peluang karier.
-      </motion.p>
+      <p className="mt-5 text-gray-600 leading-relaxed">
+        Satu Platform untuk CV Profesional dan Portfolio Digital.
+        Kelola pengalaman, tampilkan karya terbaik, dan kembangkan skillmu
+        dalam satu tempat agar lebih siap menghadapi peluang karier.
+      </p>
 
-      <motion.div
-        initial={{ opacity: 0, x: 60 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={transition}
-      >
-        <HeroButtons />
-      </motion.div>
+      <div className="flex gap-4 mt-7">
+        <button className="bg-blue-600 text-white px-6 py-3 rounded-full font-medium hover:bg-blue-700 transition">
+          Build Portfolio
+        </button>
 
-    </div>
+        <button className="border border-blue-600 text-blue-600 px-6 py-3 rounded-full font-medium hover:bg-blue-50 transition">
+          Build CV
+        </button>
+      </div>
+
+      <CvPreview />
+    </motion.div>
   );
 }

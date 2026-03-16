@@ -1,20 +1,23 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export default function BootcampHero() {
   return (
     <section className="relative mb-[5%] p-5 w-full bg-gradient-to-r from-fuchsia-700 via-black to-blue-500">
-      <button
-        type="button"
-        className="w-10 h-10 bg-white rounded-full flex items-center justify-center"
-      >
-        <Image
-          alt="logo"
-          src={"/icons/back.svg"}
-          width={10}
-          height={10}
-          className="w-10 h-10 rounded-full flex items-center justify-center"
-        />
-      </button>
+      <Link href={"/main/asah"}>
+        <button
+          type="button"
+          className="w-10 h-10 bg-white rounded-full flex items-center justify-center"
+        >
+          <Image
+            alt="logo"
+            src={"/icons/back.svg"}
+            width={10}
+            height={10}
+            className="w-10 h-10 rounded-full flex items-center justify-center"
+          />
+        </button>
+      </Link>
 
       <div className="max-w-[1200px] mx-auto h-[320px] flex items-center justify-between px-8">
         <Image

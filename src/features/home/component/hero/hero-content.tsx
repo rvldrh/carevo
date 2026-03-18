@@ -3,8 +3,15 @@
 import { motion } from "framer-motion";
 import CvPreview from "../cv-preview/cv-preview";
 import { transition } from "@/shared/utils/animation";
+import { useRouter } from "next/navigation";
 
 export default function HeroContent() {
+  const router = useRouter();
+
+  const handleNavigation = (path: string) => {
+    router.push(path);
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 80 }}
@@ -23,11 +30,17 @@ export default function HeroContent() {
       </p>
 
       <div className="flex gap-4 mt-7">
-        <button className="bg-blue-600 text-white px-6 py-3 rounded-full font-medium hover:bg-blue-700 transition">
+        <button
+          onClick={() => handleNavigation("/main/profile ")}
+          className="bg-blue-600 text-white px-6 py-3 rounded-full font-medium hover:bg-blue-700 transition"
+        >
           Build Portfolio
         </button>
 
-        <button className="border border-blue-600 text-blue-600 px-6 py-3 rounded-full font-medium hover:bg-blue-50 transition">
+        <button
+          onClick={() => handleNavigation("/cv")}
+          className="border border-blue-600 text-blue-600 px-6 py-3 rounded-full font-medium hover:bg-blue-50 transition"
+        >
           Build CV
         </button>
       </div>

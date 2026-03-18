@@ -7,7 +7,7 @@ export type NavLink = {
 
 export const navLinks: NavLink[] = [
   {
-    path: "/main",
+    path: "/main/feed",
     label: "Home",
     icon: "/icons/home.svg",
     activeIcon: "/icons/navbar/home-active.svg",

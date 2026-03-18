@@ -1,13 +1,30 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+import {
+  SendPasswordResetEmailBody,
+  SendPasswordResetEmailBodyType
+} from "@/features/auth/schemas/auth.schema";
+
+import { useForgotPassword } from "@/features/auth/hooks/use-forgot-password";
 
 export default function ForgotPasswordForm() {
-  const [email, setEmail] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  const { mutate, isPending } = useForgotPassword();
+
+  const { register, handleSubmit } = useForm<SendPasswordResetEmailBodyType>({
+    resolver: zodResolver(SendPasswordResetEmailBody),
+    defaultValues: {
+      email: ""
+    }
+  });
+
+  const onSubmit = (data: SendPasswordResetEmailBodyType) => {
+    mutate(data);
   };
 
   return (
@@ -27,21 +44,21 @@ export default function ForgotPasswordForm() {
           Lupa Kata sandi?
         </h1>
 
-        <form onSubmit={handleSubmit} className="w-full flex flex-col gap-5">
+        <form onSubmit={handleSubmit(onSubmit)} className="w-full flex flex-col gap-5">
 
           <input
             type="email"
             placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            {...register("email")}
             className="w-full h-[53px] rounded-[12px] border border-[#232323] px-8"
           />
 
           <button
             type="submit"
+            disabled={isPending}
             className="w-full h-[53px] rounded-[12px] bg-[#4D96FF] text-white font-bold"
           >
-            mengatur ulang kata sandi
+            {isPending ? "Mengirim..." : "mengatur ulang kata sandi"}
           </button>
 
         </form>

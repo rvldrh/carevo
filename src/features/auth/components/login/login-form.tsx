@@ -1,19 +1,48 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
-import GoogleButton from "@/components/ui/button/button-google";
-import RegisterButton from "@/features/auth/components/login/register-button";
+import { useRouter } from "next/navigation";
+
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+import {
+  LoginUserBody,
+  LoginUserBodyType
+} from "@/features/auth/schemas/auth.schema";
+
+import { useLogin } from "@/features/auth/hooks/use-login";
+import { useGoogleOAuth } from "@/features/auth/hooks/use-google-oauth";
+
+import LoginFields from "@/features/auth/components/login/login-fields";
+import LoginSubmit from "@/features/auth/components/login/login-submit";
+import LoginFooter from "@/features/auth/components/login/login-footer";
 
 export default function LoginForm() {
+  const router = useRouter();
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const { mutateAsync, isPending } = useLogin();
+  const { loginWithGoogle } = useGoogleOAuth();
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const {
+    register,
+    handleSubmit
+  } = useForm<LoginUserBodyType>({
+    resolver: zodResolver(LoginUserBody),
+    defaultValues: {
+      email: "",
+      password: "",
+      rememberMe: true
+    }
+  });
 
-    console.log({ email, password });
+  const onSubmit = async (data: LoginUserBodyType) => {
+    try {
+      await mutateAsync(data);
+      router.push("/dashboard");
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -25,43 +54,20 @@ export default function LoginForm() {
           Masuk Ke Akun Anda
         </h1>
 
-        <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5">
 
-          <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="w-full h-[53px] px-9 rounded-xl border border-gray-400"
-          />
+          <LoginFields register={register} />
 
-          <div className="flex flex-col gap-2">
-
-            <input
-              type="password"
-              placeholder="Kata Sandi"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full h-[53px] px-8 rounded-xl border border-gray-400"
-            />
-
-            <div className="flex justify-end">
-              <Link
-                href="/forgot-password"
-                className="text-[12px] text-black hover:underline"
-              >
-                Lupa Password?
-              </Link>
-            </div>
-
+          <div className="flex justify-end">
+            <Link
+              href="/auth/forgot-password"
+              className="text-[12px] text-black hover:underline"
+            >
+              Lupa Password?
+            </Link>
           </div>
 
-          <button
-            type="submit"
-            className="w-full h-[53px] rounded-lg bg-[#4E61F6] text-white"
-          >
-            Masuk
-          </button>
+          <LoginSubmit isPending={isPending} />
 
         </form>
 
@@ -71,8 +77,7 @@ export default function LoginForm() {
           <div className="flex-1 h-px bg-black" />
         </div>
 
-        <GoogleButton buttonText="Masuk dengan Google" />
-        <RegisterButton />
+        <LoginFooter onGoogleClick={loginWithGoogle} />
 
       </div>
 

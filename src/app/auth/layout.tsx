@@ -1,12 +1,20 @@
 import NavPublic from "@/components/layout/navbar/container/nav-public";
+import Script from "next/script";
 
 export default function AuthLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  return <>
-  <NavPublic />
-  {children}
-  </>;
+  return (
+    <>
+      {/* <NavPublic /> */}
+      <Script
+        src="https://accounts.google.com/gsi/client"
+        strategy="afterInteractive"
+      />
+
+      {children}
+    </>
+  );
 }

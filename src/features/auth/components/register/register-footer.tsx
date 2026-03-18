@@ -5,12 +5,16 @@ import RememberCheckbox from "./remember-checbox"
 interface Props {
   remember: boolean
   setRemember: (value: boolean) => void
+  onGoogleClick?: () => void
 }
 
-export default function RegisterFooter({ remember, setRemember }: Props) {
+export default function RegisterFooter({ remember, setRemember, onGoogleClick }: Props) {
   return (
     <>
-      <GoogleButton buttonText="Lanjutkan Dengan Google" />
+      <GoogleButton
+        buttonText="Lanjutkan Dengan Google"
+        onClick={onGoogleClick}
+      />
 
       <div className="flex flex-col items-center gap-3 mt-5">
 

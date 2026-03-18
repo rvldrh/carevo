@@ -1,15 +1,27 @@
 "use client";
 
-import { useState } from "react";
 import Image from "next/image";
 
-export default function ChangePasswordForm() {
-  const [oldPassword, setOldPassword] = useState("");
-  const [newPassword, setNewPassword] = useState("");
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log({ oldPassword, newPassword });
+import {
+  ChangeUserPasswordBody,
+  ChangeUserPasswordBodyType
+} from "@/features/auth/schemas/auth.schema";
+
+import { useChangePassword } from "@/features/auth/hooks/use-change-password";
+
+export default function ChangePasswordForm() {
+
+  const { mutate, isPending } = useChangePassword();
+
+  const { register, handleSubmit } = useForm<ChangeUserPasswordBodyType>({
+    resolver: zodResolver(ChangeUserPasswordBody)
+  });
+
+  const onSubmit = (data: ChangeUserPasswordBodyType) => {
+    mutate(data);
   };
 
   return (
@@ -25,7 +37,7 @@ export default function ChangePasswordForm() {
         <h1 className="text-2xl font-semibold mb-8 text-center text-gray-800">
           Ubah Kata Sandi
         </h1>
-        <form onSubmit={handleSubmit} className="w-full space-y-4">
+        <form onSubmit={handleSubmit(onSubmit)} className="w-full space-y-4">
           <div>
             <label htmlFor="old-password" className="sr-only">
               Kata Sandi Lama
@@ -34,8 +46,7 @@ export default function ChangePasswordForm() {
               id="old-password"
               type="password"
               placeholder="Kata Sandi Lama"
-              value={oldPassword}
-              onChange={(e) => setOldPassword(e.target.value)}
+              {...register("oldPassword")}
               className="w-full h-[53px] rounded-xl border border-gray-300 px-6 text-sm focus:outline-none focus:ring-2 focus:ring-[#4D96FF] focus:border-transparent transition"
               required
             />
@@ -49,8 +60,7 @@ export default function ChangePasswordForm() {
               id="new-password"
               type="password"
               placeholder="Kata Sandi Baru"
-              value={newPassword}
-              onChange={(e) => setNewPassword(e.target.value)}
+              {...register("newPassword")}
               className="w-full h-[53px] rounded-xl border border-gray-300 px-6 text-sm focus:outline-none focus:ring-2 focus:ring-[#4D96FF] focus:border-transparent transition"
               required
             />
@@ -58,9 +68,10 @@ export default function ChangePasswordForm() {
 
           <button
             type="submit"
+            disabled={isPending}
             className="w-full h-[53px] mt-5 rounded-xl bg-[#4D96FF] text-white text-sm font-bold hover:bg-[#3A7BD5] transition-colors duration-200"
           >
-            Ubah Kata Sandi
+            {isPending ? "Memproses..." : "Ubah Kata Sandi"}
           </button>
         </form>
       </div>

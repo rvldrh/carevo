@@ -1,7 +1,7 @@
 "use client";
 
-import LoginForm from "./login-form";
-import LoginIllustration from "./login-illustration";
+import LoginForm from "@/features/auth/components/login/login-form";
+import LoginIllustration from "@/features/auth/components/login/login-illustration";
 
 export default function LoginPage() {
   return (

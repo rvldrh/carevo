@@ -1,14 +1,8 @@
 "use client";
 
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
+import OAuthCallbackPage from "@/features/auth/components/oauth/oauth-callback-page.";
 
-export default function OAuthCallbackPage() {
-  const router = useRouter();
-
-  useEffect(() => {
-    router.push("/main");
-  }, [router]);
-
-  return <p>Loading...</p>;
+export default function page() {
+  
+  return <OAuthCallbackPage />
 }

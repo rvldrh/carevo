@@ -37,7 +37,7 @@
     try {
       await registerMutation.mutateAsync(data);
 
-      router.push("/auth/login");
+      router.push("/auth/email-sent");
 
     } catch (error) {
       console.error(error);

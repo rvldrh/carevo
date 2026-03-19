@@ -2,8 +2,24 @@
 
 import LoginForm from "@/features/auth/components/login/login-form";
 import LoginIllustration from "@/features/auth/components/login/login-illustration";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export default function LoginPage() {
+  const router = useRouter();
+
+  useEffect(() => {
+    const hash = window.location.hash;
+
+    if (!hash) return;
+
+    const token = hash.replace("#", "");
+
+    if (token.length > 20) {
+      localStorage.setItem("accessToken", token);
+      router.replace("/main/feed");
+    }
+  }, [router]);
   return (
     <div className="relative min-h-screen w-full overflow-hidden bg-sky-blue-light flex items-center justify-center px-4 py-8">
 

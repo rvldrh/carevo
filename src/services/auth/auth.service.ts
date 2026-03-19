@@ -27,12 +27,7 @@ export async function registerUserService(data: RegisterUserInput) {
 export async function loginUser(
   data: LoginUserBodyType
 ): Promise<LoginUserResponseType> {
-
-  const response = await apiClient.post(
-    "/v1/auth/login",
-    data
-  );
-
+  const response = await apiClient.post("/v1/auth/login", data);
   return response.data;
 }
 

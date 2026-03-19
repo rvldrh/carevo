@@ -1,6 +1,16 @@
-import { z } from "zod"
-import { LoginUserBody } from "@carevo/contracts/zod"
+import { z } from "zod";
 
-export const loginSchema = LoginUserBody
+export const LoginSchema = z.object({
+  email: z
+    .string()
+    .min(1, "Email wajib diisi")
+    .email("Format email tidak valid"),
 
-export type LoginSchema = z.infer<typeof loginSchema>
+  password: z
+    .string()
+    .min(6, "Password minimal 6 karakter"),
+
+  rememberMe: z.boolean().default(false)
+});
+
+export type LoginSchemaType = z.infer<typeof LoginSchema>;

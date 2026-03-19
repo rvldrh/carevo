@@ -1,26 +1,36 @@
-import Avatar from "@/components/ui/avatar"
-import Image from "next/image"
+"use client";
+
+import { useState } from "react";
+import CreatePostModal from "./create-post-modal";
+import Image from "next/image";
 
 export default function CreatePostBox() {
+  const [open, setOpen] = useState(false);
+
   return (
-    <div className="bg-[#F5F7F9] rounded-2xl p-4 flex items-center gap-4">
+    <>
+      <div className="bg-gray-100 rounded-2xl p-4 flex items-center gap-4">
+        <div className="w-12 h-12 rounded-full bg-gray-300" />
 
-      <Avatar src="/icons/photo-profile.svg" alt="profile" size={48} />
+        <div className="flex-1 border rounded-xl h-10 flex items-center px-4 text-sm text-gray-500">
+          Tulis Sesuatu di sini
+        </div>
 
-      <input
-        placeholder="Tulis sesuatu di sini"
-        className="flex-1 bg-transparent border rounded-xl px-4 py-2 text-sm"
-      />
+        <button
+          onClick={() => setOpen(true)}
+          className="w-8 h-8 rounded-full flex items-center justify-center text-xl"
+        >
+          <Image
+            src={"/icons/plus.svg"}
+            alt=""
+            width={10}
+            height={10}
+            className="w-8 h-8 rounded-full flex items-center justify-center text-xl"
+          />
+        </button>
+      </div>
 
-      <button>
-        <Image
-          src="/icons/plus.svg"
-          alt="create"
-          width={24}
-          height={24}
-        />
-      </button>
-
-    </div>
-  )
+      <CreatePostModal open={open} onClose={() => setOpen(false)} />
+    </>
+  );
 }

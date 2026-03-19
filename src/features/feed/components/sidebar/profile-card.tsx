@@ -4,7 +4,7 @@ export default function ProfileCard() {
 
       <div className="bg-blue-400 p-6 flex items-center gap-4">
         <img
-          src="https://placehold.co/100x100"
+          src="/icons/profile.svg"
           className="w-16 h-16 rounded-full"
         />
         <span className="text-white font-semibold text-lg">

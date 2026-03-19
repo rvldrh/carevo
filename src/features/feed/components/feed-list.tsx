@@ -1,4 +1,4 @@
-import FeedCard from "@/features/feed/components/feed-card";
+import FeedItem from "@/features/feed/components/feed-item";
 
 interface Props {
   feeds: unknown[];
@@ -7,8 +7,8 @@ interface Props {
 export default function FeedList({ feeds }: Props) {
   return (
     <div className="flex flex-col gap-6">
-      {feeds.map((_, i) => (
-        <FeedCard key={i} />
+      {feeds.map((_, index) => (
+        <FeedItem key={index} />
       ))}
     </div>
   );

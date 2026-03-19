@@ -21,7 +21,7 @@ import LoginFooter from "@/features/auth/components/login/login-footer";
 export default function LoginForm() {
   const router = useRouter();
 
-  const { mutateAsync, isPending } = useLogin();
+  const { mutate, isPending } = useLogin();
   const { loginWithGoogle } = useGoogleOAuth();
 
   const {
@@ -36,14 +36,17 @@ export default function LoginForm() {
     }
   });
 
-  const onSubmit = async (data: LoginUserBodyType) => {
-    try {
-      await mutateAsync(data);
-      router.push("/dashboard");
-    } catch (error) {
-      console.error(error);
+
+const onSubmit = (data: LoginUserBodyType) => {
+  mutate(data, {
+    onSuccess: (res) => {
+      if (res?.accessToken) {
+        router.replace("/main/feed");
+      }
     }
-  };
+  });
+};
+
 
   return (
     <div className="flex-1 bg-white px-8 sm:px-12 py-14 flex flex-col items-center">

@@ -1,4 +1,5 @@
 import Navbar from "@/components/layout/navbar/container/navbar";
+import SearchOverlay from "@/features/search/components/search-overlay";
 
 export default function MainLayout({
   children,
@@ -8,6 +9,7 @@ export default function MainLayout({
   return (
     <>
       <Navbar />
+      <SearchOverlay />
       {children}
     </>
   );

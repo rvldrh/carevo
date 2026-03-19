@@ -1,7 +1,8 @@
-import CommunityPage from "@/features/community/page/community-page"
+import WelcomeCommunityPage from '@/features/community/page/community-welcome-page'
+import React from 'react'
 
 const page = () => {
-  return <CommunityPage />
+  return <WelcomeCommunityPage />
 }
 
 export default page

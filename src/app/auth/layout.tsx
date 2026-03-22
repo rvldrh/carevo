@@ -1,4 +1,3 @@
-import NavPublic from "@/components/layout/navbar/container/nav-public";
 import Script from "next/script";
 
 export default function AuthLayout({

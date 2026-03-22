@@ -9,6 +9,13 @@ import {
   ResetUserPasswordBodyType,
   SendPasswordResetEmailBodyType
 } from "@/features/auth/schemas/auth.schema";
+import { logoutUser as logoutApi } from "@carevo/contracts/api"; 
+import { authClient } from "../auth-client";
+import { VerifyEmailType } from "@/features/auth/schemas/auth.schema";
+
+export async function logoutUser() {
+  return logoutApi({});
+}
 
 export type RegisterUserInput = z.infer<typeof RegisterUserBody>
 
@@ -27,12 +34,9 @@ export async function registerUserService(data: RegisterUserInput) {
 export async function loginUser(
   data: LoginUserBodyType
 ): Promise<LoginUserResponseType> {
+
   const response = await apiClient.post("/v1/auth/login", data);
   return response.data;
-}
-
-export async function logoutUser() {
-  await apiClient.post("/v1/auth/logout");
 }
 
 export async function refreshToken(rememberMe: boolean) {
@@ -42,6 +46,16 @@ export async function refreshToken(rememberMe: boolean) {
 
   return response.data;
 }
+
+
+export const verifyEmail = async (token: string) => {
+  const payload: VerifyEmailType = { token };
+
+  const res = await authClient.post("/v1/auth/email/verify", payload);
+
+  return res.data; 
+};
+
 export async function sendPasswordResetEmail(data: SendPasswordResetEmailBodyType) {
   await apiClient.post("/v1/auth/password/forgot", data);
 }

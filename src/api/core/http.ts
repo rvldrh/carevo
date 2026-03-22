@@ -1,6 +1,18 @@
-import axios from "axios"
+export async function http<T>(
+  url: string,
+  options?: RequestInit
+): Promise<T> {
+  const res = await fetch(url, {
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
+      ...(options?.headers || {}),
+    },
+  });
 
-export const http = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL,
-  withCredentials: true,
-})
+  if (!res.ok) {
+    throw new Error("Request failed");
+  }
+
+  return res.json();
+}

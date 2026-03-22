@@ -8,7 +8,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 import {
   LoginUserBody,
-  LoginUserBodyType
+  LoginUserBodyType,
 } from "@/features/auth/schemas/auth.schema";
 
 import { useLogin } from "@/features/auth/hooks/use-login";
@@ -26,40 +26,38 @@ export default function LoginForm() {
 
   const {
     register,
-    handleSubmit
+    handleSubmit,
+    formState: { errors },
   } = useForm<LoginUserBodyType>({
     resolver: zodResolver(LoginUserBody),
     defaultValues: {
-      email: "",
-      password: "",
-      rememberMe: true
-    }
+      rememberMe: true,
+    },
   });
 
+  // console.log(register?.email)
 
-const onSubmit = (data: LoginUserBodyType) => {
-  mutate(data, {
-    onSuccess: (res) => {
-      if (res?.accessToken) {
+  const onSubmit = (data: LoginUserBodyType) => {
+    console.log("SUBMITTING DATA");
+    mutate(data, {
+      onSuccess: () => {
         router.replace("/main/feed");
-      }
-    }
-  });
-};
-
+      },
+      onError: (err) => {
+        console.error(err);
+      },
+    });
+  };
 
   return (
     <div className="flex-1 bg-white px-8 sm:px-12 py-14 flex flex-col items-center">
-
       <div className="w-full max-w-sm flex flex-col gap-8">
-
         <h1 className="text-center text-[19px] font-bold text-black">
           Masuk Ke Akun Anda
         </h1>
 
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5">
-
-          <LoginFields register={register} />
+          <LoginFields register={register} errors={errors} />
 
           <div className="flex justify-end">
             <Link
@@ -71,7 +69,6 @@ const onSubmit = (data: LoginUserBodyType) => {
           </div>
 
           <LoginSubmit isPending={isPending} />
-
         </form>
 
         <div className="flex items-center gap-4">
@@ -81,9 +78,7 @@ const onSubmit = (data: LoginUserBodyType) => {
         </div>
 
         <LoginFooter onGoogleClick={loginWithGoogle} />
-
       </div>
-
     </div>
   );
 }

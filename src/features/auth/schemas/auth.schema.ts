@@ -33,6 +33,11 @@ export const ChangeUserPasswordBody = z.object({
   newPassword: z.string().min(8).max(128)
 });
 
+export const VerifyEmailSchema = z.object({
+  token: z.string().min(1),
+});
+
+
 export const forgotPasswordSchema = z.object({
   email: z.string().email("Email tidak valid"),
 });
@@ -48,3 +53,4 @@ export type ResetUserPasswordBodyType = z.infer<typeof ResetUserPasswordBody>;
 export type ChangeUserPasswordBodyType = z.infer<typeof ChangeUserPasswordBody>;
 export type ForgotPasswordInput = z.infer<typeof forgotPasswordSchema>;
 export type ChangePasswordInput = z.infer<typeof changePasswordSchema>;
+export type VerifyEmailType = z.infer<typeof VerifyEmailSchema>;

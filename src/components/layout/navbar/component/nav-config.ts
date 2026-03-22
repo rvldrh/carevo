@@ -25,7 +25,7 @@ export const navLinks: NavLink[] = [
     activeIcon: "/icons/navbar/asah-active.svg",
   },
   {
-    path: "/build-cv",
+    path: "/main/CVBuild",
     label: "Bangun CV",
     icon: "/icons/cv.svg",
     activeIcon: "/icons/navbar/cv-active.svg",

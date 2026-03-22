@@ -11,13 +11,25 @@ export function useOAuthRedirect() {
     const hash = window.location.hash;
 
     if (!hash) return;
+
     const cleanHash = hash.substring(1);
 
-    const [token] = cleanHash.split("?");
+    let token: string | null = null;
 
-    if (!token) return;
+    if (cleanHash.includes("=")) {
+      const params = new URLSearchParams(cleanHash);
+      token = params.get("access_token");
+    } else {
+      token = cleanHash;
+    }
+
+    if (!token) {
+      console.error("Token tidak valid:", hash);
+      return;
+    }
 
     setAccessToken(token);
+    localStorage.setItem("access_token", token);
 
     window.history.replaceState(null, "", "/auth/login");
 

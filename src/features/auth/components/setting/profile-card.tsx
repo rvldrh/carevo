@@ -1,4 +1,4 @@
-import { Profile } from "@/features/auth/types/auth.types";
+import type { Profile } from "@/features/auth/types/auth.types";
 import ProfileForm from "@/features/auth/components/setting/profile-form";
 import AvatarUpload from "@/features/auth/components/setting/avatar-uplaod";
 

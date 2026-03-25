@@ -3,7 +3,7 @@
 import { useState } from "react";
 import CommentInput from "@/features/feed/components/comments/comment-input";
 import CommentList from "@/features/feed/components/comments/comment-list";
-import { Comment } from "@/features/feed/types/comment.type";
+import type { Comment } from "@/features/feed/types/comment.type";
 
 export default function CommentSection() {
 

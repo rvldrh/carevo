@@ -1,38 +1,27 @@
-import { Course } from "../../schemas/cv.schema";
+import type { Course } from "../../schemas/cv.schema";
+import { renderDescription } from "../../utils/description-renderer";
 
 export function CourseItem({
   name,
   organizer,
-  location,
   startYear,
   endYear,
   description,
-  url,
 }: Course) {
   return (
     <div className="space-y-1">
-      <div className="flex justify-between flex-wrap text-sm font-semibold">
+      <div className="flex justify-between flex-wrap text-sm font-semibold text-gray-900">
         <div className="flex gap-2">
           <span>{name}</span>
           <span>—</span>
           <span>{organizer}</span>
         </div>
-        <span className="text-xs text-gray-500">
+        <span className="text-[13px] text-gray-800">
           {startYear} – {endYear}
-          {location && ` · ${location}`}
         </span>
       </div>
 
-      {description && (
-        <p className="text-sm text-gray-700">{description}</p>
-      )}
-
-      {url && (
-        <a href={url} target="_blank" rel="noopener noreferrer"
-          className="text-xs text-blue-500 underline">
-          {url}
-        </a>
-      )}
+      {renderDescription(description)}
     </div>
   );
 }

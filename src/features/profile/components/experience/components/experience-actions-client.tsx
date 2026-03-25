@@ -37,14 +37,14 @@ export default function ExperienceActionsClient() {
             title="Tambah Pengalaman"
             fields={experienceFields}
             onCancel={() => setOpenModalAdd(false)}
-            onSubmit={() => console.log("Experience submitted")}
+            onSubmit={() => console.warn("Experience submitted")}
           />
 
           <ModalButtons
             cancelText="Batal"
             submitText="Simpan"
             onCancel={() => setOpenModalAdd(false)}
-            onSubmit={() => console.log("Experience submitted")}
+            onSubmit={() => console.warn("Experience submitted")}
           />
         </Modal>
       )}
@@ -59,14 +59,14 @@ export default function ExperienceActionsClient() {
             title="Edit Pengalaman"
             fields={experienceFields}
             onCancel={() => setOpenModalEdit(false)}
-            onSubmit={() => console.log("Experience updated")}
+            onSubmit={() => console.warn("Experience updated")}
           />
 
           <ModalButtons
             cancelText="Batal"
             submitText="Simpan"
             onCancel={() => setOpenModalEdit(false)}
-            onSubmit={() => console.log("Experience updated")}
+            onSubmit={() => console.warn("Experience updated")}
           />
         </Modal>
       )}

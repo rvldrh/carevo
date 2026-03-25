@@ -1,6 +1,7 @@
 "use client";
 
-import { Reply } from "@/features/feed/types/comment.type";
+import type { Reply } from "@/features/feed/types/comment.type";
+import Image from "next/image";
 
 interface Props {
   reply: Reply;
@@ -12,9 +13,12 @@ export default function ReplyItem({ reply }: Props) {
 
       <div className="flex justify-between items-end">
         <div className="flex gap-3">
-          <img
+          <Image
             className="w-9 h-9 rounded-full"
             src="https://placehold.co/36x36"
+            alt="avatar"
+            width={36}
+            height={36}
           />
 
           <div className="flex flex-col gap-2">

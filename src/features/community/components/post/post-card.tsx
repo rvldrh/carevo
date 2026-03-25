@@ -1,10 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import Avatar from "@/components/ui/avatar";
 import JoinButton from "@/features/community/components/join-button";
-import { Post } from "@/features/community/types/post.type";
+import type { Post } from "@/features/community/types/post.type";
 import PostActions from "./post-actions";
 import PostComments from "./post-comments";
 

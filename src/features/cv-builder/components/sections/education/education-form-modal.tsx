@@ -1,15 +1,15 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import { AccordionModal } from "@/components/ui/modal/component/AccordionModal";
 
 type Props = {
   open: boolean;
   onClose: () => void;
+  onSubmit?: (form: { major: string; degree: string }) => void;
 };
 
-export function EducationFormModal({ open, onClose }: Props) {
+export function EducationFormModal({ open, onClose, onSubmit }: Props) {
   // State untuk form
   const [formData, setFormData] = useState({
     degree: "",
@@ -52,6 +52,7 @@ export function EducationFormModal({ open, onClose }: Props) {
         body: JSON.stringify({ ...formData, type: "education" }),
       });
       if (res.ok) {
+        onSubmit?.({ major: formData.major, degree: formData.degree });
         alert("Data berhasil disimpan!");
         onClose();
       }
@@ -133,7 +134,14 @@ export function EducationFormModal({ open, onClose }: Props) {
   );
 }
 
-function Input({ label, placeholder, value, onChange }: any) {
+type InputProps = {
+  label: string;
+  placeholder: string;
+  value: string;
+  onChange: (value: string) => void;
+};
+
+function Input({ label, placeholder, value, onChange }: InputProps) {
   return (
     <div className="flex flex-col gap-1 w-full">
       <span className="text-xs font-medium">{label}</span>

@@ -1,4 +1,4 @@
-import { RoleOptions } from "@/shared/types/ModalForm";
+import type { RoleOptions } from "@/shared/types/ModalForm";
 
 interface RoleFieldProps {
   label: string;

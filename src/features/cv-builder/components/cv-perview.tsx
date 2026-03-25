@@ -1,14 +1,16 @@
 "use client";
 
+import { useState } from "react";
+import { cvService } from "@/services/cv/cv.service";
 import { useGetCv } from "@/features/cv-builder/hooks/use-cv";
 import { Header } from "@/features/cv-builder/components/cv-preview-section/header-section";
 import { Section } from "./cv-preview-section/section";
+import type { Course, Education, Organization, WorkExperience } from "@/features/cv-builder/schemas/cv.schema";
 
 import { ExperienceItem } from "@/features/cv-builder/components/cv-preview-section/experience-item";
 import { EducationItem } from "@/features/cv-builder/components/cv-preview-section/education-section";
 import { CourseItem } from "@/features/cv-builder/components/cv-preview-section/course-item";
 import { OrganizationItem } from "@/features/cv-builder/components/cv-preview-section/organization-item";
-
 
 type Props = {
   userId: string;
@@ -16,6 +18,25 @@ type Props = {
 
 export function CVPreview({ userId }: Props) {
   const { data: cv, isLoading, isError } = useGetCv(userId);
+  const [isDownloading, setIsDownloading] = useState(false);
+
+  const handleDownload = async () => {
+    try {
+      setIsDownloading(true);
+      const blob = await cvService.downloadCV(userId);
+      const url = window.URL.createObjectURL(new Blob([blob]));
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", `CV-${userId}.pdf`);
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+    } catch (e) {
+      console.error("Failed to download CV:", e);
+    } finally {
+      setIsDownloading(false);
+    }
+  };
 
   if (isLoading) {
     return (
@@ -37,43 +58,62 @@ export function CVPreview({ userId }: Props) {
   }
 
   return (
-    <div className="w-full flex justify-center">
-      <div className="w-full max-w-[800px] bg-white p-6 md:p-10 shadow-sm min-h-[1123px]">
-        
-        <Header {...cv.personalInformation} />
+    <div className="w-full h-full flex flex-col bg-gray-500 overflow-y-auto">
+      {/* Top Action Bar */}
+      <div className="sticky top-0 z-10 flex justify-end items-center bg-[#F0F7FF] px-6 py-4 shadow-sm w-full">
+        <button 
+          onClick={handleDownload}
+          disabled={isDownloading}
+          className="bg-[#18A0FB] hover:bg-blue-500 text-white px-5 py-2.5 rounded-lg shadow-sm flex items-center gap-2 font-bold text-[13px] transition-all disabled:opacity-50"
+        >
+          {isDownloading ? (
+            <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+          ) : (
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          )}
+          Download
+        </button>
+      </div>
 
-        {cv.workExperiences && cv.workExperiences.length > 0 && (
-          <Section title="Riwayat Pekerjaan">
-            {cv.workExperiences.map((item, i) => (
-              <ExperienceItem key={`${item.company}-${i}`} {...item} />
-            ))}
-          </Section>
-        )}
+      {/* CV Paper Container */}
+      <div className="w-full flex justify-center py-10">
+        <div className="w-full max-w-[800px] bg-white p-6 md:p-10 shadow-sm min-h-[1123px] mx-4 md:mx-auto">
+          <Header {...cv.personalInformation} />
 
-        {cv.educations && cv.educations.length > 0 && (
-          <Section title="Pendidikan">
-            {cv.educations.map((item, i) => (
-              <EducationItem key={`edu-${i}`} {...item} />
-            ))}
-          </Section>
-        )}
+          {cv.workExperiences && cv.workExperiences.length > 0 && (
+            <Section title="Riwayat Pekerjaan">
+              {cv.workExperiences.map((item: WorkExperience, index: number) => (
+                <ExperienceItem key={`exp-${index}`} {...item} />
+              ))}
+            </Section>
+          )}
 
-        {cv.courses && cv.courses.length > 0 && (
-          <Section title="Kursus">
-            {cv.courses.map((item, i) => (
-              <CourseItem key={`course-${i}`} {...item} />
-            ))}
-          </Section>
-        )}
+          {cv.educations && cv.educations.length > 0 && (
+            <Section title="Pendidikan">
+              {cv.educations.map((item: Education, index: number) => (
+                <EducationItem key={`edu-${index}`} {...item} />
+              ))}
+            </Section>
+          )}
 
-        {cv.organizations && cv.organizations.length > 0 && (
-          <Section title="Organisasi">
-            {cv.organizations.map((item, i) => (
-              <OrganizationItem key={`org-${i}`} {...item} />
-            ))}
-          </Section>
-        )}
-        
+          {cv.courses && cv.courses.length > 0 && (
+            <Section title="Kursus">
+              {cv.courses.map((item: Course, index: number) => (
+                <CourseItem key={`course-${index}`} {...item} />
+              ))}
+            </Section>
+          )}
+
+          {cv.organizations && cv.organizations.length > 0 && (
+            <Section title="Organisasi">
+              {cv.organizations.map((item: Organization, index: number) => (
+                <OrganizationItem key={`org-${index}`} {...item} />
+              ))}
+            </Section>
+          )}
+        </div>
       </div>
     </div>
   );

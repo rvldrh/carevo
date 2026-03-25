@@ -31,7 +31,7 @@ export default function AvatarUpload({ avatarUrl }: Props) {
           ref={inputRef}
           type="file"
           className="hidden"
-          onChange={(e) => console.log(e.target.files)}
+          onChange={(e) => console.warn(e.target.files)}
         />
       </div>
 

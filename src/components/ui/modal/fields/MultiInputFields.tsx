@@ -27,7 +27,7 @@ export const MultiInputField = ({
 
       {values.map((role, index) => (
         <input
-          key={index}
+          key={`${name}-${role}`}
           value={role}
           onChange={(e) => handleChange(index, e.target.value)}
           className="border border-black rounded-lg h-[43px] px-3"

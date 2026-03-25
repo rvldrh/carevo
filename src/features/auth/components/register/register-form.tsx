@@ -4,7 +4,7 @@
   import { useForm } from "react-hook-form";
   import { zodResolver } from "@hookform/resolvers/zod";
   import { RegisterUserBody } from "@carevo/contracts/zod";
-  import { z } from "zod";
+  import type { z } from "zod";
   import { useState } from "react";
 
   import { useGoogleOAuth } from "@/features/auth/hooks/use-google-oauth";

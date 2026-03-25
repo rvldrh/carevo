@@ -2,7 +2,7 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { Certificate } from "@/features/asah/types/certificate"
+import type { Certificate } from "@/features/asah/types/certificate"
 
 interface Props {
   certificate: Certificate

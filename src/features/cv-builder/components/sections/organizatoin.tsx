@@ -1,66 +1,112 @@
 "use client";
 
 import { useState } from "react";
+import { useFormContext, useFieldArray } from "react-hook-form";
 import { ListItemCard } from "@/components/ui/accordion/list-item-card";
 import { AccordionButton } from "@/components/ui/button/accordion-button";
 import { FormModal } from "@/components/ui/modal/form-modal";
-import { EXPERIENCE_FIELDS } from "@/features/cv-builder/forms/configs/experience-form";
+import { ORGANIZATION_FIELDS } from "@/features/cv-builder/forms/configs/organization-form";
+import type { CVFormValues } from "@/features/cv-builder/schemas/cv.schema";
 
-type Organization = {
-  id: string;
-  name: string;
-  role: string;
-};
+interface Props {
+  isSaving?: boolean;
+  onSave: (payload: CVFormValues) => void;
+}
 
-const MOCK: Organization[] = [
-  {
-    id: "1",
-    name: "Hima Informatika",
-    role: "Staff Kreatif",
-  },
-];
+export function OrganizationSection({ isSaving, onSave }: Props) {
+  const { control, handleSubmit, getValues } = useFormContext<CVFormValues>();
+  const { fields, append, remove, update } = useFieldArray({
+    control,
+    name: "organizations",
+  });
 
-export function OrganizationSection() {
-  const [data, setData] = useState<Organization[]>(MOCK);
-  const [open, setOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false);
+  const [editingIndex, setEditingIndex] = useState<number | null>(null);
 
-  const handleDelete = (id: string) => {
-    setData((prev) => prev.filter((item) => item.id !== id));
+  const handleOpenAdd = () => {
+    setEditingIndex(null);
+    setIsOpen(true);
   };
 
-  const handleSubmit = () => {
+  const handleOpenEdit = (index: number) => {
+    setEditingIndex(index);
+    setIsOpen(true);
+  };
 
-  }
+  const handleFormSubmit = (data: any) => {
+    const payload = {
+      ...data,
+      startYear: data.startYear ? Number(data.startYear) : undefined,
+      endYear: data.endYear ? Number(data.endYear) : undefined,
+      city: data.city || "",
+      description: data.description || "",
+    };
+
+    const currentOrganizations = getValues("organizations") || [];
+    const updatedArray = [...currentOrganizations];
+    
+    if (editingIndex !== null) {
+      update(editingIndex, payload);
+      updatedArray[editingIndex] = payload;
+    } else {
+      append(payload);
+      updatedArray.push(payload);
+    }
+    
+    setIsOpen(false);
+
+    // Get fresh values for everything else but use our DEFINITELY updated array for organizations
+    const fullForm = getValues();
+    onSave({
+      ...fullForm,
+      organizations: updatedArray
+    });
+  };
+
+  const onSubmitSection = (data: CVFormValues) => {
+    onSave(data);
+  };
 
   return (
-    <div className="flex flex-col items-center gap-6">
-      <div className="w-full flex flex-col gap-3">
-        {data.length === 0 ? (
-          <p className="text-sm text-gray-500 text-center">
-            Belum ada organisasi
-          </p>
+    <div className="flex flex-col items-center gap-6 pt-6">
+      <div className="w-full flex flex-col gap-3 px-6">
+        {fields.length === 0 ? (
+          <p className="text-sm text-gray-500 text-center">Belum ada organisasi</p>
         ) : (
-          data.map((item) => (
+          fields.map((item, index) => (
             <ListItemCard
               key={item.id}
-              title={item.name}
-              subtitle={item.role}
-              onDelete={() => handleDelete(item.id)}
-              onEdit={() => console.log("edit", item.id)}
+              title={item.organizationName}
+              subtitle={item.position}
+              onDelete={() => remove(index)}
+              onEdit={() => handleOpenEdit(index)}
             />
           ))
         )}
       </div>
 
-      <AccordionButton buttonText="Tambah Organisasi" onClick={() => setOpen(true)} />
+      <AccordionButton buttonText="Tambah Organisasi" onClick={handleOpenAdd} />
 
-      {open && (
+      <div className="px-6 pb-6 w-full mt-4 border-t pt-4">
+        <button
+          type="button"
+          onClick={handleSubmit(onSubmitSection)}
+          disabled={isSaving}
+          className="w-full py-3 rounded-xl bg-blue-500 hover:bg-blue-600 text-white text-sm font-bold transition-all disabled:bg-blue-300"
+        >
+          {isSaving ? "Menyimpan..." : "Simpan Bagian Ini"}
+        </button>
+      </div>
+
+      {isOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
           <FormModal
-            title="Data Organisasi"
-            fields={EXPERIENCE_FIELDS}
-            onCancel={() => setOpen(false)}
-            onSubmit={handleSubmit}
+            title={editingIndex !== null ? "Edit Organisasi" : "Tambah Organisasi"}
+            fields={ORGANIZATION_FIELDS}
+            aiSection="ORGANIZATION_DESCRIPTION"
+            defaultValues={editingIndex !== null ? fields[editingIndex] : {}}
+            onCancel={() => setIsOpen(false)}
+            onSubmit={handleFormSubmit}
           />
         </div>
       )}

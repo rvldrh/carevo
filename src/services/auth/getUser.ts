@@ -7,7 +7,7 @@ export async function getUser() {
   const API_URL = "https://alloc001.adyuta.group/api/v1/users/me";
 
   if (!accessToken) {
-    console.log("[getUser] No access_token found");
+    console.warn("[getUser] No access_token found");
     return null;
   }
 
@@ -32,7 +32,7 @@ try {
 
 
     return data;
-  } catch (error) {
+  } catch {
     return null;
   }
 }

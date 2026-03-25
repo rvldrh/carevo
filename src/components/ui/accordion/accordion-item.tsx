@@ -32,6 +32,7 @@ export function AccordionItem({
       transition={{ duration: 0.2 }}
     >
       <button
+        suppressHydrationWarning
         type="button"
         onClick={onToggle}
         className="w-full flex items-center justify-between px-5 py-4"

@@ -1,13 +1,19 @@
-import { FieldConfig } from "@/features/cv-builder/types/form.type";
+import type { FieldConfig } from "@/features/cv-builder/types/form.type";
 
 export const EDUCATION_FIELDS: FieldConfig[] = [
-  { name: "level", label: "Jenjang Pendidikan", type: "text" },
-  { name: "major", label: "Program Studi", type: "text" },
+  { name: "educationLevel", label: "Jenjang Pendidikan", type: "select", options: [
+      { label: "SD", value: "SD" }, { label: "SMP", value: "SMP" }, { label: "MTS", value: "MTS" },
+      { label: "SMA", value: "SMA" }, { label: "MA", value: "MA" }, { label: "SMK", value: "SMK" },
+      { label: "Profesi", value: "Profesi" }, { label: "D3", value: "D3" }, { label: "D4", value: "D4" },
+      { label: "S1", value: "S1" }, { label: "S2", value: "S2" }, { label: "S3", value: "S3" }
+    ]
+  },
+  { name: "institution", label: "Institusi", type: "text" },
+  { name: "studyProgram", label: "Program Studi", type: "text" },
   { name: "city", label: "Kota", type: "text" },
-  { name: "startDate", label: "Tanggal Mulai", type: "date" },
-  { name: "endDate", label: "Tanggal Selesai", type: "date" },
-  { name: "isActive", label: "Masih Bersekolah di sini", type: "checkbox" },
-  { name: "gpa", label: "Nilai/IPK", type: "text" },
-  { name: "scale", label: "Skala Maksimal", type: "text" },
+  { name: "startYear", label: "Tahun Mulai", type: "number" },
+  { name: "endYear", label: "Tahun Selesai", type: "number" },
+  { name: "score", label: "Nilai/IPK", type: "number" },
+  { name: "maxScale", label: "Skala Maksimal", type: "number" },
   { name: "description", label: "Profil", type: "textarea" },
 ];

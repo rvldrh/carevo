@@ -5,9 +5,11 @@ import Image from "next/image";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import {
-  SendPasswordResetEmailBody,
+import type {
   SendPasswordResetEmailBodyType
+} from "@/features/auth/schemas/auth.schema";
+import {
+  SendPasswordResetEmailBody
 } from "@/features/auth/schemas/auth.schema";
 
 import { useForgotPassword } from "@/features/auth/hooks/use-forgot-password";

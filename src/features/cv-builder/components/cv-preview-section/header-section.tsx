@@ -1,4 +1,4 @@
-import { PersonalInformation } from "../../schemas/cv.schema";
+import type { PersonalInformation } from "../../schemas/cv.schema";
 
 type Props = PersonalInformation;
 

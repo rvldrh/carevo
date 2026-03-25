@@ -1,4 +1,4 @@
-import { AsahItem, AsahVariant } from "@/features/asah/types/asah"
+import type { AsahItem, AsahVariant } from "@/features/asah/types/asah"
 import AsahCard from "@/features/asah/components/card/asah-card"
 
 interface Props {

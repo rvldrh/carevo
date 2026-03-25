@@ -1,6 +1,4 @@
-import { CV } from "../schemas/cv.schema";
-
-export const MOCK_CV: CV = {
+export const MOCK_CV = {
   personalInfo: {
     fullName: "Bagas Kara",
     title: "UI UX Enthusiast",

@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import { LoginUserBodyType } from "../schemas/auth.schema";
+import type { LoginUserBodyType } from "../schemas/auth.schema";
 import { loginUser } from "@/services/auth/auth.service";
 import { AxiosError } from "axios";
 import { toast } from "sonner";

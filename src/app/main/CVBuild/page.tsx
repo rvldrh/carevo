@@ -1,7 +1,5 @@
 import { CVBuilderPage } from "@/features/cv-builder/page/cv-builder-page";
-import { getUser } from "@/services/auth/getUser";
 import { headers } from "next/headers";
-import { redirect } from "next/navigation";
 
 export default async function Page() {
 const headerList = headers();

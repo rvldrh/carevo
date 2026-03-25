@@ -4,5 +4,5 @@ import { certificates } from '@/features/asah/data/certificate'
 const page = () => {
   return <CertificatePage certificates={certificates} />
 }
-
 export default page
+

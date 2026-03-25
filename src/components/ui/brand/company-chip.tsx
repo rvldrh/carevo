@@ -1,5 +1,5 @@
 import Image from "next/image"
-import { Company } from "@/features/asah/types/company"
+import type { Company } from "@/features/asah/types/company"
 
 interface Props {
   company: Company

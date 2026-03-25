@@ -1,4 +1,5 @@
 import FeedActions from "@/features/feed/components/feed-action";
+import Image from "next/image";
 
 interface Props {
   onCommentClick?: () => void;
@@ -18,10 +19,12 @@ export default function FeedCard({
 
       <div className="flex justify-between items-center">
         <div className="flex items-center gap-2">
-          <img
+          <Image
             className="w-7 h-7 rounded-full"
             src="/icons/avatar-community.svg"
             alt="avatar"
+            width={28}
+            height={28}
           />
           <span className="text-xs font-semibold text-zinc-800">
             Komunitas UI/UX Designer

@@ -1,4 +1,4 @@
-import { Bootcamp } from "@/features/asah/types/bootcamp"
+import type { Bootcamp } from "@/features/asah/types/bootcamp"
 
 export const bootcamps: Bootcamp[] = [
   { id: 1, title: "Desain Grafis", level: "easy", provider: "google",image: "/illustration/card.svg" },

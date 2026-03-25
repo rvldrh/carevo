@@ -1,4 +1,4 @@
-import { Comment } from "@/features/community/types/comment.type";
+import type { Comment } from "@/features/community/types/comment.type";
 import CommentItem from "./comment-item";
 
 interface Props {

@@ -1,9 +1,9 @@
 "use client";
 
-import { Dispatch, SetStateAction } from "react";
+import type { Dispatch, SetStateAction } from "react";
 import { useFormContext } from "react-hook-form";
 
-import { CVFormValues } from "@/features/cv-builder/types/cv.types";
+import type { CVFormValues } from "@/features/cv-builder/types/cv.types";
 import { getCookie } from "@/features/cv-builder/utils/cookie";
 import { generateProfileAI } from "@/services/cv/ai.service";
 

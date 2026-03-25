@@ -1,4 +1,4 @@
-import { FieldConfig } from "@/shared/types/ModalForm";
+import type { FieldConfig } from "@/shared/types/ModalForm";
 
 export const experienceFields: FieldConfig[] = [
   {

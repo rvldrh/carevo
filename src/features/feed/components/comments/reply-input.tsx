@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 
 interface Props {
   onSubmit: (value: string) => void;
@@ -12,9 +13,12 @@ export default function ReplyInput({ onSubmit }: Props) {
   return (
     <div className="pl-11 flex gap-3 items-start">
 
-      <img
+      <Image
         className="w-9 h-9 rounded-full"
         src="https://placehold.co/36x36"
+        alt="avatar"
+        width={36}
+        height={36}
       />
 
       <div className="flex-1 relative">

@@ -1,5 +1,5 @@
 import AsahCard from "@/components/ui/card/asah-card"
-import { CertificateGridProps } from "@/features/asah/types/certificate"
+import type { CertificateGridProps } from "@/features/asah/types/certificate"
 
 
 export default function CertificateGrid({ certificates }: CertificateGridProps) {

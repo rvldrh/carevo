@@ -1,30 +1,27 @@
-import { Organization } from "../../schemas/cv.schema";
+import type { Organization } from "../../schemas/cv.schema";
+import { renderDescription } from "../../utils/description-renderer";
 
 export function OrganizationItem({
   position,
   organizationName,
-  city,
   startYear,
   endYear,
   description,
 }: Organization) {
   return (
     <div className="space-y-1">
-      <div className="flex justify-between flex-wrap text-sm font-semibold">
+      <div className="flex justify-between flex-wrap text-sm font-semibold text-gray-900">
         <div className="flex gap-2">
           <span>{position}</span>
           <span>—</span>
           <span>{organizationName}</span>
         </div>
-        <span className="text-xs text-gray-500">
+        <span className="text-[13px] text-gray-800">
           {startYear} – {endYear}
-          {city && ` · ${city}`}
         </span>
       </div>
 
-      {description && (
-        <p className="text-sm text-gray-700">{description}</p>
-      )}
+      {renderDescription(description)}
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import { Certificate } from "@/features/asah/types/certificate"
+import type { Certificate } from "@/features/asah/types/certificate"
 import CertificateHero from "@/features/asah/components/certificates/certificate-hero"
 import CertificateGrid from "@/features/asah/components/certificates/certificate-grid"
 

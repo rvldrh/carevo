@@ -3,13 +3,14 @@
 import { useState } from "react";
 import { useFormContext } from "react-hook-form";
 import axios from "axios";
+import type { CVFormValues } from "@/features/cv-builder/schemas/cv.schema";
 
 export function PersonalInfoForm({
   isSaving,
   onSave,
 }: {
   isSaving?: boolean;
-  onSave: (p: any) => void;
+  onSave: (p: CVFormValues) => void;
 }) {
   const [isGenerating, setIsGenerating] = useState(false);
   const {
@@ -17,8 +18,7 @@ export function PersonalInfoForm({
     handleSubmit,
     setValue,
     getValues,
-    formState: { errors },
-  } = useFormContext();
+  } = useFormContext<CVFormValues>();
 
   // Fungsi helper untuk mengambil token dari cookie (Karena middleware pakai cookie)
   const getCookie = (name: string) => {
@@ -67,7 +67,7 @@ const handleGenerateAI = async () => {
     setIsGenerating(false);
   }
 };
-  const onSubmitSection = (data: any) => {
+  const onSubmitSection = (data: CVFormValues) => {
     const cleanPhone = (p: string) => {
       if (!p) return "";
       const digits = p.replace(/\D/g, "");
@@ -78,29 +78,26 @@ const handleGenerateAI = async () => {
 
     // Pastikan payload menggunakan data.personalInformation.summary
     // karena itu tempat kita menampung hasil AI tadi
-   const payload: any = {
+   const payload: CVFormValues = {
     personalInformation: {
       firstName: data.personalInformation.firstName,
       lastName: data.personalInformation.lastName,
-      // Pastikan mengambil dari data.personalInformation.profile
       profile: data.personalInformation.profile || "", 
       phone: cleanPhone(data.personalInformation.phone),
       email: data.personalInformation.email,
       address: data.personalInformation.address,
+      websiteUrl: data.personalInformation.websiteUrl || "",
     },
+    skills: data.skills || [],
     educations: data.educations || [],
     workExperiences: data.workExperiences || [],
     courses: data.courses || [],
     organizations: data.organizations || [],
+    certifications: data.certifications || [],
   };
   
   // Kirim payload
 
-    if (data.personalInformation.website) {
-      payload.personalInformation.websiteUrl = data.personalInformation.website;
-    }
-
-    console.log("Payload yang akan di-post:", payload);
     onSave(payload);
   };
 
@@ -117,6 +114,7 @@ const handleGenerateAI = async () => {
               Nama Depan
             </label>
             <input
+              suppressHydrationWarning
               {...register("personalInformation.firstName")}
               placeholder="Bagas"
               className="border border-gray-200 rounded-lg px-3 py-2 text-sm focus:ring-1 focus:ring-blue-400 outline-none"
@@ -127,6 +125,7 @@ const handleGenerateAI = async () => {
               Nama Belakang
             </label>
             <input
+              suppressHydrationWarning
               {...register("personalInformation.lastName")}
               placeholder="Kara"
               className="border border-gray-200 rounded-lg px-3 py-2 text-sm focus:ring-1 focus:ring-blue-400 outline-none"
@@ -138,6 +137,7 @@ const handleGenerateAI = async () => {
           <div className="flex flex-col gap-1">
             <label className="text-xs font-semibold text-gray-600">Email</label>
             <input
+              suppressHydrationWarning
               {...register("personalInformation.email")}
               className="border border-gray-200 rounded-lg px-3 py-2 text-sm outline-none"
             />
@@ -145,6 +145,7 @@ const handleGenerateAI = async () => {
           <div className="flex flex-col gap-1">
             <label className="text-xs font-semibold text-gray-600">No HP</label>
             <input
+              suppressHydrationWarning
               {...register("personalInformation.phone")}
               className="border border-gray-200 rounded-lg px-3 py-2 text-sm outline-none"
             />
@@ -153,16 +154,19 @@ const handleGenerateAI = async () => {
 
         <div className="flex flex-col gap-1">
           <label className="text-xs font-semibold text-gray-600">Alamat</label>
-          <input
+          <textarea
+            suppressHydrationWarning
             {...register("personalInformation.address")}
-            className="border border-gray-200 rounded-lg px-3 py-2 text-sm outline-none"
+            rows={2}
+            className="border border-gray-200 rounded-lg px-3 py-2 text-sm outline-none resize-y"
           />
         </div>
 
         <div className="flex flex-col gap-1">
           <label className="text-xs font-semibold text-gray-600">Website</label>
           <input
-            {...register("personalInformation.website")}
+            suppressHydrationWarning
+            {...register("personalInformation.websiteUrl")}
             className="border border-gray-200 rounded-lg px-3 py-2 text-sm outline-none"
           />
         </div>
@@ -172,6 +176,7 @@ const handleGenerateAI = async () => {
           <div className="border border-gray-300 rounded-xl overflow-hidden shadow-sm">
             <div className="bg-gray-50 p-3 border-b border-gray-200">
               <button
+                suppressHydrationWarning
                 type="button"
                 onClick={handleGenerateAI}
                 disabled={isGenerating}
@@ -201,6 +206,7 @@ const handleGenerateAI = async () => {
 
       <div className="pt-4 mt-4 border-t">
         <button
+          suppressHydrationWarning
           type="button"
           onClick={handleSubmit(onSubmitSection)}
           disabled={isSaving || isGenerating}

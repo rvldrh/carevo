@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Comment } from "@/features/feed/types/comment.type";
+import type { Comment } from "@/features/feed/types/comment.type";
+import Image from "next/image";
 import ReplyItem from "./reply-item";
 import ReplyInput from "./reply-input";
 
@@ -32,9 +33,12 @@ export default function CommentItem({ comment }: Props) {
       <div className="flex justify-between items-end">
 
         <div className="flex gap-3">
-          <img
+          <Image
             className="w-9 h-9 rounded-full"
             src="https://placehold.co/36x36"
+            alt="avatar"
+            width={36}
+            height={36}
           />
 
           <div className="flex flex-col gap-2">

@@ -39,7 +39,7 @@ export default function ProjectEditorClient() {
             title="Tambah projek"
             fields={projectFields}
             onCancel={() => setOpenAdd(false)}
-            onSubmit={() => console.log("Project submitted")}
+            onSubmit={() => console.warn("Project submitted")}
           />
 
           <div className="flex justify-between mt-6">
@@ -51,7 +51,7 @@ export default function ProjectEditorClient() {
             </button>
 
             <button
-              onClick={() => console.log("Tambah")}
+              onClick={() => console.warn("Tambah")}
               className="bg-blue-500 text-white px-6 py-2 rounded-lg"
             >
               Tambah
@@ -73,7 +73,7 @@ export default function ProjectEditorClient() {
             title="Edit projek"
             fields={projectFields}
             onCancel={() => setOpenEdit(false)}
-            onSubmit={() => console.log("Project edited")}
+            onSubmit={() => console.warn("Project edited")}
           />
 
           <div className="flex justify-between mt-6">
@@ -85,7 +85,7 @@ export default function ProjectEditorClient() {
             </button>
 
             <button
-              onClick={() => console.log("Edit")}
+              onClick={() => console.warn("Edit")}
               className="bg-blue-500 text-white px-6 py-2 rounded-lg"
             >
               Edit

@@ -8,7 +8,7 @@ export default function CollaborationEditClient() {
       icon="/icons/edit.svg"
       alt="edit"
       className="absolute top-6 right-[22%]"
-      onClick={() => console.log("Open edit collaboration")}
+      onClick={() => console.warn("Open edit collaboration")}
     />
   );
 }

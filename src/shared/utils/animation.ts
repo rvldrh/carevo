@@ -1,4 +1,4 @@
-import { TransitionType } from "@/shared/types/animation";
+import type { TransitionType } from "@/shared/types/animation";
 
 export const transition: TransitionType = {
   duration: 3.5  ,

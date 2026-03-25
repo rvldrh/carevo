@@ -1,4 +1,4 @@
-import { Post } from "@/features/community/types/post.type"
+import type { Post } from "@/features/community/types/post.type"
 
 const POST_CONTENT = `UI/UX Designer Community hadir untuk kamu! 👋
 Mau ningkatin skill desain? Cari feedback buat project? Atau sekadar ngobrol soal dunia UI/UX?`

@@ -12,6 +12,7 @@ export default function ProfileDropdown() {
     <div className="relative">
       <div className="ml-10 hidden md:block">
         <button
+          suppressHydrationWarning
           className="hidden md:flex items-center gap-3 bg-[#4D8BE6] px-4 py-2 rounded-[20px] ml-8"
           onClick={() => setOpen((prev) => !prev)}
         >

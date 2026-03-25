@@ -1,11 +1,8 @@
-import FeedList from "@/features/feed/components/feed-list";
 import ProfileCard from "@/features/feed/components/sidebar/profile-card";
 import CommunitySuggestion from "@/features/feed/components/sidebar/community-sugestion";
 import FeedItem from "../feed-item";
 
 export default async function FeedPage() {
-  const feeds = Array.from({ length: 6 });
-
   return (
     <div className="min-h-screen bg-stone-100 py-10">
       <div className="max-w-7xl mx-auto grid grid-cols-12 gap-6">

@@ -1,5 +1,5 @@
-import { FieldErrors, UseFormRegister } from "react-hook-form";
-import { LoginUserBodyType } from "@/features/auth/schemas/auth.schema";
+import type { FieldErrors, UseFormRegister } from "react-hook-form";
+import type { LoginUserBodyType } from "@/features/auth/schemas/auth.schema";
 
 interface Props {
   register: UseFormRegister<LoginUserBodyType>;

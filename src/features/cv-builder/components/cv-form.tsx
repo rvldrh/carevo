@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { useForm, FormProvider } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -21,6 +21,7 @@ interface CVFormProps {
   userId: string;
   onSave: (payload: CVFormValues) => void | Promise<void>;
   isSaving?: boolean;
+  initialData?: any;
 }
 
 const SECTIONS = [
@@ -72,27 +73,35 @@ const SECTION_COMPONENTS: Record<
   organization: OrganizationSection,
 };
 
-export function CVForm({ userId, onSave, isSaving }: CVFormProps) {
+export function CVForm({ userId: _userId, onSave, isSaving, initialData }: CVFormProps) {
   const [active, setActive] = useState<SectionKey | null>("personal");
 
- const methods = useForm<CVFormValues>({
-  resolver: zodResolver(CVSchema),
-  defaultValues: {
-    personalInformation: {
-      firstName: "",
-      lastName: "",
-      email: "",
-      phone: "",
-      address: "",
-      profile: "",
-      websiteUrl: "",
+  const methods = useForm<CVFormValues>({
+    resolver: zodResolver(CVSchema),
+    defaultValues: initialData || {
+      personalInformation: {
+        firstName: "",
+        lastName: "",
+        email: "",
+        phone: "+62",
+        address: "",
+        profile: "",
+        websiteUrl: "",
+      },
+      skills: [],
+      educations: [],
+      workExperiences: [],
+      courses: [],
+      organizations: [],
+      certifications: []
     },
-    educations: [],
-    workExperiences: [],
-    courses: [],
-    organizations: [],
-  },
-});
+  });
+
+  useEffect(() => {
+    if (initialData) {
+      methods.reset(initialData);
+    }
+  }, [initialData, methods]);
   const renderedSections = useMemo(() => {
     return SECTIONS.map((section) => {
       const Component = SECTION_COMPONENTS[section.key];

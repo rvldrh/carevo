@@ -5,9 +5,11 @@ import Image from "next/image";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import {
-  ChangeUserPasswordBody,
+import type {
   ChangeUserPasswordBodyType
+} from "@/features/auth/schemas/auth.schema";
+import {
+  ChangeUserPasswordBody
 } from "@/features/auth/schemas/auth.schema";
 
 import { useChangePassword } from "@/features/auth/hooks/use-change-password";

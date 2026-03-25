@@ -1,4 +1,4 @@
-export type FieldType = "text" | "date" | "textarea" | "select" | "checkbox";
+export type FieldType = "text" | "date" | "number" | "textarea" | "select" | "checkbox";
 
 export type FieldConfig = {
   name: string;

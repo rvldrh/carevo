@@ -45,9 +45,9 @@ export async function getCurrentUser() {
   }
 }
 
-export async function verifyEmail(token: string) {
+export async function verifyEmail(token: string): Promise<unknown> {
   const payload: VerifyEmailType = { token };
-  return verifyUserEmail(payload);
+  return verifyUserEmail(payload) as unknown;
 }
 
 export async function sendPasswordResetEmail(data: SendPasswordResetEmailBodyType) {

@@ -32,7 +32,7 @@ export default function CommunitySuggestion() {
           const isJoined = joined[i];
 
           return (
-            <div key={i} className="flex items-center gap-2">
+            <div key={item} className="flex items-center gap-2">
 
               <Image
                 src="/icons/avatar-community.svg"

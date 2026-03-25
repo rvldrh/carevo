@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FieldConfig, FormState, FormValue } from "@/shared/types/ModalForm";
+import type { FieldConfig, FormState, FormValue } from "@/shared/types/ModalForm";
 
 import { TextField } from "@/components/ui/modal/fields/TextFields";
 import { MultiInputField } from "@/components/ui/modal/fields/MultiInputFields";
@@ -14,10 +14,10 @@ interface ModalFormProps {
 }
 
 export const ModalForm = ({
-  title,
+  title: _title,
   fields,
-  onSubmit,
-  onCancel,
+  onSubmit: _onSubmit,
+  onCancel: _onCancel,
 }: ModalFormProps) => {
   const initialState: FormState = fields.reduce((acc, field) => {
     if (field.type === "multi-input") {

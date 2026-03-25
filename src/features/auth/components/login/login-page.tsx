@@ -1,6 +1,7 @@
 import LoginForm from "@/features/auth/components/login/login-form";
 import LoginIllustration from "@/features/auth/components/login/login-illustration";
 import { useEmailVerification } from "@/features/auth/hooks/use-email-verification";
+import { Suspense } from "react";
 
 export default function LoginPage() {
   const { loading } = useEmailVerification();
@@ -32,7 +33,9 @@ export default function LoginPage() {
 
       <div className="relative z-10 flex flex-col lg:flex-row w-full max-w-4xl rounded-2xl overflow-hidden shadow-2xl">
         {loading && <div>Verifying...</div>}
-        <LoginForm />
+        <Suspense fallback={<div>Loading...</div>}>
+          <LoginForm />
+        </Suspense>
         <LoginIllustration />
       </div>
     </div>

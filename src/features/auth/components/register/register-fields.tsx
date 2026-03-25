@@ -1,6 +1,6 @@
-import { FieldErrors, UseFormRegister } from "react-hook-form"
-import { z } from "zod"
-import { RegisterUserBody } from "@carevo/contracts/zod"
+import type { FieldErrors, UseFormRegister } from "react-hook-form"
+import type { z } from "zod"
+import type { RegisterUserBody } from "@carevo/contracts/zod"
 
 type RegisterFormValues = z.infer<typeof RegisterUserBody>
 

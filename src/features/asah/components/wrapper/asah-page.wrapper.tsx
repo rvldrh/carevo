@@ -1,4 +1,4 @@
-import { AsahItem, AsahVariant } from "@/features/asah/types/asah"
+import type { AsahItem, AsahVariant } from "@/features/asah/types/asah"
 import AsahHero from "@/features/asah/components/hero/asah-hero"
 import AsahGrid from "@/features/asah/components/grid/asah-grid"
 

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Comment } from "@/features/community/types/comment.type";
+import type { Comment } from "@/features/community/types/comment.type";
 import CommentReply from "./comment-reply";
 import CommentList from "./comment-list";
 

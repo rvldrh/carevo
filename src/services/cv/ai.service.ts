@@ -17,6 +17,5 @@ export const generateProfileAI = async (
       responseType: "text",
     }
   );
-
   return response.data;
 };

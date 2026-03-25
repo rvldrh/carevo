@@ -1,4 +1,4 @@
-import { Community } from "@/features/community/types/community.type"
+import type { Community } from "@/features/community/types/community.type"
 
 export const communities: Community[] = [
   {

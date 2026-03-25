@@ -1,4 +1,4 @@
-import { CVFormValues } from "@/features/cv-builder/schemas/cv.schema";
+import type { CVFormValues } from "@/features/cv-builder/schemas/cv.schema";
 
 export const mapFormToPayload = (data: CVFormValues) => {
   return {

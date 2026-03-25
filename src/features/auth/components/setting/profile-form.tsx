@@ -2,9 +2,10 @@
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import type {
+  UpdateProfileInput} from "@/features/auth/schemas/auth.schema";
 import {
-  updateProfileSchema,
-  UpdateProfileInput,
+  updateProfileSchema
 } from "@/features/auth/schemas/auth.schema";
 
 interface Props {
@@ -24,7 +25,7 @@ export default function ProfileForm({ profile }: Props) {
   });
 
   const onSubmit = (data: UpdateProfileInput) => {
-    console.log("update profile", data);
+    console.warn("update profile", data);
   };
 
   return (

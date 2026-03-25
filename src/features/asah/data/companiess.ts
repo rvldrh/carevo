@@ -1,4 +1,4 @@
-import { Company } from "@/features/asah/types/company"
+import type { Company } from "@/features/asah/types/company"
 
 export const companies: Company[] = [
   { id: 1, name: "Google", logo: "/icons/google.svg" },

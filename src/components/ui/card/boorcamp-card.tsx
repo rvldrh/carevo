@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Bootcamp } from "@/features/asah/types/bootcamp";
+import type { Bootcamp } from "@/features/asah/types/bootcamp";
 import Link from "next/link";
 
 interface Props {

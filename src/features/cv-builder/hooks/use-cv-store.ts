@@ -1,7 +1,22 @@
 "use client";
 
 import { create } from "zustand";
-import { CVPayload } from "@/features/cv-builder/schemas/cv.schema";
+
+type CVPayload = {
+  personal: {
+    firstName: string;
+    lastName: string;
+    email: string;
+    phone: string;
+    address: string;
+    website: string;
+    summary: string;
+  };
+  educations: Array<{ id: string; university: string; degree?: string }>;
+  experiences: Array<{ id: string; company: string; role: string }>;
+  courses: Array<{ id: string; title: string; provider: string }>;
+  organizations: Array<{ id: string; name: string; role: string }>;
+};
 
 type CVState = {
   data: CVPayload;

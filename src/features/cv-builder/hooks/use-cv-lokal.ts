@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { PersonalInformation } from "../schemas/cv.schema";
+import type { PersonalInformation } from "../schemas/cv.schema";
 
 export function useCvLocal() {
   const [personalInfo, setPersonalInfo] =

@@ -1,6 +1,6 @@
 // import { getProfile } from "@/services/auth/auth.service";
 import ProfileCard from "@/features/auth/components/setting/profile-card";
-import { Profile } from "../types/auth.types";
+import type { Profile } from "../types/auth.types";
 
  const profileDummy: Profile = {
   id: "user_001",

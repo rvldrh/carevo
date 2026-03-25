@@ -37,14 +37,14 @@ export default function CertificateActionsClient() {
             title="Tambah Sertifikat"
             fields={certificateFields}
             onCancel={() => setOpenModalAdd(false)}
-            onSubmit={() => console.log("Certificate submitted")}
+            onSubmit={() => console.warn("Certificate submitted")}
           />
 
           <ModalButtons
             cancelText="Batal"
             submitText="Simpan"
             onCancel={() => setOpenModalAdd(false)}
-            onSubmit={() => console.log("Certificate submitted")}
+            onSubmit={() => console.warn("Certificate submitted")}
           />
         </Modal>
       )}
@@ -59,14 +59,14 @@ export default function CertificateActionsClient() {
             title="Edit Sertifikat"
             fields={certificateFields}
             onCancel={() => setOpenModalEdit(false)}
-            onSubmit={() => console.log("Certificate updated")}
+            onSubmit={() => console.warn("Certificate updated")}
           />
 
           <ModalButtons
             cancelText="Batal"
             submitText="Simpan"
             onCancel={() => setOpenModalEdit(false)}
-            onSubmit={() => console.log("Certificate updated")}
+            onSubmit={() => console.warn("Certificate updated")}
           />
         </Modal>
       )}

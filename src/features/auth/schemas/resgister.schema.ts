@@ -1,5 +1,5 @@
 import { RegisterUserBody } from "@carevo/contracts/zod"
-import { z } from "zod"
+import type { z } from "zod"
 
 export const registerFormSchema = RegisterUserBody.extend({
   username: RegisterUserBody.shape.username

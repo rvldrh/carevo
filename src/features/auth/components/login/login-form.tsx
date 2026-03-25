@@ -5,9 +5,10 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
+import type {
+  LoginUserBodyType} from "@/features/auth/schemas/auth.schema";
 import {
-  LoginUserBody,
-  LoginUserBodyType,
+  LoginUserBody
 } from "@/features/auth/schemas/auth.schema";
 
 import { useLogin } from "@/features/auth/hooks/use-login";

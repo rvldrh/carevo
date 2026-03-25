@@ -5,10 +5,6 @@
   import { AxiosError } from "axios";
   import { toast } from "sonner";
 
-  interface ApiError {
-    message?: string;
-  }
-
   export function useRegister() {
     return useMutation({
       mutationFn: registerUserService,

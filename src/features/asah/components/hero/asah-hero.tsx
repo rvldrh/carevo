@@ -1,5 +1,5 @@
 import Image from "next/image"
-import { AsahItem, AsahVariant } from "@/features/asah/types/asah"
+import type { AsahItem, AsahVariant } from "@/features/asah/types/asah"
 
 interface Props {
   item: AsahItem

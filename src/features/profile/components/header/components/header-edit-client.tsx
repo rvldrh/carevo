@@ -35,12 +35,12 @@ export default function HeaderEditClient() {
             title="Edit Awalan"
             fields={headerFields}
             onCancel={() => setOpenModal(false)}
-            onSubmit={() => console.log("submit")}
+            onSubmit={() => console.warn("submit")}
           />
 
           <div className="flex justify-start pt-4">
             <button
-              onClick={() => console.log("submit")}
+              onClick={() => console.warn("submit")}
               className="bg-[var(--blue-500)] text-white px-6 py-2 rounded-lg hover:bg-[var(--blue-600)] transition"
             >
               Terapkan

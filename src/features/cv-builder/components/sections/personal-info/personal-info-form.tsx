@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useFormContext } from "react-hook-form";
 
-import { CVFormValues, CVPayload } from "@/features/cv-builder/types/cv.types";
+import type { CVFormValues, CVPayload } from "@/features/cv-builder/types/cv.types";
 import { normalizePhone } from "@/features/cv-builder/utils/phone";
 
 import { PersonalInfoFields } from "@/features/cv-builder/components/sections/personal-info/personal-info-fields";

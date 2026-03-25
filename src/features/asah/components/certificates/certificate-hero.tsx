@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Certificate } from "@/features/asah/types/certificate";
+import type { Certificate } from "@/features/asah/types/certificate";
 import Link from "next/link";
 
 interface Props {

@@ -1,31 +1,38 @@
-import { CV } from "@/features/cv-builder/schemas/cv.schema";
-
-type Course = CV["courses"][number];
-
-type Props = Course;
+import { Course } from "../../schemas/cv.schema";
 
 export function CourseItem({
   name,
+  organizer,
   location,
-  date,
-  descriptions,
-}: Props) {
+  startYear,
+  endYear,
+  description,
+  url,
+}: Course) {
   return (
     <div className="space-y-1">
       <div className="flex justify-between flex-wrap text-sm font-semibold">
         <div className="flex gap-2">
           <span>{name}</span>
           <span>—</span>
-          <span>{location}</span>
+          <span>{organizer}</span>
         </div>
-        <span className="text-xs">{date}</span>
+        <span className="text-xs text-gray-500">
+          {startYear} – {endYear}
+          {location && ` · ${location}`}
+        </span>
       </div>
 
-      <ul className="list-disc ml-5 text-sm text-gray-700">
-        {descriptions.map((desc, i) => (
-          <li key={i}>{desc}</li>
-        ))}
-      </ul>
+      {description && (
+        <p className="text-sm text-gray-700">{description}</p>
+      )}
+
+      {url && (
+        <a href={url} target="_blank" rel="noopener noreferrer"
+          className="text-xs text-blue-500 underline">
+          {url}
+        </a>
+      )}
     </div>
   );
 }

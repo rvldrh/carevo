@@ -1,29 +1,32 @@
-import { CV } from "../../schemas/cv.schema";
-
-type Experience = CV["experiences"][number];
+import { WorkExperience } from "../../schemas/cv.schema";
 
 export function ExperienceItem({
-  role,
-  company,
-  date,
-  descriptions,
-}: Experience) {
+  position,
+  companyName,
+  employmentStatus,
+  city,
+  startYear,
+  endYear,
+  description,
+}: WorkExperience) {
   return (
     <div className="space-y-1">
       <div className="flex justify-between flex-wrap text-sm font-semibold">
         <div className="flex gap-2">
-          <span>{role}</span>
+          <span>{position}</span>
           <span>—</span>
-          <span>{company}</span>
+          <span>{companyName}</span>
         </div>
-        <span className="text-xs">{date}</span>
+        <span className="text-xs text-gray-500">
+          {startYear} – {endYear} · {city}
+        </span>
       </div>
 
-      <ul className="list-disc ml-5 text-sm text-gray-700">
-        {descriptions.map((desc, i) => (
-          <li key={i}>{desc}</li>
-        ))}
-      </ul>
+      <p className="text-xs text-gray-500 italic">{employmentStatus}</p>
+
+      {description && (
+        <p className="text-sm text-gray-700">{description}</p>
+      )}
     </div>
   );
 }

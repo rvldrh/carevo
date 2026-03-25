@@ -1,32 +1,33 @@
-import { CV } from "../../schemas/cv.schema";
-
-type Education = CV["educations"][number];
+import { Education } from "../../schemas/cv.schema";
 
 export function EducationItem({
-  university,
-  location,
-  date,
-  degree,
-  descriptions,
+  educationLevel,
+  institution,
+  city,
+  studyProgram,
+  startYear,
+  endYear,
+  score,
+  maxScale,
 }: Education) {
   return (
     <div className="space-y-1">
       <div className="flex justify-between flex-wrap text-sm font-semibold">
         <div className="flex gap-2">
-          <span>{university}</span>
+          <span>{institution}</span>
           <span>—</span>
-          <span>{location}</span>
+          <span>{city}</span>
         </div>
-        <span className="text-xs">{date}</span>
+        <span className="text-xs text-gray-500">
+          {startYear} – {endYear}
+        </span>
       </div>
 
-      <p className="text-sm">{degree}</p>
+      <p className="text-sm">{educationLevel} · {studyProgram}</p>
 
-      <ul className="list-disc ml-5 text-sm text-gray-700">
-        {descriptions.map((desc, i) => (
-          <li key={i}>{desc}</li>
-        ))}
-      </ul>
+      {score !== undefined && maxScale !== undefined && (
+        <p className="text-xs text-gray-500">IPK: {score} / {maxScale}</p>
+      )}
     </div>
   );
 }

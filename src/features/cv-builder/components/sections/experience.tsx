@@ -5,22 +5,23 @@ import { ListItemCard } from "@/components/ui/accordion/list-item-card";
 import { AccordionButton } from "@/components/ui/button/accordion-button";
 import { FormModal } from "@/components/ui/modal/form-modal";
 import { EXPERIENCE_FIELDS } from "@/features/cv-builder/forms/configs/experience-form";
-
+import { useCVStore } from "../../hooks/use-cv-store";
 type Experience = {
-  id: string;
-  company: string;
-  role: string;
+    id: string;
+    company: string;
+    role: string;
 };
 
 const MOCK_EXPERIENCES: Experience[] = [
-  {
-    id: "1",
-    company: "Tokopedia",
-    role: "UI/UX Designer",
-  },
+    {
+        id: "1",
+        company: "Tokopedia",
+        role: "UI/UX Designer",
+    },
 ];
 
 export function ExperienceSection() {
+    const { addExperience } = useCVStore();
   const [data, setData] = useState<Experience[]>(MOCK_EXPERIENCES);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -29,8 +30,14 @@ export function ExperienceSection() {
   };
 
   const handleSubmit = () => {
-    // nanti di sini bisa ambil data dari form (React Hook Form)
-    console.log("submit experience");
+    const newData = {
+      id: crypto.randomUUID(),
+      company: "Tokopedia",
+      role: "UI/UX Designer",
+    };
+
+    setData((prev) => [...prev, newData]);
+    addExperience(newData);
     setIsOpen(false);
   };
 

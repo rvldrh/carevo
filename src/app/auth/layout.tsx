@@ -1,3 +1,4 @@
+import QueryProvider from "@/providers/react-query-provider";
 import Script from "next/script";
 
 export default function AuthLayout({
@@ -7,13 +8,14 @@ export default function AuthLayout({
 }) {
   return (
     <>
-      {/* <NavPublic /> */}
-      <Script
-        src="https://accounts.google.com/gsi/client"
-        strategy="afterInteractive"
-      />
+      <QueryProvider>
+        <Script
+          src="https://accounts.google.com/gsi/client"
+          strategy="afterInteractive"
+        />
 
-      {children}
+        {children}
+      </QueryProvider>
     </>
   );
 }

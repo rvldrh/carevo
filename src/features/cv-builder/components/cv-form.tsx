@@ -1,12 +1,27 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
+import { useForm, FormProvider } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+
 import { AccordionItem } from "@/components/ui/accordion/accordion-item";
+
 import { PersonalInfoForm } from "@/features/cv-builder/components/sections/personal-info";
 import { EducationSection } from "@/features/cv-builder/components/sections/education/education";
-import { ExperienceSection } from "./sections/experience";
-import { CourseSection } from "./sections/course";
-import { OrganizationSection } from "./sections/organizatoin";
+import { ExperienceSection } from "@/features/cv-builder/components/sections/experience";
+import { CourseSection } from "@/features/cv-builder/components/sections/course";
+import { OrganizationSection } from "@/features/cv-builder/components/sections/organizatoin";
+
+import {
+  CVSchema,
+  type CVFormValues,
+} from "@/features/cv-builder/schemas/cv.schema";
+
+interface CVFormProps {
+  userId: string;
+  onSave: (payload: CVFormValues) => void | Promise<void>;
+  isSaving?: boolean;
+}
 
 const SECTIONS = [
   {
@@ -39,52 +54,90 @@ const SECTIONS = [
     labelOpen: "Data Organisasi",
     icon: "/icons/organisasi.svg",
   },
-];
+] as const;
 
-export function CVForm() {
-  const [active, setActive] = useState<string | null>(null);
+type SectionKey = (typeof SECTIONS)[number]["key"];
 
-  const renderContent = (key: string) => {
-    switch (key) {
-      case "personal":
-        return <PersonalInfoForm />;
+const SECTION_COMPONENTS: Record<
+  SectionKey,
+  React.ComponentType<{
+    isSaving?: boolean;
+    onSave: (payload: CVFormValues) => void;
+  }>
+> = {
+  personal: PersonalInfoForm,
+  education: EducationSection,
+  experience: ExperienceSection,
+  course: CourseSection,
+  organization: OrganizationSection,
+};
 
-      case "education":
-        return <EducationSection  />;
-      case "experience":
-        return <ExperienceSection  />;
-      case "course" :
-        return <CourseSection />;
-      case "organization" :
-        return <OrganizationSection  />
+export function CVForm({ userId, onSave, isSaving }: CVFormProps) {
+  const [active, setActive] = useState<SectionKey | null>("personal");
 
+ const methods = useForm<CVFormValues>({
+  resolver: zodResolver(CVSchema),
+  defaultValues: {
+    personalInformation: {
+      firstName: "",
+      lastName: "",
+      email: "",
+      phone: "",
+      address: "",
+      profile: "",
+      websiteUrl: "",
+    },
+    educations: [],
+    workExperiences: [],
+    courses: [],
+    organizations: [],
+  },
+});
+  const renderedSections = useMemo(() => {
+    return SECTIONS.map((section) => {
+      const Component = SECTION_COMPONENTS[section.key];
 
-      default:
-        return <div className="p-4 text-sm text-gray-500">Content {key}</div>;
-    }
-  };
+      return (
+        <AccordionItem
+          key={section.key}
+          title={
+            active === section.key
+              ? section.labelOpen
+              : section.label
+          }
+          icon={section.icon}
+          isOpen={active === section.key}
+          onToggle={() =>
+            setActive((prev) =>
+              prev === section.key ? null : section.key
+            )
+          }
+        >
+          <div className="border-t border-gray-100">
+            <Component isSaving={isSaving} onSave={onSave} />
+          </div>
+        </AccordionItem>
+      );
+    });
+  }, [active, isSaving, onSave]);
 
   return (
-    <div className="w-full h-full flex flex-col">
-      <div className="bg-blue-400 text-white text-2xl font-bold py-6 text-center">
-        Bangun CV
-      </div>
+    <FormProvider {...methods}>
+      <div className="w-full h-full flex flex-col bg-white">
+        <div className="bg-blue-400 text-white text-2xl font-bold py-6 text-center relative shrink-0">
+          Bangun CV
 
-      <div className="flex flex-col gap-4 p-4">
-        {SECTIONS.map((section) => (
-          <AccordionItem
-            key={section.key}
-            title={active === section.key ? section.labelOpen : section.label}
-            icon={section.icon}
-            isOpen={active === section.key}
-            onToggle={() =>
-              setActive(active === section.key ? null : section.key)
-            }
-          >
-            {renderContent(section.key)}
-          </AccordionItem>
-        ))}
+          {isSaving && (
+            <div className="absolute right-6 top-1/2 -translate-y-1/2">
+              <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+            </div>
+          )}
+        </div>
+
+        <div className="flex-1 overflow-y-auto p-4 space-y-4">
+          {renderedSections}
+        </div>
       </div>
-    </div>
+    </FormProvider>
   );
 }

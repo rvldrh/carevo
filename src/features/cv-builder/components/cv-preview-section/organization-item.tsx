@@ -1,34 +1,30 @@
-import { CV } from "@/features/cv-builder/schemas/cv.schema";
-
-type Organization = CV["organizations"][number];
-
-type Props = Organization;
+import { Organization } from "../../schemas/cv.schema";
 
 export function OrganizationItem({
-  name,
-  location,
-  date,
-  role,
-  descriptions,
-}: Props) {
+  position,
+  organizationName,
+  city,
+  startYear,
+  endYear,
+  description,
+}: Organization) {
   return (
     <div className="space-y-1">
       <div className="flex justify-between flex-wrap text-sm font-semibold">
         <div className="flex gap-2">
-          <span>{name}</span>
+          <span>{position}</span>
           <span>—</span>
-          <span>{location}</span>
+          <span>{organizationName}</span>
         </div>
-        <span className="text-xs">{date}</span>
+        <span className="text-xs text-gray-500">
+          {startYear} – {endYear}
+          {city && ` · ${city}`}
+        </span>
       </div>
 
-      <p className="text-sm font-medium">{role}</p>
-
-      <ul className="list-disc ml-5 text-sm text-gray-700">
-        {descriptions.map((desc, i) => (
-          <li key={i}>{desc}</li>
-        ))}
-      </ul>
+      {description && (
+        <p className="text-sm text-gray-700">{description}</p>
+      )}
     </div>
   );
 }

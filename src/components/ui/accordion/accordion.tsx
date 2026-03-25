@@ -13,6 +13,7 @@ export function Accordion({ title, children }: AccordionProps) {
   return (
     <div className="rounded-2xl border shadow-sm bg-white">
       <button
+      type="button"
         onClick={() => setOpen(!open)}
         className="w-full flex justify-between items-center p-4"
       >

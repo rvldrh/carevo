@@ -1,27 +1,23 @@
 "use client";
 
 import { useEffect } from "react";
-import { useRouter } from "next/navigation";
-import { logoutUser } from "@/services/auth/auth.service";
+import { clearAccessToken } from "@carevo/contracts/api";
 
 export default function LogoutPage() {
-  const router = useRouter();
-
   useEffect(() => {
     async function handleLogout() {
       try {
-        await logoutUser();
+        await fetch("/api/auth/logout", { method: "POST" });
       } catch (error) {
         console.error("Logout error:", error);
+      } finally {
+        clearAccessToken();
+        window.location.href = "/auth/login";
       }
-
-      localStorage.removeItem("token");
-
-      router.replace("/auth/login");
     }
 
     handleLogout();
-  }, [router]);
+  }, []);
 
   return (
     <div className="flex justify-center items-center h-screen">

@@ -3,7 +3,8 @@
 import { useState } from "react";
 import { ListItemCard } from "@/components/ui/accordion/list-item-card";
 import { AccordionButton } from "@/components/ui/button/accordion-button";
-import { EducationFormModal } from "@/features/cv-builder/components/sections/education/education-form-modal";
+import { EducationFormModal } from "./education-form-modal";
+import { useCVStore } from "@/features/cv-builder/hooks/use-cv-store";
 
 type Education = {
   id: string;
@@ -11,22 +12,11 @@ type Education = {
   degree?: string;
 };
 
-const MOCK_EDUCATIONS: Education[] = [
-  {
-    id: "1",
-    university: "Universitas Brawijaya",
-    degree: "Teknik Informatika",
-  },
-  {
-    id: "2",
-    university: "SMAN 1 Malang",
-    degree: "IPA",
-  },
-];
-
 export function EducationSection() {
-  const [data, setData] = useState<Education[]>(MOCK_EDUCATIONS);
+  const [data, setData] = useState<Education[]>([]);
   const [open, setIsOpen] = useState(false);
+
+  const { addEducation } = useCVStore();
 
   const handleDelete = (id: string) => {
     setData((prev) => prev.filter((item) => item.id !== id));
@@ -52,8 +42,25 @@ export function EducationSection() {
         )}
       </div>
 
-      <AccordionButton buttonText="Tambah Pendidikan" onClick={() => setIsOpen(true)} />
-      <EducationFormModal open={open} onClose={() => setIsOpen(false)} />
+      <AccordionButton
+        buttonText="Tambah Pendidikan"
+        onClick={() => setIsOpen(true)}
+      />
+
+      <EducationFormModal
+        open={open}
+        onClose={() => setIsOpen(false)}
+        onSubmit={(form) => {
+          const newData = {
+            id: crypto.randomUUID(),
+            university: form.major,
+            degree: form.level,
+          };
+
+          setData((prev) => [...prev, newData]);
+          addEducation(newData);
+        }}
+      />
     </div>
   );
 }

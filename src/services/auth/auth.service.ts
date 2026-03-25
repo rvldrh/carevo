@@ -1,78 +1,67 @@
-import { registerUser } from "@carevo/contracts/api"
-import { RegisterUserBody } from "@carevo/contracts/zod"
-import { z } from "zod"
-import { apiClient } from "@/shared/utils/api/api-client";
+
 import {
+  loginUser as loginApi,
+  logoutUser as logoutApi,
+  registerUser as registerApi,
+  getUser as getUserApi,
+  verifyUserEmail,
+  sendPasswordResetEmail as sendResetApi,
+  resetUserPassword as resetPasswordApi,
+  changeUserPassword as changePasswordApi,
+} from "@carevo/contracts/api";
+
+import { RegisterUserBody } from "@carevo/contracts/zod";
+import type { z } from "zod";
+
+import type {
   ChangeUserPasswordBodyType,
   LoginUserBodyType,
   LoginUserResponseType,
   ResetUserPasswordBodyType,
-  SendPasswordResetEmailBodyType
+  SendPasswordResetEmailBodyType,
+  VerifyEmailType,
 } from "@/features/auth/schemas/auth.schema";
-import { logoutUser as logoutApi } from "@carevo/contracts/api"; 
-import { authClient } from "../auth-client";
-import { VerifyEmailType } from "@/features/auth/schemas/auth.schema";
 
-export async function logoutUser() {
-  return logoutApi({});
+export async function loginUser(data: LoginUserBodyType): Promise<LoginUserResponseType> {
+  return loginApi(data);
 }
 
-export type RegisterUserInput = z.infer<typeof RegisterUserBody>
+export async function logoutUser(): Promise<void> {
+  await logoutApi();
+}
+
+export type RegisterUserInput = z.infer<typeof RegisterUserBody>;
 
 export async function registerUserService(data: RegisterUserInput) {
+  const payload = RegisterUserBody.parse(data);
+  return registerApi(payload);
+}
 
-  const payload = RegisterUserBody.parse(data)
-
+export async function getCurrentUser() {
   try {
-    const response = await registerUser(payload)
-    return response
-  } catch (error) {
-    throw error
+    return await getUserApi();
+  } catch {
+    return null;
   }
 }
 
-export async function loginUser(
-  data: LoginUserBodyType
-): Promise<LoginUserResponseType> {
-
-  const response = await apiClient.post("/v1/auth/login", data);
-  return response.data;
-}
-
-export async function refreshToken(rememberMe: boolean) {
-  const response = await apiClient.post("/v1/auth/refresh", {
-    rememberMe
-  });
-
-  return response.data;
-}
-
-
-export const verifyEmail = async (token: string) => {
+export async function verifyEmail(token: string) {
   const payload: VerifyEmailType = { token };
-
-  const res = await authClient.post("/v1/auth/email/verify", payload);
-
-  return res.data; 
-};
+  return verifyUserEmail(payload);
+}
 
 export async function sendPasswordResetEmail(data: SendPasswordResetEmailBodyType) {
-  await apiClient.post("/v1/auth/password/forgot", data);
+  return sendResetApi(data);
 }
 
 export async function resetUserPassword(data: ResetUserPasswordBodyType) {
-  await apiClient.post("/v1/auth/password/reset", data);
+  return resetPasswordApi(data);
 }
 
 export async function changeUserPassword(data: ChangeUserPasswordBodyType) {
-  await apiClient.post("/v1/auth/password/change", data);
-}
-export function getGoogleOAuthUrl() {
-  return `${process.env.NEXT_PUBLIC_API_URL}v1/auth/oauth/google`;
+  return changePasswordApi(data);
 }
 
-export async function loginWithGoogleToken(token: string) {
-  return apiClient.post("/v1/auth/google", {
-    token,
-  });
+export function getGoogleOAuthUrl(): string {
+  return `${process.env.NEXT_PUBLIC_API_URL}/v1/auth/oauth/google`;
 }

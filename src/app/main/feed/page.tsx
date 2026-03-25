@@ -1,8 +1,6 @@
-import FeedPage from '@/features/feed/components/page/feed-page'
-import React from 'react'
+import FeedPage from "@/features/feed/components/page/feed-page";
 
-const page = () => {
-  return <FeedPage/>
+export default async function Page() {
+
+  return <FeedPage />;
 }
-
-export default page

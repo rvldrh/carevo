@@ -37,6 +37,11 @@ export const VerifyEmailSchema = z.object({
   token: z.string().min(1),
 });
 
+export const updateProfileSchema = z.object({
+  username: z.string().min(3),
+  email: z.string().email(),
+});
+
 
 export const forgotPasswordSchema = z.object({
   email: z.string().email("Email tidak valid"),
@@ -46,6 +51,7 @@ export const changePasswordSchema = z.object({
   newPassword: z.string().min(6, "Minimal 6 karakter"),
 });
 
+export type UpdateProfileInput = z.infer<typeof updateProfileSchema>;
 export type LoginUserBodyType = z.infer<typeof LoginUserBody>;
 export type LoginUserResponseType = z.infer<typeof LoginUserResponse>;
 export type SendPasswordResetEmailBodyType = z.infer<typeof SendPasswordResetEmailBody>;

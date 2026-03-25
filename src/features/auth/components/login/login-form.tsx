@@ -1,8 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-
+import { useRouter, useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -20,7 +19,7 @@ import LoginFooter from "@/features/auth/components/login/login-footer";
 
 export default function LoginForm() {
   const router = useRouter();
-
+  const searchParams = useSearchParams();
   const { mutate, isPending } = useLogin();
   const { loginWithGoogle } = useGoogleOAuth();
 
@@ -35,16 +34,17 @@ export default function LoginForm() {
     },
   });
 
-  // console.log(register?.email)
-
   const onSubmit = (data: LoginUserBodyType) => {
-    console.log("SUBMITTING DATA");
     mutate(data, {
-      onSuccess: () => {
-        router.replace("/main/feed");
-      },
-      onError: (err) => {
-        console.error(err);
+      onSuccess: async (res) => {
+        await fetch("/api/auth/set-token", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ accessToken: res.accessToken }),
+        });
+
+        const from = searchParams.get("from") ?? "/main";
+        router.replace(from);
       },
     });
   };
@@ -56,12 +56,15 @@ export default function LoginForm() {
           Masuk Ke Akun Anda
         </h1>
 
-        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="flex flex-col gap-5"
+        >
           <LoginFields register={register} errors={errors} />
 
           <div className="flex justify-end">
             <Link
-              href="/auth/forgot-password"
+              href="/forgot-password"
               className="text-[12px] text-black hover:underline"
             >
               Lupa Password?

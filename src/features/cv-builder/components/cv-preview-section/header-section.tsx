@@ -1,33 +1,35 @@
-import { CV } from "../../schemas/cv.schema";
-import { Divider } from "./divider";
+import { PersonalInformation } from "../../schemas/cv.schema";
 
-type HeaderProps = CV["personalInfo"];
+type Props = PersonalInformation;
 
-export function Header({
-  fullName,
-  title,
-  email,
-  phone,
-  location,
-  summary,
-}: HeaderProps) {
+export function Header({ firstName, lastName, profile, phone, email, address }: Props) {
+  const fullName = `${firstName} ${lastName}`;
+
   return (
-    <div className="text-center space-y-3 mb-6">
-      <h1 className="text-2xl md:text-3xl font-semibold">{fullName}</h1>
+    <div className="text-center mb-8">
+      {/* Nama Besar & Bold */}
+      <h1 className="text-4xl font-bold text-gray-900 mb-4">{fullName}</h1>
 
-      <div className="flex flex-wrap justify-center items-center gap-2 text-blue-500 text-sm md:text-base">
-        <span>{title}</span>
-        <Divider />
-        <span>{email}</span>
-        <Divider />
-        <span>{phone}</span>
+      {/* Baris Info: Role | Email | Phone */}
+      <div className="flex flex-wrap justify-center items-center gap-2 text-[#4A90E2] font-medium text-base mb-1">
+        <span>UI UX Enthusiast</span> {/* Ganti statis ini jika ada field role di DB */}
+        <span className="text-gray-400">|</span>
+        {email && <span>{email}</span>}
+        <span className="text-gray-400">|</span>
+        {phone && <span>{phone}</span>}
       </div>
 
-      <p className="text-sm text-gray-700">{location}</p>
+      {/* Baris Lokasi */}
+      <div className="text-gray-800 text-sm mb-6">
+        {address || "Malang, Jawa Timur"}
+      </div>
 
-      <p className="text-sm text-gray-800 text-justify max-w-[650px] mx-auto">
-        {summary}
-      </p>
+      {/* Profil / Summary */}
+      {profile && (
+        <p className="text-[13px] leading-relaxed text-gray-900 text-justify w-full">
+          {profile}
+        </p>
+      )}
     </div>
   );
 }

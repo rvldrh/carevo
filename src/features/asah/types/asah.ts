@@ -39,16 +39,18 @@ interface BaseAsahItem {
   id: string
   title: string
   image: string
+  variant: AsahVariant
+  provider?: string
+  date?: string
+  redirectUrl?: string
 }
 
 export interface CertificateItem extends BaseAsahItem {
   variant: "certificate"
-  provider: string
 }
 
 export interface BootcampItem extends BaseAsahItem {
   variant: "bootcamp"
-  date: string
 }
 
 export type AsahItem = CertificateItem | BootcampItem

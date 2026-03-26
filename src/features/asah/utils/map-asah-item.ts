@@ -6,8 +6,9 @@ export function mapCertificationToAsah(item: Certification): AsahItem {
     id: String(item.id), 
     title: item.name ?? "",
     image: item.thumbnailUrl ?? "",
-    provider: item.publisher,
+    provider: item.publisher || "",
     date: item.createdAt,
     redirectUrl: item.redirectUrl,
+    variant: "certificate",
   };
 }

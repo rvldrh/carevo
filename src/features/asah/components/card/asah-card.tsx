@@ -6,8 +6,8 @@ interface Props {
   variant: AsahVariant
 }
 
-export default function AsahCard({ item, variant }: Props) {
-  if (variant === "certificate") {
+export default function AsahCard({ item }: Props) {
+  if (item.variant === "certificate") {
     return (
       <div className="bg-white rounded-xl p-3 shadow">
         <Image
@@ -31,7 +31,7 @@ export default function AsahCard({ item, variant }: Props) {
     )
   }
 
-  if (variant === "bootcamp") {
+  if (item.variant === "bootcamp") {
     return (
       <div className="bg-white rounded-xl p-3 shadow">
         <Image

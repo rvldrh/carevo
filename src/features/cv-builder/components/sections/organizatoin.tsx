@@ -33,34 +33,23 @@ export function OrganizationSection({ isSaving, onSave }: Props) {
     setIsOpen(true);
   };
 
-  const handleFormSubmit = (data: any) => {
+  const handleFormSubmit = (data: Record<string, string | number | boolean | undefined>) => {
     const payload = {
       ...data,
       startYear: data.startYear ? Number(data.startYear) : undefined,
       endYear: data.endYear ? Number(data.endYear) : undefined,
-      city: data.city || "",
-      description: data.description || "",
-    };
+      city: (data.city as string) || "",
+      description: (data.description as string) || "",
+    } as unknown as NonNullable<CVFormValues["organizations"]>[number];
 
-    const currentOrganizations = getValues("organizations") || [];
-    const updatedArray = [...currentOrganizations];
-    
     if (editingIndex !== null) {
       update(editingIndex, payload);
-      updatedArray[editingIndex] = payload;
     } else {
       append(payload);
-      updatedArray.push(payload);
     }
     
     setIsOpen(false);
-
-    // Get fresh values for everything else but use our DEFINITELY updated array for organizations
-    const fullForm = getValues();
-    onSave({
-      ...fullForm,
-      organizations: updatedArray
-    });
+    onSave(getValues());
   };
 
   const onSubmitSection = (data: CVFormValues) => {
@@ -104,7 +93,7 @@ export function OrganizationSection({ isSaving, onSave }: Props) {
             title={editingIndex !== null ? "Edit Organisasi" : "Tambah Organisasi"}
             fields={ORGANIZATION_FIELDS}
             aiSection="ORGANIZATION_DESCRIPTION"
-            defaultValues={editingIndex !== null ? fields[editingIndex] : {}}
+            defaultValues={editingIndex !== null ? (fields[editingIndex] as unknown as Record<string, string | number | boolean | undefined>) : {}}
             onCancel={() => setIsOpen(false)}
             onSubmit={handleFormSubmit}
           />

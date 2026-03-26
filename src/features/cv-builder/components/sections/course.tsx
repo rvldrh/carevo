@@ -33,31 +33,24 @@ export function CourseSection({ isSaving, onSave }: Props) {
     setIsOpen(true);
   };
 
-  const handleFormSubmit = (data: any) => {
+  const handleFormSubmit = (data: Record<string, string | number | boolean | undefined>) => {
     const payload = {
       ...data,
       startYear: data.startYear ? Number(data.startYear) : undefined,
       endYear: data.endYear ? Number(data.endYear) : undefined,
-      location: data.location || "",
-      description: data.description || "",
-      url: data.url || "",
+      location: (data.location as string) || "",
+      description: (data.description as string) || "",
+      url: (data.url as string) || "",
     };
 
-    const updatedArray = [...fields];
     if (editingIndex !== null) {
-      update(editingIndex, payload);
-      updatedArray[editingIndex] = payload as any;
+      update(editingIndex, payload as unknown as NonNullable<CVFormValues["courses"]>[number]);
     } else {
-      append(payload);
-      updatedArray.push(payload as any);
+      append(payload as unknown as NonNullable<CVFormValues["courses"]>[number]);
     }
     setIsOpen(false);
 
-    const currentFormValues = getValues();
-    onSave({
-      ...currentFormValues,
-      courses: updatedArray
-    });
+    onSave(getValues());
   };
 
   const onSubmitSection = (data: CVFormValues) => {
@@ -101,7 +94,7 @@ export function CourseSection({ isSaving, onSave }: Props) {
             title={editingIndex !== null ? "Edit Kursus" : "Tambah Kursus"}
             fields={COURSE_FIELDS}
             aiSection="COURSE_DESCRIPTION"
-            defaultValues={editingIndex !== null ? fields[editingIndex] : {}}
+            defaultValues={editingIndex !== null ? (fields[editingIndex] as unknown as Record<string, string | number | boolean | undefined>) : {}}
             onCancel={() => setIsOpen(false)}
             onSubmit={handleFormSubmit}
           />

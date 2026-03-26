@@ -35,17 +35,27 @@ export type YearFieldConfig = {
 };
 
 type RoleList = 
-"UI/UX Designer" | 
-"Frontend" | 
-"Backend" | 
-"Project Manager" | 
-"Data Science" | 
-"Data Engineer" | 
-"Product Design" | 
-"Product Manager" | 
-"Fullstack"|
-"AI/ML Engineer" |
-"Cyber Security";
+  | "Product Manager / Project Manager"
+  | "UI/UX Designer & Researcher"
+  | "Front-End (FE) Developer"
+  | "Back-End (BE) Developer & Database Administrator"
+  | "Data Analyst & Business Intelligence (BI)"
+  | "Cybersecurity Analyst"
+  | "Business Analyst / ERP Consultant"
+  | "IT Governance & Risk Specialist"
+  | "Cloud & Infrastructure Engineer"
+  | "Machine Learning Engineer / AI Specialist"
+  | "UI/UX Designer"
+  | "Frontend"
+  | "Backend"
+  | "Fullstack"
+  | "AI/ML Engineer"
+  | "Product Manager"
+  | "Data Science"
+  | "Data Engineer"
+  | "Cyber Security"
+  | "Product Design";
+
 
 export type RoleOptions = {
   label: RoleList;

@@ -1,17 +1,14 @@
 import Image from "next/image"
-import type { AsahItem, AsahVariant } from "@/features/asah/types/asah"
+import type { AsahItem } from "@/features/asah/types/asah"
 
 interface Props {
   item: AsahItem
-  variant: AsahVariant
 }
 
-export default function AsahCard({ item, variant }: Props) {
-
-  if (variant === "certificate") {
+export default function AsahCard({ item }: Props) {
+  if (item.variant === "certificate") {
     return (
       <div className="bg-white rounded-xl p-3 shadow">
-
         <Image
           src={item.image}
           alt={item.title}
@@ -29,15 +26,13 @@ export default function AsahCard({ item, variant }: Props) {
         <p className="text-xs text-gray-500">
           Professional Certificate
         </p>
-
       </div>
     )
   }
 
-  if (variant === "bootcamp") {
+  if (item.variant === "bootcamp") {
     return (
       <div className="bg-white rounded-xl p-3 shadow">
-
         <Image
           src={item.image}
           alt={item.title}
@@ -51,9 +46,8 @@ export default function AsahCard({ item, variant }: Props) {
         </h3>
 
         <p className="text-xs text-gray-500">
-          Minggu, 05 Oct 2024
+          {item.date}
         </p>
-
       </div>
     )
   }

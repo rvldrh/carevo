@@ -1,11 +1,13 @@
+import Cookies from "js-cookie";
+
 export function setAccessToken(token: string) {
-  localStorage.setItem("access_token", token);
+  Cookies.set("access_token", token, { expires: 1, path: "/" });
 }
 
 export function getAccessToken() {
-  return localStorage.getItem("access_token");
+  return Cookies.get("access_token");
 }
 
 export function removeAccessToken() {
-  localStorage.removeItem("access_token");
-}
+  Cookies.remove("access_token", { path: "/" });
+}

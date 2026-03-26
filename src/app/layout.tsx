@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import QueryProvider from "@/providers/react-query-provider";
 import { Toaster } from "sonner";
-import AuthProvider from "@/components/auth/auth-povider";
+import AuthProvider from "@/components/auth/auth-provider";
 
 export const metadata: Metadata = {
   title: "",

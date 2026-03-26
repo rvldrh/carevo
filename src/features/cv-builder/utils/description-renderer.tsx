@@ -11,8 +11,8 @@ export function renderDescription(text?: string | null) {
   if (!isList) {
     return (
       <div className="mt-2 space-y-1">
-        {lines.map((line, idx) => (
-           <p key={idx} className="text-[13px] text-gray-700 leading-relaxed">{line}</p>
+        {lines.map((line) => (
+           <p key={line} className="text-[13px] text-gray-700 leading-relaxed">{line}</p>
         ))}
       </div>
     );
@@ -20,8 +20,8 @@ export function renderDescription(text?: string | null) {
 
   return (
     <ul className="list-disc list-outside ml-4 text-[13px] text-gray-700 mt-2 space-y-1">
-      {lines.map((line, idx) => (
-        <li key={idx} className="leading-relaxed pl-1">{line.replace(/^[-*•]\s*/, '').trim()}</li>
+      {lines.map((line) => (
+        <li key={line} className="leading-relaxed pl-1">{line.replace(/^[-*•]\s*/, '').trim()}</li>
       ))}
     </ul>
   );

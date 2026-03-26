@@ -1,10 +1,45 @@
-export type AsahVariant = "certificate" | "bootcamp"
+export interface Bootcamp {
+  id: string;
+  professionRole?: string;
+  thumbnailUrl?: string;
+  name?: string;
+  redirectUrl?: string;
+  publisher?: string;
+  startDate?: string;
+  createdAt?: string;
+}
+
+export interface Certification {
+  id: string;
+  professionRole?: string;
+  thumbnailUrl?: string;
+  name?: string;
+  redirectUrl?: string;
+  publisher?: string;
+  createdAt?: string;
+}
+
+export interface ListBootcampsParams {
+  query?: string;
+  professionRole?: string;
+  page?: number;
+  limit?: number;
+}
+
+export interface ListCertificationsParams {
+  query?: string;
+  professionRole?: string;
+  page?: number;
+  limit?: number;
+}
+
+export type AsahVariant = "bootcamp" | "certificate";
 
 export interface AsahItem {
-  id: number
-  title: string
-  provider: string
-  image: string
-  level?: string
-  date?: string
+  id: string;
+  title: string;
+  image: string;
+  provider?: string;
+  date?: string;
+  redirectUrl?: string;
 }

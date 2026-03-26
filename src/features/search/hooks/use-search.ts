@@ -13,7 +13,7 @@ interface SearchState {
   clear: () => void;
 }
 
-// 🔥 Mock data (simulasi backend)
+
 const MOCK_DATA: SearchItem[] = [
   { id: 1, title: "UI/UX Designer Community", type: "community" },
   { id: 2, title: "Frontend Developer Indonesia", type: "community" },

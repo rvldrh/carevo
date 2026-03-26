@@ -8,11 +8,7 @@ export default defineConfig([
 
   {
     rules: {
-      /**
-       * =========================
-       * TYPESCRIPT
-       * =========================
-       */
+      
       "@typescript-eslint/no-explicit-any": "error",
       "@typescript-eslint/no-unused-vars": [
         "error",
@@ -20,18 +16,10 @@ export default defineConfig([
       ],
       "@typescript-eslint/consistent-type-imports": "error",
 
-      /**
-       * =========================
-       * REACT
-       * =========================
-       */
+      
       "react/no-array-index-key": "warn",
 
-      /**
-       * =========================
-       * GENERAL
-       * =========================
-       */
+      
       "no-console": ["warn", { allow: ["warn", "error"] }],
     },
   },

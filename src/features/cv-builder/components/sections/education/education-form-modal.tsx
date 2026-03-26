@@ -10,7 +10,7 @@ type Props = {
 };
 
 export function EducationFormModal({ open, onClose, onSubmit }: Props) {
-  // State untuk form
+  
   const [formData, setFormData] = useState({
     degree: "",
     major: "",

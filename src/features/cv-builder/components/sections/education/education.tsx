@@ -33,33 +33,26 @@ export function EducationSection({ isSaving, onSave }: Props) {
     setIsOpen(true);
   };
 
-  const handleFormSubmit = (data: any) => {
+  const handleFormSubmit = (data: Record<string, string | number | boolean | undefined>) => {
     const payload = {
       ...data,
       startYear: data.startYear ? Number(data.startYear) : undefined,
       endYear: data.endYear ? Number(data.endYear) : undefined,
       score: data.score ? Number(data.score) : undefined,
       maxScale: data.maxScale ? Number(data.maxScale) : undefined,
-      city: data.city || "",
-      studyProgram: data.studyProgram || "",
-      description: data.description || "",
+      city: (data.city as string) || "",
+      studyProgram: (data.studyProgram as string) || "",
+      description: (data.description as string) || "",
     };
 
-    const updatedArray = [...fields];
     if (editingIndex !== null) {
-      update(editingIndex, payload);
-      updatedArray[editingIndex] = payload as any;
+      update(editingIndex, payload as unknown as NonNullable<CVFormValues["educations"]>[number]);
     } else {
-      append(payload);
-      updatedArray.push(payload as any);
+      append(payload as unknown as NonNullable<CVFormValues["educations"]>[number]);
     }
     setIsOpen(false);
 
-    const currentFormValues = getValues();
-    onSave({
-      ...currentFormValues,
-      educations: updatedArray
-    });
+    onSave(getValues());
   };
 
   const onSubmitSection = (data: CVFormValues) => {
@@ -103,7 +96,7 @@ export function EducationSection({ isSaving, onSave }: Props) {
             title={editingIndex !== null ? "Edit Pendidikan" : "Tambah Pendidikan"}
             fields={EDUCATION_FIELDS}
             aiSection="EDUCATION_DESCRIPTION"
-            defaultValues={editingIndex !== null ? fields[editingIndex] : {}}
+            defaultValues={editingIndex !== null ? (fields[editingIndex] as unknown as Record<string, string | number | boolean | undefined>) : {}}
             onCancel={() => setIsOpen(false)}
             onSubmit={handleFormSubmit}
           />

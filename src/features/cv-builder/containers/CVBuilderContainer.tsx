@@ -25,7 +25,6 @@ export function CVBuilderContainer({ userId }: Props) {
   });
 
   const handleSave = async (payload: CVFormValues) => {
-    console.log("DEBUG: CVBuilderContainer.handleSave Payload from form:", JSON.parse(JSON.stringify(payload)));
     setIsSaving(true);
     try {
       await cvService.updateCV(userId, { ...payload, userId });

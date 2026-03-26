@@ -1,4 +1,4 @@
-// import { getProfile } from "@/services/auth/auth.service";
+
 import ProfileCard from "@/features/auth/components/setting/profile-card";
 import type { Profile } from "../types/auth.types";
 
@@ -10,7 +10,7 @@ import type { Profile } from "../types/auth.types";
 };
 
 export default async function SettingsPage() {
-//   const profile = await getProfile(); 
+
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-stone-100">

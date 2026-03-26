@@ -5,27 +5,37 @@ import { TextField } from "@/components/ui/modal/fields/TextFields";
 import { MultiInputField } from "@/components/ui/modal/fields/MultiInputFields";
 import { FileUploadField } from "@/components/ui/modal/fields/FileUploadFields";
 import { RoleField } from "@/components/ui/modal/fields/RoleFields";
+import { ModalButtons } from "@/components/ui/modal/component/ModalButtons";
 
 interface ModalFormProps {
   title: string;
   fields: FieldConfig[];
   onSubmit: (data: FormState) => void;
   onCancel: () => void;
+  defaultValues?: Partial<FormState>;
+  submitText?: string;
+  cancelText?: string;
 }
 
 export const ModalForm = ({
   title: _title,
   fields,
-  onSubmit: _onSubmit,
-  onCancel: _onCancel,
+  onSubmit,
+  onCancel,
+  defaultValues,
+  submitText = "Terapkan",
+  cancelText = "Batal",
 }: ModalFormProps) => {
   const initialState: FormState = fields.reduce((acc, field) => {
+    
+    const providedValue = defaultValues?.[field.name];
+
     if (field.type === "multi-input") {
-      acc[field.name] = field.defaultValue ?? [];
+      acc[field.name] = providedValue ?? field.defaultValue ?? [];
     } else if (field.type === "file") {
-      acc[field.name] = null;
+      acc[field.name] = (providedValue as File) ?? null;
     } else {
-      acc[field.name] = field.defaultValue ?? "";
+      acc[field.name] = providedValue ?? field.defaultValue ?? "";
     }
     return acc;
   }, {} as FormState);
@@ -95,7 +105,12 @@ export const ModalForm = ({
     <div className="flex flex-col gap-6">
       {fields.map(renderField)}
 
-     
+      <ModalButtons
+        onCancel={onCancel}
+        onSubmit={() => onSubmit(formData)}
+        submitText={submitText}
+        cancelText={cancelText}
+      />
     </div>
   );
 };

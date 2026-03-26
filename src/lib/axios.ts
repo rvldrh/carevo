@@ -1,9 +1,20 @@
-import axios from "axios"
+import axios from "axios";
+import Cookies from "js-cookie";
+import { API_BASE_URL } from "@/shared/constants/api";
 
 export const apiClient = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL,
+  baseURL: API_BASE_URL,
   timeout: 10000,
   headers: {
-    "Content-Type": "application/json"
+    "Content-Type": "application/json",
+  },
+});
+
+
+apiClient.interceptors.request.use((config) => {
+  const token = Cookies.get("access_token");
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
   }
-})
+  return config;
+});

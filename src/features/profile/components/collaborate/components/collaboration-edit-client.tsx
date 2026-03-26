@@ -1,8 +1,9 @@
 "use client";
 
 import IconButton from "@/components/ui/button/icon-button";
+import type { ProftoResponse } from "@/features/profile/types/profto";
 
-export default function CollaborationEditClient() {
+export default function CollaborationEditClient({ profto: _profto, userId: _userId }: { profto: ProftoResponse | null; userId: string }) {
   return (
     <IconButton
       icon="/icons/edit.svg"

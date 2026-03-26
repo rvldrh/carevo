@@ -5,8 +5,9 @@ import IconButton from "@/components/ui/button/icon-button";
 import Modal from "@/components/ui/modal/container/modal-container";
 import { ModalForm } from "@/components/ui/modal/component/ModalForm";
 import { projectFields } from "@/features/profile/constatnts/project-fields";
+import type { ProftoResponse } from "@/features/profile/types/profto";
 
-export default function ProjectEditorClient() {
+export default function ProjectEditorClient({ profto: _profto, userId: _userId }: { profto: ProftoResponse | null; userId: string }) {
   const [openAdd, setOpenAdd] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
 
@@ -26,7 +27,7 @@ export default function ProjectEditorClient() {
         />
       </div>
 
-      {/* ADD */}
+      {}
       <Modal
         title="Tambah projek"
         open={openAdd}
@@ -40,27 +41,12 @@ export default function ProjectEditorClient() {
             fields={projectFields}
             onCancel={() => setOpenAdd(false)}
             onSubmit={() => console.warn("Project submitted")}
+            submitText="Tambah"
           />
-
-          <div className="flex justify-between mt-6">
-            <button
-              onClick={() => setOpenAdd(false)}
-              className="bg-gray-500 text-white px-6 py-2 rounded-lg"
-            >
-              Batal
-            </button>
-
-            <button
-              onClick={() => console.warn("Tambah")}
-              className="bg-blue-500 text-white px-6 py-2 rounded-lg"
-            >
-              Tambah
-            </button>
-          </div>
         </div>
       </Modal>
 
-      {/* EDIT */}
+      {}
       <Modal
         title="Edit projek"
         open={openEdit}
@@ -74,23 +60,8 @@ export default function ProjectEditorClient() {
             fields={projectFields}
             onCancel={() => setOpenEdit(false)}
             onSubmit={() => console.warn("Project edited")}
+            submitText="Edit"
           />
-
-          <div className="flex justify-between mt-6">
-            <button
-              onClick={() => setOpenEdit(false)}
-              className="bg-gray-500 text-white px-6 py-2 rounded-lg"
-            >
-              Batal
-            </button>
-
-            <button
-              onClick={() => console.warn("Edit")}
-              className="bg-blue-500 text-white px-6 py-2 rounded-lg"
-            >
-              Edit
-            </button>
-          </div>
         </div>
       </Modal>
     </>

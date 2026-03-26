@@ -1,4 +1,4 @@
-// app/change-password/page.tsx (atau sesuai path Anda)
+
 import ChangePasswordForm from "@/features/auth/components/reset-password/components/change-password-form";
 import ResetPasswordIllustration from "@/features/auth/components/reset-password/components/change-password-illustration";
 

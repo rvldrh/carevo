@@ -1,13 +1,17 @@
-export default function HeaderContent() {
+import type { ProftoResponse } from "@/features/profile/types/profto";
+
+export default function HeaderContent({ profto }: { profto: ProftoResponse | null }) {
+  if (!profto) return null;
+
   return (
     <>
       <div className="flex flex-col items-center">
         <h1 className="text-[var(--blue-500)] text-4xl font-bold text-center">
-          BAGAS ADITHA PRATAMA
+          {profto.name?.toUpperCase() || "NAME NOT SET"}
         </h1>
 
         <p className="text-[var(--black)] text-4xl font-semibold text-center mt-6 whitespace-pre-line">
-          Mahasiswa Teknik Informatika | UI/UX Designer{"\n"}& Penggiat Cybersecurity
+          {profto.professionRole || "Profession Not Set"}
         </p>
 
         <div className="flex gap-6 mt-10">
@@ -27,12 +31,7 @@ export default function HeaderContent() {
         </h2>
 
         <p className="text-lg leading-relaxed text-[var(--black)] max-w-4xl">
-          Mahasiswa Teknik Informatika di Universitas Brawijaya yang berfokus
-          pada keamanan siber, penetration testing, serta desain UI/UX kreatif.
-          <br />
-          <br />
-          Linux adalah lingkungan kerja utama saya dan saya berkembang dalam
-          kolaborasi teknis yang berorientasi solusi.
+          {profto.summary || "No summary set."}
         </p>
       </div>
     </>

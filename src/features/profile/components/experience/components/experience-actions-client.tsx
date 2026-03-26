@@ -4,12 +4,63 @@ import { useState } from "react";
 import IconButton from "@/components/ui/button/icon-button";
 import Modal from "@/components/ui/modal/container/modal-container";
 import { ModalForm } from "@/components/ui/modal/component/ModalForm";
-import { ModalButtons } from "@/components/ui/modal/component/ModalButtons";
 import { experienceFields } from "@/features/profile/constatnts/experience-fields";
+import { useUpdateProfto } from "@/features/profile/hooks/use-profto";
+import type { ProftoResponse, UpdateProftoBody, Experience } from "@/features/profile/types/profto";
+import type { FormState } from "@/shared/types/ModalForm";
 
-export default function ExperienceActionsClient() {
+export default function ExperienceActionsClient({ profto, userId }: { profto: ProftoResponse | null; userId: string }) {
   const [openModalAdd, setOpenModalAdd] = useState(false);
   const [openModalEdit, setOpenModalEdit] = useState(false);
+  const updateProfto = useUpdateProfto();
+
+  const handleAdd = async (values: FormState) => {
+    const currentYear = new Date().getFullYear();
+    const startYear = Number(values.startYear) || 1900;
+    const endYear = Number(values.endYear) || currentYear;
+
+    const newExperience: Experience = {
+      name: `${values.company} - ${values.position}`,
+      startYear,
+      endYear,
+      description: values.description as string,
+    };
+
+    const body: UpdateProftoBody = {
+      experiences: [...(profto?.experiences || []), newExperience],
+    };
+
+    try {
+      await updateProfto.mutateAsync({ userId, body });
+      setOpenModalAdd(false);
+    } catch (error) {
+      console.error("Failed to add experience", error);
+    }
+  };
+
+  const handleEdit = async (values: FormState) => {
+    const currentYear = new Date().getFullYear();
+    const startYear = Number(values.startYear) || 1900;
+    const endYear = Number(values.endYear) || currentYear;
+
+    const updatedExperience: Experience = {
+      name: `${values.company} - ${values.position}`,
+      startYear,
+      endYear,
+      description: values.description as string,
+    };
+
+    const body: UpdateProftoBody = {
+      experiences: [updatedExperience],
+    };
+
+    try {
+      await updateProfto.mutateAsync({ userId, body });
+      setOpenModalEdit(false);
+    } catch (error) {
+      console.error("Failed to edit experience", error);
+    }
+  };
 
   return (
     <>
@@ -27,49 +78,42 @@ export default function ExperienceActionsClient() {
         />
       </div>
 
-      {openModalAdd && (
-        <Modal
-          title="Tambah Pengalaman"
-          open={openModalAdd}
-          onClose={() => setOpenModalAdd(false)}
-        >
+      <Modal
+        title="Tambah Pengalaman"
+        open={openModalAdd}
+        onClose={() => setOpenModalAdd(false)}
+      >
+        <div className="p-8 w-[550px]">
           <ModalForm
             title="Tambah Pengalaman"
             fields={experienceFields}
             onCancel={() => setOpenModalAdd(false)}
-            onSubmit={() => console.warn("Experience submitted")}
+            onSubmit={handleAdd}
           />
+        </div>
+      </Modal>
 
-          <ModalButtons
-            cancelText="Batal"
-            submitText="Simpan"
-            onCancel={() => setOpenModalAdd(false)}
-            onSubmit={() => console.warn("Experience submitted")}
-          />
-        </Modal>
-      )}
-
-      {openModalEdit && (
-        <Modal
-          title="Edit Pengalaman"
-          open={openModalEdit}
-          onClose={() => setOpenModalEdit(false)}
-        >
+      <Modal
+        title="Edit Pengalaman"
+        open={openModalEdit}
+        onClose={() => setOpenModalEdit(false)}
+      >
+        <div className="p-8 w-[550px]">
           <ModalForm
             title="Edit Pengalaman"
             fields={experienceFields}
             onCancel={() => setOpenModalEdit(false)}
-            onSubmit={() => console.warn("Experience updated")}
+            onSubmit={handleEdit}
+            defaultValues={profto?.experiences?.[0] ? {
+              position: profto.experiences[0].name?.split(" - ")[1] || "",
+              company: profto.experiences[0].name?.split(" - ")[0] || "",
+              startYear: String(profto.experiences[0].startYear || ""),
+              endYear: String(profto.experiences[0].endYear || ""),
+              description: profto.experiences[0].description || "",
+            } : undefined}
           />
-
-          <ModalButtons
-            cancelText="Batal"
-            submitText="Simpan"
-            onCancel={() => setOpenModalEdit(false)}
-            onSubmit={() => console.warn("Experience updated")}
-          />
-        </Modal>
-      )}
+        </div>
+      </Modal>
     </>
   );
 }

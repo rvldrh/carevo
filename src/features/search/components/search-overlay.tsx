@@ -8,7 +8,7 @@ export default function SearchOverlay() {
   const { isOpen, close } = useSearchOverlay();
   const { query, setQuery, results, clear } = useSearch();
 
-  // ESC close
+  
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
       if (e.key === "Escape") close();
@@ -18,12 +18,12 @@ export default function SearchOverlay() {
     return () => window.removeEventListener("keydown", handleEsc);
   }, [close]);
 
-  // lock scroll
+  
   useEffect(() => {
     document.body.style.overflow = isOpen ? "hidden" : "";
   }, [isOpen]);
 
-  // reset state saat close
+  
   useEffect(() => {
     if (!isOpen) clear();
   }, [isOpen, clear]);
@@ -33,17 +33,17 @@ export default function SearchOverlay() {
   return (
     <div className="fixed inset-0 z-50">
 
-      {/* Backdrop */}
+      {}
       <div
         onClick={close}
         className="absolute inset-0 bg-black/50 backdrop-blur-sm"
       />
 
-      {/* Container */}
+      {}
       <div className="absolute top-24 left-1/2 -translate-x-1/2 w-full max-w-3xl px-4">
         <div className="bg-white rounded-2xl shadow-xl p-5 flex flex-col">
 
-          {/* Search Input */}
+          {}
           <div className="flex items-center gap-2 border rounded-xl px-4 py-3">
 
             <input
@@ -64,7 +64,7 @@ export default function SearchOverlay() {
             )}
           </div>
 
-          {/* Result */}
+          {}
           <div className="mt-4 max-h-[500px] overflow-y-auto">
 
             {!query && (

@@ -1,6 +1,10 @@
 import EmailSentView from "@/features/auth/components/email-sent/email-sent-view";
+import { getUser } from "@/services/auth/getUser";
 
-export default function EmailSentPage() {
+export default async function EmailSentPage() {
+  const user = await getUser();
+  const email = user?.email ?? "email kamu";
+
   return (
     <div className="min-h-screen w-full flex items-center justify-center bg-[#C8DEFF] overflow-hidden relative">
 
@@ -24,9 +28,9 @@ export default function EmailSentPage() {
       "
       />
       <div className="relative z-10 w-full px-4 flex items-center justify-center">
-        <EmailSentView email="ba***gmail.com" />
+        <EmailSentView email={email} />
       </div>
 
     </div>
   );
-}
+}

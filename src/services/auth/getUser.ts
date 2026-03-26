@@ -21,12 +21,12 @@ try {
 
     const data = await res.json();
 
-    // Mapping: Jika API kasih 'userId', kita pastikan object punya properti 'id'
-    // agar pengecekan di Page tidak error.
+    
+    
     if (data && data.userId) {
       return {
         ...data,
-        id: data.userId // Kita duplikasi userId ke id
+        id: data.userId 
       };
     }
 

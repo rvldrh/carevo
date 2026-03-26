@@ -20,7 +20,7 @@ export function PersonalInfoForm({
     getValues,
   } = useFormContext<CVFormValues>();
 
-  // Fungsi helper untuk mengambil token dari cookie (Karena middleware pakai cookie)
+  
   const getCookie = (name: string) => {
     const value = `; ${document.cookie}`;
     const parts = value.split(`; ${name}=`);
@@ -48,18 +48,29 @@ const handleGenerateAI = async () => {
       }
     );
 
-    let aiResult = response.data;
+    let resultString = response.data;
 
-    if (aiResult) {
-      // POTONG HASIL AI JIKA LEBIH DARI 255 KARAKTER
-      if (aiResult.length > 255) {
-        aiResult = aiResult.substring(0, 252) + "...";
+    if (resultString) {
+      
+      if (resultString.length > 255) {
+        resultString = resultString.substring(0, 252) + "...";
       }
 
-      setValue("personalInformation.profile", aiResult, { 
-        shouldDirty: true, 
-        shouldValidate: true 
-      });
+      
+      let currentText = "";
+      const interval = 10;
+      
+      const typingTimer = setInterval(() => {
+        if (currentText.length < resultString.length) {
+          currentText += resultString[currentText.length];
+          setValue("personalInformation.profile", currentText, { 
+            shouldDirty: true, 
+            shouldValidate: true 
+          });
+        } else {
+          clearInterval(typingTimer);
+        }
+      }, interval);
     }
   } catch (error) {
     console.error("AI Error:", error);
@@ -76,8 +87,8 @@ const handleGenerateAI = async () => {
       return "+" + digits;
     };
 
-    // Pastikan payload menggunakan data.personalInformation.summary
-    // karena itu tempat kita menampung hasil AI tadi
+    
+    
    const payload: CVFormValues = {
     personalInformation: {
       firstName: data.personalInformation.firstName,
@@ -96,7 +107,7 @@ const handleGenerateAI = async () => {
     certifications: data.certifications || [],
   };
   
-  // Kirim payload
+  
 
     onSave(payload);
   };
@@ -186,9 +197,12 @@ const handleGenerateAI = async () => {
               </button>
             </div>
             <textarea
-              {...register("personalInformation.profile")} // Ubah dari .summary ke .profile
+              {...register("personalInformation.profile")}
               placeholder="Data profil Anda..."
-              className="w-full p-4 text-sm leading-relaxed text-gray-700 h-44 focus:outline-none resize-none"
+              value={isGenerating ? "Menyusun profil profesional anda..." : undefined}
+              className={`w-full p-4 text-sm leading-relaxed h-44 focus:outline-none resize-none transition-colors ${
+                isGenerating ? "text-gray-400 italic bg-gray-50" : "text-gray-700"
+              }`}
             />
             <div className="flex justify-between mt-1 px-1">
   <p className="text-[10px] text-gray-400">

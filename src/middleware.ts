@@ -5,25 +5,56 @@ interface UserProfile {
   userId: string;
   firstName?: string;
   lastName?: string;
+  username?: string;
+  email?: string;
 }
 
 const PROTECTED_ROUTES = ["/main", "/cv-builder"];
 const AUTH_ROUTES = ["/auth/login", "/auth/register"];
-const API_URL = "https://alloc001.adyuta.group/api";
+const API_URL = process.env.API_URL || "https://alloc001.adyuta.group/api";
 
 async function getUserProfile(req: NextRequest): Promise<UserProfile | null> {
+  const apiUrlFormatted = API_URL.endsWith("/") ? API_URL.slice(0, -1) : API_URL;
+  const getUserUrl = `${apiUrlFormatted}/v1/users/me`;
+
   try {
     const accessToken = req.cookies.get("access_token")?.value;
     if (!accessToken) return null;
 
-    const res = await fetch(`${API_URL}/v1/users/me`, {
+    const res = await fetch(getUserUrl, {
       method: "GET",
-      headers: { Authorization: `Bearer ${accessToken}` },
+      headers: { 
+        Authorization: `Bearer ${accessToken}`,
+        Cookie: `access_token=${accessToken}`, 
+        "Accept": "application/json",
+        "Cache-Control": "no-cache"
+      },
+      cache: "no-store", 
     });
 
-    if (!res.ok) return null;
-    return await res.json();
-  } catch {
+    if (!res.ok) {
+      const responseText = await res.text().catch(() => "N/A");
+      console.error("Middleware Auth Issue:", {
+        url: getUserUrl,
+        status: res.status,
+        hasToken: !!accessToken,
+        tokenPrefix: accessToken?.substring(0, 10),
+        response: responseText.substring(0, 100)
+      });
+      return null;
+    }
+
+    const data = await res.json();
+    const profile = data.data || data;
+
+    if (!profile?.userId) {
+      console.warn("Middleware: Unexpected response structure (missing userId)", data);
+      return null;
+    }
+
+    return profile;
+  } catch (error) {
+    console.error("Middleware fetch failed:", error);
     return null;
   }
 }

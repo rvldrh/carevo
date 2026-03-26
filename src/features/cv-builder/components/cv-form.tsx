@@ -21,7 +21,7 @@ interface CVFormProps {
   userId: string;
   onSave: (payload: CVFormValues) => void | Promise<void>;
   isSaving?: boolean;
-  initialData?: any;
+  initialData?: Partial<CVFormValues> | null;
 }
 
 const SECTIONS = [

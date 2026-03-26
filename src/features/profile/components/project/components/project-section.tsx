@@ -1,16 +1,19 @@
 import ProjectList from "@/features/profile/components/project/components/project-list";
-import ProjectEditorClient from "@/features/profile/components/project/components/project-edit-client";
+import ProjectEditClient from "@/features/profile/components/project/components/project-edit-client";
+import type { ProftoResponse } from "@/features/profile/types/profto";
 
-export default function ProjectSection() {
+export default function ProjectSection({ profto, userId }: { profto: ProftoResponse | null; userId: string }) {
   return (
-    <section className="w-full py-16 bg-[var(--blue-200)]">
-      <div className="flex justify-between items-center mb-10 px-[22%]">
-        <h2 className="text-2xl font-bold">Projek</h2>
+    <section className="px-[22%] py-16 border-t bg-[var(--white)] border-[var(--gray-300)]">
+      <div className="flex justify-between items-center mb-10">
+        <h2 className="text-2xl font-bold text-[var(--black)]">
+          Projek
+        </h2>
 
-        <ProjectEditorClient />
+        <ProjectEditClient profto={profto} userId={userId} />
       </div>
 
-      <ProjectList />
+      <ProjectList projects={profto?.projects || []} />
     </section>
   );
 }

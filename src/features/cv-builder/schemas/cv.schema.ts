@@ -33,7 +33,7 @@ export const EducationSchema = z.object({
 
 export const WorkExperienceSchema = z.object({
   position: z.string().min(1),
-  companyName: z.string().url({ message: "Link/URL Perusahaan" }).or(z.string().min(1)), // allow string since ZodURL might strictly require url
+  companyName: z.string().url({ message: "Link/URL Perusahaan" }).or(z.string().min(1)), 
   employmentStatus: z.string().optional(),
   city: z.string().optional(),
   startYear: z.coerce.number().optional(),

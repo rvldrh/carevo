@@ -33,13 +33,22 @@ export interface ListCertificationsParams {
   limit?: number;
 }
 
-export type AsahVariant = "bootcamp" | "certificate";
+export type AsahVariant = "certificate" | "bootcamp"
 
-export interface AsahItem {
-  id: string;
-  title: string;
-  image: string;
-  provider?: string;
-  date?: string;
-  redirectUrl?: string;
+interface BaseAsahItem {
+  id: string
+  title: string
+  image: string
 }
+
+export interface CertificateItem extends BaseAsahItem {
+  variant: "certificate"
+  provider: string
+}
+
+export interface BootcampItem extends BaseAsahItem {
+  variant: "bootcamp"
+  date: string
+}
+
+export type AsahItem = CertificateItem | BootcampItem

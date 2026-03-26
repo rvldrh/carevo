@@ -1,12 +1,13 @@
 import Image from "next/image"
-import type { AsahItem } from "@/features/asah/types/asah"
+import type { AsahItem, AsahVariant } from "@/features/asah/types/asah"
 
 interface Props {
   item: AsahItem
+  variant: AsahVariant
 }
 
-export default function AsahCard({ item }: Props) {
-  if (item.variant === "certificate") {
+export default function AsahCard({ item, variant }: Props) {
+  if (variant === "certificate") {
     return (
       <div className="bg-white rounded-xl p-3 shadow">
         <Image
@@ -30,7 +31,7 @@ export default function AsahCard({ item }: Props) {
     )
   }
 
-  if (item.variant === "bootcamp") {
+  if (variant === "bootcamp") {
     return (
       <div className="bg-white rounded-xl p-3 shadow">
         <Image

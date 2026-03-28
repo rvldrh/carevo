@@ -29,7 +29,7 @@ export default function RegisterFooter({ remember, setRemember, onGoogleClick }:
           </span>
 
           <Link
-            href="/auth/login"
+            href="/login"
             className="text-[13px] font-extrabold text-black hover:underline"
           >
             Masuk

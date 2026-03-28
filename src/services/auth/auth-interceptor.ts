@@ -16,10 +16,10 @@ export function setupAuthInterceptor() {
       if (error.response?.status === 401) {
         removeAccessToken();
         if (typeof window !== "undefined") {
-          window.location.href = "/auth/login";
+          window.location.href = "/login";
         }
       }
       return Promise.reject(error);
     }
   );
-}
+}

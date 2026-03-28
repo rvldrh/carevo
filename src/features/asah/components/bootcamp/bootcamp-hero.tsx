@@ -8,7 +8,7 @@ export default function BootcampHero({ firstBootcamp }: { firstBootcamp?: Bootca
 
   return (
     <section className="relative mb-[5%] p-5 w-full bg-gradient-to-r from-fuchsia-700 via-black to-blue-500">
-      <Link href={"/main/asah"}>
+      <Link href={"/asah"}>
         <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center cursor-pointer hover:bg-gray-100 transition shadow-md">
           <Image
             alt="back"

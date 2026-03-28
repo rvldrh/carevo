@@ -1,4 +1,4 @@
-import type { NextRequest} from "next/server";
+import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 
 interface UserProfile {
@@ -9,8 +9,8 @@ interface UserProfile {
   email?: string;
 }
 
-const PROTECTED_ROUTES = ["/main", "/cv-builder"];
-const AUTH_ROUTES = ["/auth/login", "/auth/register"];
+const PROTECTED_ROUTES = ["/", "/CVBuild", "/feed", "/community", "/asah", "/profile", "/setting"];
+const AUTH_ROUTES = ["/login", "/register", "/verify"];
 const API_URL = process.env.API_URL || "https://alloc001.adyuta.group/api";
 
 async function getUserProfile(req: NextRequest): Promise<UserProfile | null> {
@@ -23,13 +23,13 @@ async function getUserProfile(req: NextRequest): Promise<UserProfile | null> {
 
     const res = await fetch(getUserUrl, {
       method: "GET",
-      headers: { 
+      headers: {
         Authorization: `Bearer ${accessToken}`,
-        Cookie: `access_token=${accessToken}`, 
+        Cookie: `access_token=${accessToken}`,
         "Accept": "application/json",
         "Cache-Control": "no-cache"
       },
-      cache: "no-store", 
+      cache: "no-store",
     });
 
     if (!res.ok) {
@@ -61,8 +61,10 @@ async function getUserProfile(req: NextRequest): Promise<UserProfile | null> {
 
 export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
-  const isProtectedRoute = PROTECTED_ROUTES.some((r) => pathname.startsWith(r));
   const isAuthRoute = AUTH_ROUTES.some((r) => pathname.startsWith(r));
+  const isProtectedRoute = PROTECTED_ROUTES.some((r) =>
+    r === "/" ? pathname === "/" : pathname.startsWith(r)
+  ) && !isAuthRoute;
 
   if (!isProtectedRoute && !isAuthRoute) return NextResponse.next();
 
@@ -71,13 +73,13 @@ export async function middleware(req: NextRequest) {
   const userId = userProfile?.userId;
 
   if (!isLoggedIn && isProtectedRoute) {
-    const url = new URL("/auth/login", req.url);
+    const url = new URL("/login", req.url);
     url.searchParams.set("from", pathname);
     return NextResponse.redirect(url);
   }
 
   if (isLoggedIn && isAuthRoute) {
-    return NextResponse.redirect(new URL("/main/feed", req.url));
+    return NextResponse.redirect(new URL("/feed", req.url));
   }
 
   const response = NextResponse.next();

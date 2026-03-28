@@ -6,7 +6,7 @@ export async function GET(req: NextRequest) {
   const token = req.nextUrl.searchParams.get("token");
 
   if (!token) {
-    return NextResponse.redirect(new URL("/auth/login?error=invalid_token", req.url));
+    return NextResponse.redirect(new URL("/login?error=invalid_token", req.url));
   }
 
   try {
@@ -19,7 +19,7 @@ export async function GET(req: NextRequest) {
         ? (res as { data?: { accessToken?: string } }).data?.accessToken
         : undefined;
 
-    const response = NextResponse.redirect(new URL("/main/feed", req.url));
+    const response = NextResponse.redirect(new URL("/feed", req.url));
 
     if (accessToken) {
       response.cookies.set("access_token", accessToken, {
@@ -32,6 +32,6 @@ export async function GET(req: NextRequest) {
 
     return response;
   } catch {
-    return NextResponse.redirect(new URL("/auth/login?error=verify_failed", req.url));
+    return NextResponse.redirect(new URL("/login?error=verify_failed", req.url));
   }
 }

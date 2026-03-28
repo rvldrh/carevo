@@ -122,8 +122,8 @@ export function CVPreview({ userId }: Props) {
       <AISaveModal 
         open={showAIModal}
         onClose={() => setShowAIModal(false)}
-        onLater={() => router.push("/main/profile")}
-        onSeeRecommendations={() => router.push("/main/asah")}
+        onLater={() => router.push("/profile")}
+        onSeeRecommendations={() => router.push("/asah")}
       />
 
 

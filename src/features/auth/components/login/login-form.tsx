@@ -44,7 +44,7 @@ export default function LoginForm() {
           body: JSON.stringify({ accessToken: res.accessToken }),
         });
 
-        const from = searchParams.get("from") ?? "/main";
+        const from = searchParams.get("from") ?? "/";
         router.replace(from);
       },
     });

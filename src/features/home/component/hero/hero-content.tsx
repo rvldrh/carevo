@@ -31,7 +31,7 @@ export default function HeroContent() {
 
       <div className="flex gap-4 mt-7">
         <button
-          onClick={() => handleNavigation("/main/profile ")}
+          onClick={() => handleNavigation("/profile")}
           className="bg-blue-600 text-white px-6 py-3 rounded-full font-medium hover:bg-blue-700 transition"
         >
           Build Portfolio

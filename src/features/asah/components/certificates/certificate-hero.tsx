@@ -10,7 +10,7 @@ export default function CertificateHero({ certification }: { certification?: Cer
     <section className="w-full bg-gradient-to-r from-fuchsia-700 via-violet-600 to-blue-500 flex justify-center border-b border-white/10 shadow-lg">
       <div className="max-w-[1200px] w-full flex items-center justify-between py-12 px-8 font-sans">
         <div className="flex flex-col gap-6 max-w-2xl">
-          <Link href={"/main/asah"}>
+          <Link href={"/asah"}>
             <div className="w-10 h-10 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center cursor-pointer hover:bg-white/30 transition shadow-sm group">
               <Image
                 alt="back"

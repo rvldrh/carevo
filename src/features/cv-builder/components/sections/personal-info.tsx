@@ -18,9 +18,14 @@ export function PersonalInfoForm({
     handleSubmit,
     setValue,
     getValues,
+    watch,
+    formState: { isDirty },
   } = useFormContext<CVFormValues>();
 
-  
+  const profileValue = watch("personalInformation.profile") || "";
+  const wordCount = profileValue.trim() ? profileValue.trim().split(/\s+/).length : 0;
+
+
   const getCookie = (name: string) => {
     const value = `; ${document.cookie}`;
     const parts = value.split(`; ${name}=`);
@@ -28,56 +33,68 @@ export function PersonalInfoForm({
     return null;
   };
 
-const handleGenerateAI = async () => {
-  setIsGenerating(true);
-  const token = getCookie("access_token"); 
-  const formValues = getValues();
-  
-  const context = [
-    `Nama: ${formValues.personalInformation?.firstName} ${formValues.personalInformation?.lastName}`,
-    formValues.personalInformation?.address ? `Lokasi: ${formValues.personalInformation.address}` : "",
-  ].filter(Boolean).join(". ");
+  const handleGenerateAI = async () => {
+    setIsGenerating(true);
+    const token = getCookie("access_token");
+    const formValues = getValues();
 
-  try {
-    const response = await axios.post(
-      "https://alloc001.adyuta.group/api/v1/ai/generate-cv",
-      { input: context || "Pro", section: "PROFILE" },
-      {
-        headers: { Authorization: `Bearer ${token}` },
-        responseType: 'text', 
-      }
-    );
+    const context = [
+      `Nama: ${formValues.personalInformation?.firstName} ${formValues.personalInformation?.lastName}`,
+      formValues.personalInformation?.address ? `Lokasi: ${formValues.personalInformation.address}` : "",
+      formValues.educations?.length 
+        ? `Pendidikan: ${formValues.educations.map(e => `${e.educationLevel} di ${e.institution}`).join(", ")}` 
+        : "",
+      formValues.workExperiences?.length 
+        ? `Pengalaman: ${formValues.workExperiences.map(w => `${w.position} di ${w.companyName}`).join(", ")}` 
+        : "",
+      formValues.organizations?.length 
+        ? `Organisasi: ${formValues.organizations.map(o => `${o.position} di ${o.organizationName}`).join(", ")}` 
+        : "",
+      formValues.courses?.length 
+        ? `Kursus: ${formValues.courses.map(c => `${c.name} dari ${c.organizer}`).join(", ")}` 
+        : "",
+    ].filter(Boolean).join(". ");
 
-    let resultString = response.data;
-
-    if (resultString) {
-      
-      if (resultString.length > 255) {
-        resultString = resultString.substring(0, 252) + "...";
-      }
-
-      
-      let currentText = "";
-      const interval = 10;
-      
-      const typingTimer = setInterval(() => {
-        if (currentText.length < resultString.length) {
-          currentText += resultString[currentText.length];
-          setValue("personalInformation.profile", currentText, { 
-            shouldDirty: true, 
-            shouldValidate: true 
-          });
-        } else {
-          clearInterval(typingTimer);
+    try {
+      const response = await axios.post(
+        "https://alloc001.adyuta.group/api/v1/ai/generate-cv",
+        { input: context || "Pro", section: "PROFILE" },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+          responseType: 'text',
         }
-      }, interval);
+      );
+
+      let resultString = response.data;
+
+      if (resultString) {
+
+        if (resultString.length > 2000) {
+          resultString = resultString.substring(0, 1997) + "...";
+        }
+
+
+        let currentText = "";
+        const interval = 10;
+
+        const typingTimer = setInterval(() => {
+          if (currentText.length < resultString.length) {
+            currentText += resultString[currentText.length];
+            setValue("personalInformation.profile", currentText, {
+              shouldDirty: true,
+              shouldValidate: true
+            });
+          } else {
+            clearInterval(typingTimer);
+          }
+        }, interval);
+      }
+    } catch (error) {
+      console.error("AI Error:", error);
+    } finally {
+      setIsGenerating(false);
     }
-  } catch (error) {
-    console.error("AI Error:", error);
-  } finally {
-    setIsGenerating(false);
-  }
-};
+  };
   const onSubmitSection = (data: CVFormValues) => {
     const cleanPhone = (p: string) => {
       if (!p) return "";
@@ -87,27 +104,27 @@ const handleGenerateAI = async () => {
       return "+" + digits;
     };
 
-    
-    
-   const payload: CVFormValues = {
-    personalInformation: {
-      firstName: data.personalInformation.firstName,
-      lastName: data.personalInformation.lastName,
-      profile: data.personalInformation.profile || "", 
-      phone: cleanPhone(data.personalInformation.phone),
-      email: data.personalInformation.email,
-      address: data.personalInformation.address,
-      websiteUrl: data.personalInformation.websiteUrl || "",
-    },
-    skills: data.skills || [],
-    educations: data.educations || [],
-    workExperiences: data.workExperiences || [],
-    courses: data.courses || [],
-    organizations: data.organizations || [],
-    certifications: data.certifications || [],
-  };
-  
-  
+
+
+    const payload: CVFormValues = {
+      personalInformation: {
+        firstName: data.personalInformation.firstName,
+        lastName: data.personalInformation.lastName,
+        profile: data.personalInformation.profile || "",
+        phone: cleanPhone(data.personalInformation.phone),
+        email: data.personalInformation.email,
+        address: data.personalInformation.address,
+        websiteUrl: data.personalInformation.websiteUrl || "",
+      },
+      skills: data.skills || [],
+      educations: data.educations || [],
+      workExperiences: data.workExperiences || [],
+      courses: data.courses || [],
+      organizations: data.organizations || [],
+      certifications: data.certifications || [],
+    };
+
+
 
     onSave(payload);
   };
@@ -200,34 +217,31 @@ const handleGenerateAI = async () => {
               {...register("personalInformation.profile")}
               placeholder="Data profil Anda..."
               value={isGenerating ? "Menyusun profil profesional anda..." : undefined}
-              className={`w-full p-4 text-sm leading-relaxed h-44 focus:outline-none resize-none transition-colors ${
-                isGenerating ? "text-gray-400 italic bg-gray-50" : "text-gray-700"
-              }`}
+              className={`w-full p-4 text-sm leading-relaxed h-44 focus:outline-none resize-none transition-colors ${isGenerating ? "text-gray-400 italic bg-gray-50" : "text-gray-700"
+                }`}
             />
             <div className="flex justify-between mt-1 px-1">
-  <p className="text-[10px] text-gray-400">
-    *Maksimal 255 karakter agar bisa disimpan.
-  </p>
-  <span className={`text-[10px] font-medium ${
-    (getValues("personalInformation.profile")?.length > 255) ? "text-red-500" : "text-gray-400"
-  }`}>
-    {getValues("personalInformation.profile")?.length || 0}/255
-  </span>
-</div>
+              <p className="text-[10px] text-gray-400">
+                *Maksimal 2000 karakter agar bisa disimpan.
+              </p>
+              <span className={`text-[10px] font-medium ${(profileValue.length > 2000) ? "text-red-500" : "text-gray-400"
+                }`}>
+                {wordCount} Kata | {profileValue.length}/2000 Karakter
+              </span>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div className="pt-4 mt-4 border-t">
-        <button
-          suppressHydrationWarning
-          type="button"
-          onClick={handleSubmit(onSubmitSection)}
-          disabled={isSaving || isGenerating}
-          className="w-full py-3 rounded-xl bg-blue-500 hover:bg-blue-600 text-white text-sm font-bold transition-all disabled:bg-blue-300"
-        >
-          {isSaving ? "Menyimpan..." : "Simpan Informasi Pribadi"}
-        </button>
+        <div className="flex justify-center pt-4">
+          <button
+            type="button"
+            onClick={handleSubmit(onSubmitSection)}
+            disabled={isSaving || !isDirty}
+            className="bg-blue-400 text-white px-8 py-2.5 rounded-xl text-sm font-semibold shadow-md hover:bg-blue-500 transition-all active:scale-95 disabled:opacity-50 disabled:active:scale-100"
+          >
+            {isSaving ? "Menyimpan..." : "Simpan Informasi"}
+          </button>
+        </div>
       </div>
     </div>
   );

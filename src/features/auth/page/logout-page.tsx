@@ -12,7 +12,7 @@ export default function LogoutPage() {
         console.error("Logout error:", error);
       } finally {
         clearAccessToken();
-        window.location.href = "/auth/login";
+        window.location.href = "/login";
       }
     }
 

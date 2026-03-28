@@ -23,16 +23,16 @@ export function useEmailVerification() {
 
         await verifyEmail(token);
 
-        window.history.replaceState(null, "", "/auth/login");
+        window.history.replaceState(null, "", "/login");
 
-        router.replace("/main/feed");
+        router.replace("/feed");
       } catch (err) {
         console.error("VERIFY EMAIL ERROR:", err);
 
         window.history.replaceState(
           null,
           "",
-          "/auth/login?error=verify_failed"
+          "/login?error=verify_failed"
         );
       } finally {
         setLoading(false);

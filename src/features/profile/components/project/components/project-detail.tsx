@@ -6,7 +6,7 @@ export default function ProjectDetailPage() {
     <div className="min-h-screen bg-[#E4EFFF] pt-20">
       <header className="relative flex items-center px-6 md:px-10 py-4">
         <Link
-          href="/main/profile"
+          href="/profile"
           scroll={true}
           className="flex items-center justify-center"
         >

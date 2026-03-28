@@ -31,8 +31,8 @@ export function useOAuthRedirect() {
     setAccessToken(token);
     localStorage.setItem("access_token", token);
 
-    window.history.replaceState(null, "", "/auth/login");
+    window.history.replaceState(null, "", "/login");
 
-    router.replace("/main");
+    router.replace("/landing");
   }, [router]);
 }

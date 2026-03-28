@@ -35,8 +35,8 @@ export function ProfileField({ isGenerating, setIsGenerating }: Props) {
       const result = await generateProfileAI(token ?? "", context);
 
       const trimmed =
-        result.length > 255
-          ? result.substring(0, 252) + "..."
+        result.length > 2000
+          ? result.substring(0, 1997) + "..."
           : result;
 
       setValue("personalInformation.profile", trimmed, {
@@ -60,7 +60,7 @@ export function ProfileField({ isGenerating, setIsGenerating }: Props) {
 
       <textarea {...register("personalInformation.profile")} />
 
-      <span>{length}/255</span>
+      <span>{length}/2000</span>
     </div>
   );
 }

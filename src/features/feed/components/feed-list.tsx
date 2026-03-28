@@ -7,8 +7,8 @@ interface Props {
 export default function FeedList({ feeds }: Props) {
   return (
     <div className="flex flex-col gap-6">
-      {feeds.map((feed) => (
-        <FeedItem key={`feed-item-${String(feed)}`} />
+      {feeds.map((_, index) => (
+        <FeedItem key={`feed-item-${index}`} />
       ))}
     </div>
   );

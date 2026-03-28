@@ -14,7 +14,7 @@ interface Props {
 }
 
 export function ExperienceSection({ isSaving, onSave }: Props) {
-  const { control, handleSubmit, getValues } = useFormContext<CVFormValues>();
+  const { control, getValues } = useFormContext<CVFormValues>();
   const { fields, append, remove, update } = useFieldArray({
     control,
     name: "workExperiences",
@@ -53,9 +53,7 @@ export function ExperienceSection({ isSaving, onSave }: Props) {
     onSave(getValues());
   };
 
-  const onSubmitSection = (data: CVFormValues) => {
-    onSave(data);
-  };
+
 
   return (
     <div className="flex flex-col items-center gap-6 pt-6">
@@ -75,18 +73,10 @@ export function ExperienceSection({ isSaving, onSave }: Props) {
         )}
       </div>
 
-      <AccordionButton buttonText="Tambah Pengalaman" onClick={handleOpenAdd} />
-
-      <div className="px-6 pb-6 w-full mt-4 border-t pt-4">
-        <button
-          type="button"
-          onClick={handleSubmit(onSubmitSection)}
-          disabled={isSaving}
-          className="w-full py-3 rounded-xl bg-blue-500 hover:bg-blue-600 text-white text-sm font-bold transition-all disabled:bg-blue-300"
-        >
-          {isSaving ? "Menyimpan..." : "Simpan Bagian Ini"}
-        </button>
-      </div>
+      <AccordionButton 
+        buttonText={isSaving ? "Menyimpan..." : "Tambah Pengalaman"} 
+        onClick={handleOpenAdd} 
+      />
 
       {isOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">

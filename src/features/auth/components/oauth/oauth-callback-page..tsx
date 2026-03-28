@@ -12,7 +12,7 @@ export default function OAuthCallbackPage() {
 
     if (!hash) {
       toast.error("Token tidak ditemukan");
-      router.replace("/auth/login");
+      router.replace("/login");
       return;
     }
 
@@ -34,13 +34,13 @@ export default function OAuthCallbackPage() {
 
       toast.success("Login berhasil");
 
-      router.replace("/main/feed");
+      router.replace("/feed");
 
     } catch (error) {
       console.error(error);
 
       toast.error("Gagal login dengan Google");
-      router.replace("/auth/login");
+      router.replace("/login");
     }
   }, [router]);
 

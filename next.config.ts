@@ -8,6 +8,10 @@ const nextConfig: NextConfig = {
         hostname: "alloc001.adyuta.group",
         pathname: "/api/v1/files/**",
       },
+      {
+        protocol: "https",
+        hostname: "placehold.co",
+      },
     ],
   },
 };

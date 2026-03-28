@@ -15,7 +15,7 @@ export const navLinks: NavLink[] = [
   {
     path: "/community",
     label: "Community",
-    icon: "/icons/group.svg",
+    icon: "/icons/community-icon.svg",
     activeIcon: "/icons/navbar/group-active.svg",
   },
   {

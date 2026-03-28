@@ -3,7 +3,7 @@ import { getUser } from "@/services/auth/getUser";
 
 export default async function EmailSentPage() {
   const user = await getUser();
-  const email = user?.email ?? "email kamu";
+  const email = user?.data?.email ?? "email kamu";
 
   return (
     <div className="min-h-screen w-full flex items-center justify-center bg-[#C8DEFF] overflow-hidden relative">
@@ -33,4 +33,4 @@ export default async function EmailSentPage() {
 
     </div>
   );
-}
+}

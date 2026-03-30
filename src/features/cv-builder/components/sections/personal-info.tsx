@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useFormContext } from "react-hook-form";
 import axios from "axios";
 import type { CVFormValues } from "@/features/cv-builder/schemas/cv.schema";
+import { aiGenerateCv } from "@carevo/contracts/api";
 
 export function PersonalInfoForm({
   isSaving,
@@ -56,16 +57,12 @@ export function PersonalInfoForm({
     ].filter(Boolean).join(". ");
 
     try {
-      const response = await axios.post(
-        "https://alloc001.adyuta.group/api/v1/ai/generate-cv",
-        { input: context || "Pro", section: "PROFILE" },
-        {
-          headers: { Authorization: `Bearer ${token}` },
-          responseType: 'text',
-        }
-      );
+      const response = await aiGenerateCv({
+        input : context,
+        section : "PROFILE",
+      })
 
-      let resultString = response.data;
+      let resultString = response;
 
       if (resultString) {
 
@@ -111,7 +108,7 @@ export function PersonalInfoForm({
         firstName: data.personalInformation.firstName,
         lastName: data.personalInformation.lastName,
         profile: data.personalInformation.profile || "",
-        phone: cleanPhone(data.personalInformation.phone),
+        phone: cleanPhone(data.personalInformation.phone ?? ""),
         email: data.personalInformation.email,
         address: data.personalInformation.address,
         websiteUrl: data.personalInformation.websiteUrl || "",

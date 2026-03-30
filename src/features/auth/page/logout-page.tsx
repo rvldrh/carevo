@@ -1,17 +1,16 @@
 "use client";
 
 import { useEffect } from "react";
-import { clearAccessToken } from "@carevo/contracts/api";
+import { logoutUser } from "@carevo/contracts/api";
 
 export default function LogoutPage() {
   useEffect(() => {
     async function handleLogout() {
       try {
-        await fetch("/api/auth/logout", { method: "POST" });
+        await logoutUser();
       } catch (error) {
         console.error("Logout error:", error);
       } finally {
-        clearAccessToken();
         window.location.href = "/login";
       }
     }

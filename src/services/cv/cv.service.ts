@@ -1,21 +1,4 @@
-import axios from "axios";
-import Cookies from "js-cookie";
-
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "https://alloc001.adyuta.group/api";
-
-export const cvApi = axios.create({
-  baseURL: `${API_BASE_URL}/v1`,
-});
-
-
-cvApi.interceptors.request.use((config) => {
-  const token = Cookies.get("access_token");
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
-  }
-  return config;
-});
-
+import { aiGenerateCv, AiGenerateCvBodySection, downloadCv, getCv, saveCv, updateCv } from "@carevo/contracts/api";
 
 const sanitizePayload = (obj: unknown): unknown => {
   if (Array.isArray(obj)) {
@@ -42,21 +25,18 @@ const sanitizePayload = (obj: unknown): unknown => {
 export const cvService = {
   
   getCV: async (userId: string) => {
-    const { data } = await cvApi.get(`/users/${userId}/cv`);
-    const cv = data.data || data;
-
-    
+    const data  = await getCv(userId);
     const normalize = (val: unknown) => (Array.isArray(val) ? val : []);
 
     
-    const orgs = (cv.organizations && cv.organizations.length > 0) ? cv.organizations : cv.organziations;
-    cv.organizations = normalize(orgs);
+    const orgs = (data.organizations && data.organizations.length > 0) ? data.organizations : data.organizations;
+    data.organizations = normalize(orgs);
 
     
-    const certs = (cv.certifications && cv.certifications.length > 0) ? cv.certifications : cv.certificates;
-    cv.certifications = normalize(certs);
+    const certs = (data.certifications && data.certifications.length > 0) ? data.certifications : data.certifications;
+    data.certifications = normalize(certs);
 
-    return cv;
+    return data;
   },
 
   
@@ -94,30 +74,26 @@ export const cvService = {
       cleanPayload.certifications = certArray;
     }
 
-    const { data } = await cvApi.patch(`/users/${userId}/cv`, cleanPayload);
+    const data = await updateCv(userId, cleanPayload);
     return data;
   },
 
   
   saveCV: async (userId: string) => {
-    const { data } = await cvApi.post(`/users/${userId}/cv/save`);
+    const data  = await saveCv(userId);
     return data;
   },
 
   
   downloadCV: async (userId: string, preview: boolean = false) => {
-    const response = await cvApi.get(`/users/${userId}/cv/download`, {
-      params: { preview },
-      responseType: "blob",
-    });
-    return response.data;
+    const response = await downloadCv(userId, { preview });
+
+    return response;
   },
 
   
-  aiGenerateCV: async (payload: { input: string; section: string }) => {
-    const response = await cvApi.post("/ai/generate-cv", payload, {
-      responseType: "text",
-    });
-    return response.data;
+  aiGenerateCV: async (payload: { input: string; section: AiGenerateCvBodySection }) => {
+    const response = await aiGenerateCv({input: payload.input, section: payload.section});
+    return response;
   },
 };

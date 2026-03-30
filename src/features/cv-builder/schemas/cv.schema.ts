@@ -10,11 +10,11 @@ export const PersonalInformationSchema = z.object({
   address: z.string().optional(),
   profile: z.string().max(2000).catch(""),
   websiteUrl: z.string().url().or(z.literal("")).catch(""),
-});
+}).partial()
 
 export const SkillSchema = z.object({
   name: z.string().min(1),
-  score: z.coerce.number().optional(),
+  score: z.coerce.number().min(0),
 });
 
 export const EducationSchema = z.object({
@@ -87,4 +87,4 @@ export type Education = z.infer<typeof EducationSchema>;
 export type WorkExperience = z.infer<typeof WorkExperienceSchema>;
 export type Course = z.infer<typeof CourseSchema>;
 export type Organization = z.infer<typeof OrganizationSchema>;
-export type Certification = z.infer<typeof CertificationSchema>;
+export type Certification = z.infer<typeof CertificationSchema>;

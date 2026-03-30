@@ -4,7 +4,6 @@ import type { Dispatch, SetStateAction } from "react";
 import { useFormContext } from "react-hook-form";
 
 import type { CVFormValues } from "@/features/cv-builder/types/cv.types";
-import { getCookie } from "@/features/cv-builder/utils/cookie";
 import { generateProfileAI } from "@/services/cv/ai.service";
 
 interface Props {
@@ -19,7 +18,6 @@ export function ProfileField({ isGenerating, setIsGenerating }: Props) {
   const handleGenerateAI = async () => {
     setIsGenerating(true);
 
-    const token = getCookie("access_token");
     const values = getValues();
 
     const context = [
@@ -32,7 +30,7 @@ export function ProfileField({ isGenerating, setIsGenerating }: Props) {
       .join(". ");
 
     try {
-      const result = await generateProfileAI(token ?? "", context);
+      const result = await generateProfileAI(context);
 
       const trimmed =
         result.length > 2000

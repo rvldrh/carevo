@@ -26,8 +26,6 @@ export default function HeaderEditClient({ profto, userId }: { profto: ProftoRes
     };
 
 
-
-
     try {
       await updateProfto.mutateAsync({ userId, body });
       setOpenModal(false);

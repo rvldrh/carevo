@@ -37,13 +37,7 @@ export default function LoginForm() {
 
   const onSubmit = (data: LoginUserBodyType) => {
     mutate(data, {
-      onSuccess: async (res) => {
-        await fetch("/api/auth/set-token", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ accessToken: res.accessToken }),
-        });
-
+      onSuccess: async () => {
         const from = searchParams.get("from") ?? "/";
         router.replace(from);
       },

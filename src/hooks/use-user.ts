@@ -1,12 +1,12 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
-import { getCurrentUser } from "@/services/auth/auth.service";
+import { getUser } from "@carevo/contracts/api";
 
 export function useCurrentUser() {
   return useQuery({
     queryKey: ["user", "me"],
-    queryFn: getCurrentUser,
+    queryFn: getUser,
     staleTime: 1000 * 60 * 5, 
   });
 }

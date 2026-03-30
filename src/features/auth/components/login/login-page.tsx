@@ -5,6 +5,8 @@ import { Suspense } from "react";
 
 export default function LoginPage() {
   const { loading } = useEmailVerification();
+
+
   return (
     <div className="relative min-h-screen w-full overflow-hidden bg-sky-blue-light flex items-center justify-center px-4 py-8">
       <div

@@ -41,7 +41,7 @@ export const ProftoResponseSchema = z.object({
   links: z.array(LinkSchema).optional(),
   userId: z.string().uuid(),
   updatedAt: z.string(), 
-});
+}).partial()
 
 export const UpdateProftoBodySchema = z.object({
   avatarFileId: z.string().uuid().optional().nullable(),

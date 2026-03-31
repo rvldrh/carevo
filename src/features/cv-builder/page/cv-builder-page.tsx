@@ -1,29 +1,18 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { cvService } from "@/services/cv/cv.service";
 import { CVForm } from "../components/cv-form";
 import { CVPreview } from "../components/cv-perview";
 import type { CVFormValues } from "../schemas/cv.schema";
-import { getUser } from "@carevo/contracts/api";
 import { useAuthStore } from "@/shared/utils/use-auth-store";
 
-interface CVBuilderPageProps {
-  userId: string;
-}
 
 export function CVBuilderPage() {
   const [isSaving, setIsSaving] = useState(false);
   const queryClient = useQueryClient();
   const  userId  = useAuthStore((s) => s.userId);
-
-  const initializeAuth = useAuthStore((s) => s.initialize);
-
-  useEffect(() => {
-    initializeAuth();
-    console.log("aa")
-  }, []);
 
 
   const { data: cvData,  isFetched } = useQuery({

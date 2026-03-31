@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useFormContext } from "react-hook-form";
-import axios from "axios";
+// import axios from "axios";
 import type { CVFormValues } from "@/features/cv-builder/schemas/cv.schema";
 import { aiGenerateCv } from "@carevo/contracts/api";
 
@@ -27,16 +27,16 @@ export function PersonalInfoForm({
   const wordCount = profileValue.trim() ? profileValue.trim().split(/\s+/).length : 0;
 
 
-  const getCookie = (name: string) => {
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) return parts.pop()?.split(";").shift();
-    return null;
-  };
+  // const getCookie = (name: string) => {
+  //   const value = `; ${document.cookie}`;
+  //   const parts = value.split(`; ${name}=`);
+  //   if (parts.length === 2) return parts.pop()?.split(";").shift();
+  //   return null;
+  // };
 
   const handleGenerateAI = async () => {
     setIsGenerating(true);
-    const token = getCookie("access_token");
+    // const token = getCookie("access_token");
     const formValues = getValues();
 
     const context = [

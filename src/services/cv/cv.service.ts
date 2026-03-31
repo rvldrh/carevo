@@ -1,4 +1,5 @@
-import { aiGenerateCv, AiGenerateCvBodySection, downloadCv, getCv, saveCv, updateCv } from "@carevo/contracts/api";
+import { aiGenerateCv, downloadCv, getCv, saveCv, updateCv } from "@carevo/contracts/api";
+import type {AiGenerateCvBodySection} from "@carevo/contracts/api";
 
 const sanitizePayload = (obj: unknown): unknown => {
   if (Array.isArray(obj)) {

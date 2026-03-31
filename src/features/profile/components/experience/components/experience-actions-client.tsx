@@ -105,8 +105,7 @@ export default function ExperienceActionsClient({ profto, userId }: { profto: Pr
             onCancel={() => setOpenModalEdit(false)}
             onSubmit={handleEdit}
             defaultValues={profto?.experiences?.[0] ? {
-              position: profto.experiences[0].name?.split(" - ")[1] || "",
-              company: profto.experiences[0].name?.split(" - ")[0] || "",
+              name: profto.experiences[0].name?.split(" - ")[1] || "",
               startYear: String(profto.experiences[0].startYear || ""),
               endYear: String(profto.experiences[0].endYear || ""),
               description: profto.experiences[0].description || "",

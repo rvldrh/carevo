@@ -7,7 +7,13 @@ import { ModalForm } from "@/components/ui/modal/component/ModalForm";
 import { projectFields } from "@/features/profile/constatnts/project-fields";
 import type { ProftoResponse } from "@/features/profile/types/profto";
 
-export default function ProjectEditorClient({ profto: _profto, userId: _userId }: { profto: ProftoResponse | null; userId: string }) {
+export default function ProjectEditorClient({
+  profto: _profto,
+  userId: _userId,
+}: {
+  profto: ProftoResponse | null;
+  userId: string;
+}) {
   const [openAdd, setOpenAdd] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
 
@@ -37,11 +43,10 @@ export default function ProjectEditorClient({ profto: _profto, userId: _userId }
           <h3 className="text-lg font-semibold text-gray-800">Informasi</h3>
 
           <ModalForm
-            title="Tambah projek"
+            title="Tambah Projek"
             fields={projectFields}
             onCancel={() => setOpenAdd(false)}
-            onSubmit={() => console.warn("Project submitted")}
-            submitText="Tambah"
+            onSubmit={() => console.warn("Project added")}
           />
         </div>
       </Modal>

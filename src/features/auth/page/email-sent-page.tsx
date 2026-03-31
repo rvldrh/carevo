@@ -1,9 +1,10 @@
 import EmailSentView from "@/features/auth/components/email-sent/email-sent-view";
-import { getUser } from "@/services/auth/getUser";
+import { getUser } from "@carevo/contracts/api";
+
 
 export default async function EmailSentPage() {
   const user = await getUser();
-  const email = user?.data?.email ?? "email kamu";
+  const email = user?.email ?? "email kamu";
 
   return (
     <div className="min-h-screen w-full flex items-center justify-center bg-[#C8DEFF] overflow-hidden relative">

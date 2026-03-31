@@ -8,14 +8,20 @@ export const certificateFields: FieldConfig[] = [
     placeholder: "Contoh: Sertifikat UI/UX Design",
   },
   {
+    type: "text",
+    name: "publisher",
+    label: "Penyelenggara",
+    placeholder: "Contoh: Coursera",
+  },
+  {
     type: "date",
-    name: "date",
+    name: "publishDate",
     label: "Tanggal",
     placeholder: "HH/BB/TT",
   },
   {
     type: "file",
-    name: "file",
+    name: "imageFileId",
     label: "Unggah Sertifikat",
   },
 ];

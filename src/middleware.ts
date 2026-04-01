@@ -19,8 +19,6 @@ export async function middleware(req: NextRequest) {
 
   const isLoggedIn = req.cookies.get("refresh_token")
 
-  console.log(isLoggedIn)
-
   if (!isLoggedIn && isProtectedRoute) {
     const url = new URL("/login", req.url);
     url.searchParams.set("from", pathname);

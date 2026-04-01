@@ -7,11 +7,23 @@ import HeaderSection from "@/features/profile/sections/header-section";
 import ProjectSection from "@/features/profile/sections/project-section";
 import { useCurrentUser } from "@/hooks/use-user";
 import { useGetProfto } from "@/features/profile/hooks/use-profto";
+import { useAuthStore } from "@/shared/utils/use-auth-store";
+import { useEffect } from "react";
 
 export default function ProfilePage() {
   const { data: user, isLoading: userLoading } = useCurrentUser();
   const { data: profto, isLoading: proftoLoading } = useGetProfto(user?.username || "");
 
+const setUser = useAuthStore((s) => s.initialize);
+const get = useAuthStore((s) => s.userId);
+
+  useEffect(() => {
+    setUser();
+
+  }, [setUser, get]);
+
+
+  
   if (userLoading || proftoLoading) {
     return (
       <div className="w-full min-h-screen flex justify-center items-center bg-[var(--white)]">

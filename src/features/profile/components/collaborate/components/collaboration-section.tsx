@@ -1,7 +1,7 @@
 import CollaborationList from "@/features/profile/components/collaborate/components/collaboration-list";
 import type { ProftoResponse } from "@/features/profile/types/profto";
 
-export default function CollaborationSection({ profto, userId }: { profto: ProftoResponse | null; userId: string }) {
+export default function CollaborationSection({ profto }: { profto: ProftoResponse | null; userId: string }) {
   return (
     <section className="w-full py-26 border-t bg-[var(--white)] border-[var(--gray-300)] relative">
 

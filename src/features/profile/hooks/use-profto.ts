@@ -1,9 +1,9 @@
 "use client";
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { userService } from "@/services/user/user.service";
 import type { UpdateProftoBody } from "@/features/profile/types/profto";
 import { getUserProfto } from "@carevo/contracts/api";
+import { updateUserProfto } from "@carevo/contracts/api";
 
 import type { ProftoFromApi } from "../types/profto-adapter";
 import type { GetUserProfto200 } from "@carevo/contracts/api";
@@ -56,6 +56,7 @@ export function useGetProfto(username: string) {
   });
 }
 
+
 export function useUpdateProfto() {
   const queryClient = useQueryClient();
 
@@ -66,7 +67,7 @@ export function useUpdateProfto() {
     }: {
       userId: string;
       body: UpdateProftoBody;
-    }) => userService.updateUserProfto(userId, body),
+    }) => updateUserProfto(userId, body),
 
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["profto"] });

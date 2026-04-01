@@ -6,14 +6,14 @@ import { cvService } from "@/services/cv/cv.service";
 import { CVForm } from "../components/cv-form";
 import { CVPreview } from "../components/cv-perview";
 import type { CVFormValues } from "../schemas/cv.schema";
-import { useAuthStore } from "@/shared/utils/use-auth-store";
+import { useCurrentUser } from "@/hooks/use-user";
 
 
 export function CVBuilderPage() {
   const [isSaving, setIsSaving] = useState(false);
   const queryClient = useQueryClient();
-  const  userId  = useAuthStore((s) => s.userId);
-
+    const { data: user, isLoading: userLoading } = useCurrentUser();
+  const userId = user?.userId;
 
   const { data: cvData,  isFetched } = useQuery({
     queryKey: ["cv", userId],
@@ -36,7 +36,7 @@ export function CVBuilderPage() {
     }
   };
 
-  if (!isFetched) {
+  if (!userId || userLoading || !isFetched) {
     return <div className="p-6 flex justify-center items-center min-h-screen text-gray-500">Memuat CV Anda...</div>;
   }
 

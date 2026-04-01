@@ -5,11 +5,8 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import type {
-  LoginUserBodyType} from "@/features/auth/schemas/auth.schema";
-import {
-  LoginUserBody
-} from "@/features/auth/schemas/auth.schema";
+import type { LoginUserBodyType } from "@/features/auth/schemas/auth.schema";
+import { LoginUserBody } from "@/features/auth/schemas/auth.schema";
 
 import { useLogin } from "@/features/auth/hooks/use-login";
 import { useGoogleOAuth } from "@/features/auth/hooks/use-google-oauth";
@@ -17,6 +14,7 @@ import { useGoogleOAuth } from "@/features/auth/hooks/use-google-oauth";
 import LoginFields from "@/features/auth/components/login/login-fields";
 import LoginSubmit from "@/features/auth/components/login/login-submit";
 import LoginFooter from "@/features/auth/components/login/login-footer";
+import { useAuthStore } from "@/shared/utils/use-auth-store";
 
 export default function LoginForm() {
   const router = useRouter();
@@ -36,9 +34,11 @@ export default function LoginForm() {
   });
 
   const onSubmit = (data: LoginUserBodyType) => {
+    const user = useAuthStore((state) => state.setUserId);
     mutate(data, {
       onSuccess: async () => {
         const from = searchParams.get("from") ?? "/";
+        user(data.userId);
         router.replace(from);
       },
     });
@@ -51,10 +51,7 @@ export default function LoginForm() {
           Masuk Ke Akun Anda
         </h1>
 
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className="flex flex-col gap-5"
-        >
+        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5">
           <LoginFields register={register} errors={errors} />
 
           <div className="flex justify-end">

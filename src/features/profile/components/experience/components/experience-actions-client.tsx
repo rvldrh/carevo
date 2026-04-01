@@ -15,14 +15,10 @@ export default function ExperienceActionsClient({ profto, userId }: { profto: Pr
   const updateProfto = useUpdateProfto();
 
   const handleAdd = async (values: FormState) => {
-    const currentYear = new Date().getFullYear();
-    const startYear = Number(values.startYear) || 1900;
-    const endYear = Number(values.endYear) || currentYear;
-
     const newExperience: Experience = {
-      name: `${values.company} - ${values.position}`,
-      startYear,
-      endYear,
+      name: values.name as string,
+      startYear: Number(values.startYear) || 0,
+      endYear: Number(values.endYear) || 0,
       description: values.description as string,
     };
 
@@ -39,14 +35,10 @@ export default function ExperienceActionsClient({ profto, userId }: { profto: Pr
   };
 
   const handleEdit = async (values: FormState) => {
-    const currentYear = new Date().getFullYear();
-    const startYear = Number(values.startYear) || 1900;
-    const endYear = Number(values.endYear) || currentYear;
-
     const updatedExperience: Experience = {
-      name: `${values.company} - ${values.position}`,
-      startYear,
-      endYear,
+      name: values.name as string,
+      startYear: Number(values.startYear) || 0,
+      endYear: Number(values.endYear) || 0,
       description: values.description as string,
     };
 
@@ -105,7 +97,7 @@ export default function ExperienceActionsClient({ profto, userId }: { profto: Pr
             onCancel={() => setOpenModalEdit(false)}
             onSubmit={handleEdit}
             defaultValues={profto?.experiences?.[0] ? {
-              name: profto.experiences[0].name?.split(" - ")[1] || "",
+              name: profto.experiences[0].name || "",
               startYear: String(profto.experiences[0].startYear || ""),
               endYear: String(profto.experiences[0].endYear || ""),
               description: profto.experiences[0].description || "",

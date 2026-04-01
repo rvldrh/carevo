@@ -51,10 +51,10 @@ export const UpdateProftoBodySchema = z.object({
   email: z.string().email().max(255).optional().nullable(),
   summary: z.string().max(2000).optional().nullable(),
   cvFileId: z.string().uuid().optional().nullable(),
-  certificates: z.array(CertificateSchema).optional(),
-  experiences: z.array(ExperienceSchema).optional(),
-  projects: z.array(ProjectSchema).optional(),
-  links: z.array(LinkSchema).optional(),
+  certificates: z.array(CertificateSchema).optional().nullable(),
+  experiences: z.array(ExperienceSchema).optional().nullable(),
+  projects: z.array(ProjectSchema).optional().nullable(),
+  links: z.array(LinkSchema).optional().nullable(),
 });
 
 export type Certificate = z.infer<typeof CertificateSchema>;

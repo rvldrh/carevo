@@ -20,8 +20,8 @@ export const certificateFields: FieldConfig[] = [
     placeholder: "HH/BB/TT",
   },
   {
+    name: "image",
+    label: "Image",
     type: "file",
-    name: "imageFileId",
-    label: "Unggah Sertifikat",
   },
 ];

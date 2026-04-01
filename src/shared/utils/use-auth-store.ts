@@ -5,6 +5,7 @@ type AuthState = {
   userId: string | null;
   isLoading: boolean;
   initialize: () => Promise<void>;
+  setUserId: (id: string) => void; 
   clear: () => void;
 };
 type AuthStateUsername = {
@@ -19,11 +20,12 @@ export const useAuthStore = create<AuthState>()((set) => ({
   userId: null,
   isLoading: true,
 
-
   initialize: async () => {
     const { userId } = await getUser();
     set({ userId, isLoading: false });
-},
+  },
+
+  setUserId: (id: string) => set({ userId: id, isLoading: false }), // ✅ ini kuncinya
 
   clear: () => set({ userId: null, isLoading: true }),
 }));

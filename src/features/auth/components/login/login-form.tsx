@@ -33,12 +33,12 @@ export default function LoginForm() {
     },
   });
 
+  const user = useAuthStore((state) => state.setUserId);
   const onSubmit = (data: LoginUserBodyType) => {
-    const user = useAuthStore((state) => state.setUserId);
     mutate(data, {
       onSuccess: async () => {
         const from = searchParams.get("from") ?? "/";
-        user(data.userId);
+        useAuthStore.getState().setUserId(data.userId);
         router.replace(from);
       },
     });

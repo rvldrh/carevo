@@ -4,6 +4,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import type { UpdateProftoBody } from "@/features/profile/types/profto";
 import { getUserProfto } from "@carevo/contracts/api";
 import { updateUserProfto } from "@carevo/contracts/api";
+import { mapToUpdateProftoBody } from "@/services/profto/profile.mapper";
 
 import type { ProftoFromApi } from "../types/profto-adapter";
 import type { GetUserProfto200 } from "@carevo/contracts/api";
@@ -67,7 +68,7 @@ export function useUpdateProfto() {
     }: {
       userId: string;
       body: UpdateProftoBody;
-    }) => updateUserProfto(userId, body),
+    }) => updateUserProfto(userId, mapToUpdateProftoBody(body)),
 
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["profto"] });

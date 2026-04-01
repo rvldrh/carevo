@@ -8,7 +8,7 @@ export function mapToUpdateProftoBody(data: Input): UpdateUserProftoBody {
   return {
     ...data,
 
-    certificates: data.certificates,
+    certificates: data.certificates ?? undefined,
     experiences: data.experiences ?? undefined,
     projects: data.projects ?? undefined,
     links: data.links ?? undefined,

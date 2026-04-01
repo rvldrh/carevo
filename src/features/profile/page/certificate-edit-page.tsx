@@ -34,7 +34,8 @@ export default function EditCertificatesPage() {
     }
   }, [certificates.length, fetchCertificates]);
 
-  const handleAdd = async (values: CertificateFormValues): Promise<void> => {
+  const handleAdd = async (valuesRaw: Record<string, any>): Promise<void> => {
+    const values = valuesRaw as CertificateFormValues;
     try {
       let fileId: string | undefined;
 

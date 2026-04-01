@@ -2,10 +2,11 @@ import { getUserProfto, getFile } from "@carevo/contracts/api";
 import { getUser } from "@carevo/contracts/api";
 
 export type CertificateWithImage = {
-  name: string;
-  publisher: string;
-  publishDate: string;
+  name?: string | undefined;
+  publisher?: string | undefined;
+  publishDate?: string | undefined;
   imageUrl?: string;
+  imageFileId?: string | undefined;
 };
 
 export async function fetchCertificates(): Promise<CertificateWithImage[]> {
@@ -50,7 +51,7 @@ export async function fetchCertificatesWithImage() {
       if (cert.imageFileId) {
         const file = await getFile(cert.imageFileId);
 
-        const blob = file instanceof Blob ? file : file.data;
+        const blob = file instanceof Blob ? file : (file as any).data;
 
         imageUrl = URL.createObjectURL(blob);
       }

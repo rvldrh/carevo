@@ -6,10 +6,11 @@ import { getFile } from "@carevo/contracts/api";
 import { useCertificateStore } from "@/features/profile/stores/certificate-store";
 
 export type CertificateWithImage = {
-  name: string;
-  publisher: string;
-  publishDate: string;
+  name?: string | undefined;
+  publisher?: string | undefined;
+  publishDate?: string | undefined;
   imageUrl?: string;
+  imageFileId?: string | undefined;
 };
 
 interface Props {
@@ -46,7 +47,7 @@ function CertificateItem({ cert }: { cert: CertificateWithImage }) {
         {imgSrc ? (
           <Image
             src={imgSrc}
-            alt={cert.name}
+            alt={cert.name || "Sertifikat"}
             width={58}
             height={58}
             className="w-full h-full object-contain"
@@ -73,7 +74,13 @@ function CertificateItem({ cert }: { cert: CertificateWithImage }) {
 export default function CertificateList({ certificates }: Props) {
   const addCertificates = useCertificateStore((s) => s.setCertificates);
   useEffect(() => {
-    addCertificates(certificates);
+    addCertificates(certificates.map(c => ({
+      id: crypto.randomUUID(),
+      name: c.name || "",
+      publisher: c.publisher || "",
+      publishDate: c.publishDate || "",
+      imageFileId: c.imageFileId || "",
+    })));
   }, [certificates, addCertificates]);
   if (certificates.length === 0) {
     return (

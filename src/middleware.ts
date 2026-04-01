@@ -1,10 +1,8 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 
-
 const PROTECTED_ROUTES = ["/", "/CVBuild", "/feed", "/community", "/asah", "/profile", "/setting"];
 const AUTH_ROUTES = ["/login", "/register", "/verify"];
-// const API_URL = process.env.API_URL || "https://alloc001.adyuta.group/api";
 
 
 export async function middleware(req: NextRequest) {
@@ -18,6 +16,7 @@ export async function middleware(req: NextRequest) {
   if (!isProtectedRoute && !isAuthRoute) return NextResponse.next();
 
   const isLoggedIn = req.cookies.get("refresh_token")
+
 
   if (!isLoggedIn && isProtectedRoute) {
     const url = new URL("/login", req.url);

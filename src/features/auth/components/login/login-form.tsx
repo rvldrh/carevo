@@ -36,9 +36,9 @@ export default function LoginForm() {
   const user = useAuthStore((state) => state.setUserId);
   const onSubmit = (data: LoginUserBodyType) => {
     mutate(data, {
-      onSuccess: async () => {
+      onSuccess: async (res) => {
         const from = searchParams.get("from") ?? "/";
-        useAuthStore.getState().setUserId(data.userId);
+        useAuthStore.getState().setUserId(res.userId || "");
         router.replace(from);
       },
     });

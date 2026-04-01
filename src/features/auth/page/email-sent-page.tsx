@@ -3,8 +3,13 @@ import { getUser } from "@carevo/contracts/api";
 
 
 export default async function EmailSentPage() {
-  const user = await getUser();
-  const email = user?.email ?? "email kamu";
+  let email = "email kamu";
+  try {
+    const user = await getUser();
+    if (user?.email) email = user.email;
+  } catch (error) {
+    console.warn("Failed to get user during build or unauthenticated state");
+  }
 
   return (
     <div className="min-h-screen w-full flex items-center justify-center bg-[#C8DEFF] overflow-hidden relative">

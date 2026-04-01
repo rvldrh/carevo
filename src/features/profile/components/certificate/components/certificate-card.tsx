@@ -44,7 +44,8 @@ export function CertificateCard({ certificate }: Props) {
     };
   }, [certificate.imageFileId]);
 
-  const handleEdit = async (values: CertificateFormValues): Promise<void> => {
+  const handleEdit = async (valuesRaw: Record<string, any>): Promise<void> => {
+    const values = valuesRaw as CertificateFormValues;
     const updated: Certificate = {
       ...certificate,
       name: values.name,

@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import type { Certificate } from "../types/certificate.types";
+import type { Certificate } from "../types/certificate.type";
 
 type CertificateState = {
   certificates: Certificate[];

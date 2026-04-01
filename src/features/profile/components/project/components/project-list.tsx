@@ -67,7 +67,14 @@ export default function ProjectList({ projects }: { projects: Project[] }) {
    const projectsFromStore = useProjectStore((s) => s.projects)
 
   useEffect(() => {
-    setProjects(projects)
+    setProjects(projects.map(p => ({
+      id: crypto.randomUUID(),
+      name: p.name || "",
+      professionRole: p.professionRole || "",
+      imageFileId: p.imageFileId || "",
+      date: p.date || "",
+      description: p.description || "",
+    })))
   }, [projects, setProjects])
 
   if (projects.length === 0) {

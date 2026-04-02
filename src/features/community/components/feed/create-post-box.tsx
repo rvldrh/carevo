@@ -3,6 +3,7 @@
 import { useState } from "react";
 import CreatePostModal from "./create-post-modal";
 import Image from "next/image";
+import Avatar from "@/components/ui/avatar";
 
 export default function CreatePostBox() {
   const [open, setOpen] = useState(false);
@@ -10,8 +11,7 @@ export default function CreatePostBox() {
   return (
     <>
       <div className="bg-gray-100 rounded-2xl p-4 flex items-center gap-4">
-        <div className="w-12 h-12 rounded-full bg-gray-300" />
-
+        <Avatar src="/icons/photo-profile.svg" alt="user" size={48} />
         <div className="flex-1 border rounded-xl h-10 flex items-center px-4 text-sm text-gray-500">
           Tulis Sesuatu di sini
         </div>

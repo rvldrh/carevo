@@ -3,7 +3,7 @@ export type Certificate = {
   name: string;
   publisher: string;
   publishDate: string;
-  imageFileId?: string;
+  imageFileId: string;
 };
 
 export type UpdateCertificateBody = {

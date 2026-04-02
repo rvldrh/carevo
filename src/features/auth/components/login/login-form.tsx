@@ -22,6 +22,8 @@ export default function LoginForm() {
   const { mutate, isPending } = useLogin();
   const { loginWithGoogle } = useGoogleOAuth();
 
+  const setUserId = useAuthStore((state) => state.setUserId);
+
   const {
     register,
     handleSubmit,
@@ -33,12 +35,13 @@ export default function LoginForm() {
     },
   });
 
-  const user = useAuthStore((state) => state.setUserId);
   const onSubmit = (data: LoginUserBodyType) => {
     mutate(data, {
       onSuccess: async (res) => {
         const from = searchParams.get("from") ?? "/";
-        useAuthStore.getState().setUserId(res.userId || "");
+
+        setUserId(res.userId || "");
+
         router.replace(from);
       },
     });

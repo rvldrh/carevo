@@ -18,6 +18,20 @@ export const metadata: Metadata = {
     "personal branding",
     "carevo",
   ],
+  openGraph: {
+    title: "Carevo",
+    description: "Platform CV builder modern",
+    url: "https://carevo-bcc.vercel.app/",
+    siteName: "Carevo",
+    images: [
+      {
+        url: "https://carevo-bcc.vercel.app/icons/logo.svg",
+        width: 1200,
+        height: 630,
+      },
+    ],
+    type: "website",
+  },
 
   icons: {
     icon: "/icons/logo.svg",

@@ -5,8 +5,23 @@ import { Toaster } from "sonner";
 import AuthProvider from "@/components/auth/auth-provider";
 
 export const metadata: Metadata = {
-  title: "",
-  description: "",
+  title: {
+    default: "Carevo",
+    template: "%s | Carevo",
+  },
+  description:
+    "Platform untuk membuat CV profesional, portfolio, dan personal branding dengan mudah.",
+  keywords: [
+    "CV builder",
+    "portfolio",
+    "resume",
+    "personal branding",
+    "carevo",
+  ],
+
+  icons: {
+    icon: "/icons/logo.svg",
+  },
 };
 
 export default function RootLayout({

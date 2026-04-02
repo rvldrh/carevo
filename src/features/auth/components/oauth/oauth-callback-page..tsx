@@ -28,9 +28,7 @@ export default function OAuthCallbackPage() {
       localStorage.setItem("accessToken", accessToken);
 
       const refreshToken = params.get("refreshToken");
-      if (refreshToken) {
-        localStorage.setItem("refreshToken", refreshToken);
-      }
+      console.log(refreshToken)
 
       toast.success("Login berhasil");
 

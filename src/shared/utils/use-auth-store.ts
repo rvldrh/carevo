@@ -25,7 +25,7 @@ export const useAuthStore = create<AuthState>()((set) => ({
     set({ userId, isLoading: false });
   },
 
-  setUserId: (id: string) => set({ userId: id, isLoading: false }), // ✅ ini kuncinya
+  setUserId: (id: string) => set({ userId: id, isLoading: false }),
 
   clear: () => set({ userId: null, isLoading: true }),
 }));

@@ -12,17 +12,15 @@ export default function ReplyInput({ onSubmit }: Props) {
 
   return (
     <div className="pl-11 flex gap-3 items-start">
-
       <Image
         className="w-9 h-9 rounded-full"
-        src="https://placehold.co/36x36"
+        src="/icons/profile.svg"
         alt="avatar"
         width={36}
         height={36}
       />
 
       <div className="flex-1 relative">
-
         <input
           value={value}
           onChange={(e) => setValue(e.target.value)}

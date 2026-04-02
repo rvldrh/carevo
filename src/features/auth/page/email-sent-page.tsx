@@ -8,7 +8,7 @@ export default async function EmailSentPage() {
     const user = await getUser();
     if (user?.email) email = user.email;
   } catch (error) {
-    console.warn("Failed to get user during build or unauthenticated state");
+    console.warn("Failed to get user during build or unauthenticated state", error);
   }
 
   return (

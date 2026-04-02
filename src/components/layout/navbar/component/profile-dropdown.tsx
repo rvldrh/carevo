@@ -4,9 +4,18 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
+import { useFileUrl } from "@/features/auth/hooks/use-fil-utl";
+import { useCurrentUser } from "@/hooks/use-user";
+import { useGetProfto } from "@/features/auth/hooks/use-get-profto";
 
 export default function ProfileDropdown() {
   const [open, setOpen] = useState(false);
+    const { data: userData } = useCurrentUser();
+    const username = userData?.username;
+      const { data: profile, isLoading: isProfileLoading } = useGetProfto(username ?? "");
+  
+    const { data: fileUrl } = useFileUrl(profile?.avatarFileId);
+  
 
   return (
     <div className="relative">
@@ -16,14 +25,17 @@ export default function ProfileDropdown() {
           className="hidden md:flex items-center gap-3 bg-[#4D8BE6] px-4 py-2 rounded-[20px] ml-8"
           onClick={() => setOpen((prev) => !prev)}
         >
-          <Image
-            src="/icons/profile.svg"
-            alt="Profile"
-            width={32}
-            height={32}
-            className="w-8 h-8 rounded-full"
-          />
-
+          {isProfileLoading ? (
+            <div className="w-8 h-8 rounded-full bg-gray-300 animate-pulse" />
+          ) : (
+            <Image
+              src={fileUrl || "/icons/profile.svg"}
+              alt="Profile"
+              width={32}
+              height={32}
+              className="w-8 h-8 rounded-full"
+            />
+          )}  
           <span className="text-white text-[16px]">Profto</span>
           
           <motion.span

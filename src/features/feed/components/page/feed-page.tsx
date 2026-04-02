@@ -6,17 +6,25 @@ export default async function FeedPage() {
   const feeds = Array.from({ length: 6 });
 
   return (
-    <div className="min-h-screen bg-stone-100 py-10">
-      <div className="max-w-7xl mx-auto grid grid-cols-12 gap-6">
-        <div className="col-span-3 hidden lg:block">
-          <ProfileCard />
+    <div className="min-h-screen bg-stone-100 py-6 lg:py-10">
+      <div className="max-w-[1440px] mx-auto px-4 lg:px-6">
+
+        <div className="flex flex-col lg:flex-row gap-6">
+
+          <aside className="hidden lg:block lg:w-[300px]">
+            <ProfileCard />
+          </aside>
+
+          <main className="flex-1 w-full">
+            <FeedList feeds={feeds} />
+          </main>
+
+          <aside className="hidden lg:block lg:w-[280px]">
+            <CommunitySuggestion />
+          </aside>
+
         </div>
-        <div className="col-span-12 lg:col-span-6">
-          <FeedList feeds={feeds} />
-        </div>
-        <div className="col-span-3 hidden lg:block">
-          <CommunitySuggestion />
-        </div>
+
       </div>
     </div>
   );

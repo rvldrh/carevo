@@ -15,7 +15,7 @@ export default function ReplyItem({ reply }: Props) {
         <div className="flex gap-3">
           <Image
             className="w-9 h-9 rounded-full"
-            src="https://placehold.co/36x36"
+            src="/icons/profile.svg"
             alt="avatar"
             width={36}
             height={36}

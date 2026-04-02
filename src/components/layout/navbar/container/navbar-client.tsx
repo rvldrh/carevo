@@ -49,7 +49,7 @@ export default function NavbarClient() {
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
         >
           <Image
-            src={"/icons/profto.svg"}
+            src={"/icons/hamburger.svg"}
             alt="menu"
             width={6}
             height={6}

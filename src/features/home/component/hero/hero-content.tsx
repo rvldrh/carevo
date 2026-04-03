@@ -38,7 +38,7 @@ export default function HeroContent() {
         </button>
 
         <button
-          onClick={() => handleNavigation("/cv")}
+          onClick={() => handleNavigation("/CVBuild")}
           className="border border-blue-600 text-blue-600 px-6 py-3 rounded-full font-medium hover:bg-blue-50 transition"
         >
           Build CV

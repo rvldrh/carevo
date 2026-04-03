@@ -28,12 +28,22 @@ export function CourseSection({ isSaving, onSave }: Props) {
     setIsOpen(true);
   };
 
+  const handleDelete = (index: number) => {
+    remove(index);
+
+    const updatedValues = getValues();
+
+    onSave(updatedValues);
+  };
+
   const handleOpenEdit = (index: number) => {
     setEditingIndex(index);
     setIsOpen(true);
   };
 
-  const handleFormSubmit = (data: Record<string, string | number | boolean | undefined>) => {
+  const handleFormSubmit = (
+    data: Record<string, string | number | boolean | undefined>,
+  ) => {
     const payload = {
       ...data,
       startYear: data.startYear ? Number(data.startYear) : undefined,
@@ -44,16 +54,19 @@ export function CourseSection({ isSaving, onSave }: Props) {
     };
 
     if (editingIndex !== null) {
-      update(editingIndex, payload as unknown as NonNullable<CVFormValues["courses"]>[number]);
+      update(
+        editingIndex,
+        payload as unknown as NonNullable<CVFormValues["courses"]>[number],
+      );
     } else {
-      append(payload as unknown as NonNullable<CVFormValues["courses"]>[number]);
+      append(
+        payload as unknown as NonNullable<CVFormValues["courses"]>[number],
+      );
     }
     setIsOpen(false);
 
     onSave(getValues());
   };
-
-
 
   return (
     <div className="flex flex-col items-center gap-6 pt-6">
@@ -66,16 +79,16 @@ export function CourseSection({ isSaving, onSave }: Props) {
               key={item.id}
               title={item.name}
               subtitle={item.organizer}
-              onDelete={() => remove(index)}
+              onDelete={() => handleDelete(index)}
               onEdit={() => handleOpenEdit(index)}
             />
           ))
         )}
       </div>
 
-      <AccordionButton 
-        buttonText={isSaving ? "Menyimpan..." : "Tambah Kursus"} 
-        onClick={handleOpenAdd} 
+      <AccordionButton
+        buttonText={isSaving ? "Menyimpan..." : "Tambah Kursus"}
+        onClick={handleOpenAdd}
       />
       {isOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
@@ -83,7 +96,14 @@ export function CourseSection({ isSaving, onSave }: Props) {
             title={editingIndex !== null ? "Edit Kursus" : "Tambah Kursus"}
             fields={COURSE_FIELDS}
             aiSection="COURSE_DESCRIPTION"
-            defaultValues={editingIndex !== null ? (fields[editingIndex] as unknown as Record<string, string | number | boolean | undefined>) : {}}
+            defaultValues={
+              editingIndex !== null
+                ? (fields[editingIndex] as unknown as Record<
+                    string,
+                    string | number | boolean | undefined
+                  >)
+                : {}
+            }
             onCancel={() => setIsOpen(false)}
             onSubmit={handleFormSubmit}
           />

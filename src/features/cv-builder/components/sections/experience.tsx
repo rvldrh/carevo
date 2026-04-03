@@ -33,6 +33,14 @@ export function ExperienceSection({ isSaving, onSave }: Props) {
     setIsOpen(true);
   };
 
+  const handleDelete = (index: number) => {
+  remove(index);
+
+  const updatedValues = getValues();
+
+  onSave(updatedValues);
+};
+
   const handleFormSubmit = (data: Record<string, string | number | boolean | undefined>) => {
     const payload = {
       ...data,
@@ -66,7 +74,7 @@ export function ExperienceSection({ isSaving, onSave }: Props) {
               key={item.id}
               title={item.position}
               subtitle={String(item.companyName)}
-              onDelete={() => remove(index)}
+              onDelete={() => handleDelete(index)}
               onEdit={() => handleOpenEdit(index)}
             />
           ))

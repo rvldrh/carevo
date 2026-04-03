@@ -28,12 +28,22 @@ export function OrganizationSection({ isSaving, onSave }: Props) {
     setIsOpen(true);
   };
 
+  const handleDelete = (index: number) => {
+    remove(index);
+
+    const updatedValues = getValues();
+
+    onSave(updatedValues);
+  };
+
   const handleOpenEdit = (index: number) => {
     setEditingIndex(index);
     setIsOpen(true);
   };
 
-  const handleFormSubmit = (data: Record<string, string | number | boolean | undefined>) => {
+  const handleFormSubmit = (
+    data: Record<string, string | number | boolean | undefined>,
+  ) => {
     const payload = {
       ...data,
       startYear: data.startYear ? Number(data.startYear) : undefined,
@@ -47,43 +57,52 @@ export function OrganizationSection({ isSaving, onSave }: Props) {
     } else {
       append(payload);
     }
-    
+
     setIsOpen(false);
     onSave(getValues());
   };
-
-
 
   return (
     <div className="flex flex-col items-center gap-6 pt-6">
       <div className="w-full flex flex-col gap-3 px-6">
         {fields.length === 0 ? (
-          <p className="text-sm text-gray-500 text-center">Belum ada organisasi</p>
+          <p className="text-sm text-gray-500 text-center">
+            Belum ada organisasi
+          </p>
         ) : (
           fields.map((item, index) => (
             <ListItemCard
               key={item.id}
               title={item.organizationName}
               subtitle={item.position}
-              onDelete={() => remove(index)}
+              onDelete={() => handleDelete(index)}
               onEdit={() => handleOpenEdit(index)}
             />
           ))
         )}
       </div>
 
-      <AccordionButton 
-        buttonText={isSaving ? "Menyimpan..." : "Tambah Organisasi"} 
-        onClick={handleOpenAdd} 
+      <AccordionButton
+        buttonText={isSaving ? "Menyimpan..." : "Tambah Organisasi"}
+        onClick={handleOpenAdd}
       />
 
       {isOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
           <FormModal
-            title={editingIndex !== null ? "Edit Organisasi" : "Tambah Organisasi"}
+            title={
+              editingIndex !== null ? "Edit Organisasi" : "Tambah Organisasi"
+            }
             fields={ORGANIZATION_FIELDS}
             aiSection="ORGANIZATION_DESCRIPTION"
-            defaultValues={editingIndex !== null ? (fields[editingIndex] as unknown as Record<string, string | number | boolean | undefined>) : {}}
+            defaultValues={
+              editingIndex !== null
+                ? (fields[editingIndex] as unknown as Record<
+                    string,
+                    string | number | boolean | undefined
+                  >)
+                : {}
+            }
             onCancel={() => setIsOpen(false)}
             onSubmit={handleFormSubmit}
           />

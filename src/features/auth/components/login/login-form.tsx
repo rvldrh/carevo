@@ -15,6 +15,9 @@ import LoginFields from "@/features/auth/components/login/login-fields";
 import LoginSubmit from "@/features/auth/components/login/login-submit";
 import LoginFooter from "@/features/auth/components/login/login-footer";
 import { useAuthStore } from "@/shared/utils/use-auth-store";
+import { useEffect, useState } from "react";
+import { getUser } from "@carevo/contracts/api";
+import FullPageLoader from "../page-load";
 
 export default function LoginForm() {
   const router = useRouter();
@@ -23,8 +26,11 @@ export default function LoginForm() {
   const { loginWithGoogle } = useGoogleOAuth();
 
   const setUserId = useAuthStore((state) => state.setUserId);
+  const [checking, setChecking] = useState(true);
 
-  const {
+  
+
+  const{
     register,
     handleSubmit,
     formState: { errors },
@@ -34,6 +40,25 @@ export default function LoginForm() {
       rememberMe: true,
     },
   });
+
+
+  useEffect(() => {
+    const checkUser = async () => {
+      try {
+        const user = await getUser();
+        if (user) {
+          router.replace("/landing");
+          return;
+        }
+      } catch {}
+
+      setChecking(false);
+    };
+
+    checkUser();
+  }, []);
+
+if (checking) return <FullPageLoader />;
 
   const onSubmit = (data: LoginUserBodyType) => {
     mutate(data, {

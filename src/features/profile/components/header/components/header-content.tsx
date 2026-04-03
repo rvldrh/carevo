@@ -3,6 +3,8 @@ import type { ProftoResponse } from "@/features/profile/types/profto";
 export default function HeaderContent({ profto }: { profto: ProftoResponse | null }) {
   if (!profto) return null;
 
+  
+
   return (
     <>
       <div className="flex flex-col items-center">

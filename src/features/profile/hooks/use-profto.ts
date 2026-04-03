@@ -33,20 +33,18 @@ function mapProfto(data: GetUserProfto200): ProftoFromApi {
 }
 
 export function useGetProfto(username: string) {
-  return useQuery<ProftoFromApi | null>({
+  return useQuery({
     queryKey: ["profto_get", username],
-
-
     queryFn: async () => {
       if (!username) return null;
-
       const res = await getUserProfto(username);
-
       if (!res) return null;
-
       return mapProfto(res);
     },
     enabled: !!username,
+
+    refetchInterval: 3000,
+    refetchOnWindowFocus: true,
   });
 }
 

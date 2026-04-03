@@ -41,7 +41,6 @@ export const ModalForm = ({
   }, {} as FormState);
 
   const [formData, setFormData] = useState<FormState>(initialState);
-
   const handleChange = (name: string, value: FormValue) => {
     setFormData((prev: FormState) => ({
       ...prev,

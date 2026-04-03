@@ -14,36 +14,27 @@ function mapProfto(data: GetUserProfto200): ProftoFromApi {
     ...data,
 
     avatarFileId:
-      typeof data.avatarFileId === "string"
-        ? data.avatarFileId
-        : undefined,
+      typeof data.avatarFileId === "string" ? data.avatarFileId : undefined,
 
     name: typeof data.name === "string" ? data.name : undefined,
 
     professionRole:
-      typeof data.professionRole === "string"
-        ? data.professionRole
-        : undefined,
+      typeof data.professionRole === "string" ? data.professionRole : undefined,
 
     lastEducation:
-      typeof data.lastEducation === "string"
-        ? data.lastEducation
-        : undefined,
+      typeof data.lastEducation === "string" ? data.lastEducation : undefined,
 
     email: typeof data.email === "string" ? data.email : undefined,
 
     summary: typeof data.summary === "string" ? data.summary : undefined,
 
-    cvFileId:
-      typeof data.cvFileId === "string"
-        ? data.cvFileId
-        : undefined,
+    cvFileId: typeof data.cvFileId === "string" ? data.cvFileId : undefined,
   };
 }
 
 export function useGetProfto(username: string) {
   return useQuery<ProftoFromApi | null>({
-    queryKey: ["profto", username],
+    queryKey: ["profto_get", username],
     queryFn: async () => {
       if (!username) return null;
 
@@ -51,12 +42,11 @@ export function useGetProfto(username: string) {
 
       if (!res) return null;
 
-      return mapProfto(res); 
+      return mapProfto(res);
     },
     enabled: !!username,
   });
 }
-
 
 export function useUpdateProfto() {
   const queryClient = useQueryClient();

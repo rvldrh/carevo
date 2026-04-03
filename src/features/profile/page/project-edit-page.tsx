@@ -75,11 +75,7 @@ export default function EditProjectsPage() {
             Projects
           </h1>
 
-          <IconButton
-            icon="/icons/plus.svg"
-            alt="add"
-            onClick={() => setOpenAdd(true)}
-          />
+
         </div>
       </div>
 

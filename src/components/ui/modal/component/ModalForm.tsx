@@ -1,4 +1,6 @@
-import { useState } from "react";
+"use client";
+
+import { useEffect, useState } from "react";
 import type { FieldConfig, FormState, FormValue } from "@/shared/types/ModalForm";
 
 import { TextField } from "@/components/ui/modal/fields/TextFields";
@@ -10,7 +12,7 @@ import { ModalButtons } from "@/components/ui/modal/component/ModalButtons";
 interface ModalFormProps {
   title: string;
   fields: FieldConfig[];
-  onSubmit: (data: FormState) => void;
+  onSubmit: (data: FormState) => Promise<void> | void;
   onCancel: () => void;
   defaultValues?: Partial<FormState>;
   submitText?: string;
@@ -26,26 +28,45 @@ export const ModalForm = ({
   submitText = "Terapkan",
   cancelText = "Batal",
 }: ModalFormProps) => {
-  const initialState: FormState = fields.reduce((acc, field) => {
-    
-    const providedValue = defaultValues?.[field.name];
+  const [formData, setFormData] = useState<FormState>({} as FormState);
+  const [isLoading, setIsLoading] = useState(false);
 
-    if (field.type === "multi-input") {
-      acc[field.name] = providedValue ?? field.defaultValue ?? [];
-    } else if (field.type === "file") {
-      acc[field.name] = (providedValue as File) ?? null;
-    } else {
-      acc[field.name] = providedValue ?? field.defaultValue ?? "";
-    }
-    return acc;
-  }, {} as FormState);
+  useEffect(() => {
+    const newState: FormState = fields.reduce((acc, field) => {
+      const providedValue = defaultValues?.[field.name];
 
-  const [formData, setFormData] = useState<FormState>(initialState);
+      if (field.type === "multi-input") {
+        acc[field.name] = providedValue ?? field.defaultValue ?? [];
+      } else if (field.type === "file") {
+        acc[field.name] = (providedValue as File) ?? null;
+      } else {
+        acc[field.name] = providedValue ?? field.defaultValue ?? "";
+      }
+
+      return acc;
+    }, {} as FormState);
+
+    setFormData(newState);
+  }, [defaultValues, fields]);
+
   const handleChange = (name: string, value: FormValue) => {
-    setFormData((prev: FormState) => ({
+    setFormData((prev) => ({
       ...prev,
       [name]: value,
     }));
+  };
+
+  const handleSubmitInternal = async () => {
+    if (isLoading) return;
+
+    try {
+      setIsLoading(true);
+      await onSubmit(formData);
+    } catch (err) {
+      console.error("Submit error:", err);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const renderField = (field: FieldConfig) => {
@@ -97,19 +118,31 @@ export const ModalForm = ({
             onChange={handleChange}
           />
         );
+
+      default:
+        return null;
     }
   };
 
   return (
-    <div className="flex flex-col gap-6">
-      {fields.map(renderField)}
+    <div className="flex flex-col gap-6 relative">
+      {isLoading && (
+        <div className="absolute inset-0 z-10 flex items-center justify-center bg-white/70 backdrop-blur-sm rounded-lg">
+          <div className="h-8 w-8 border-4 border-gray-300 border-t-black rounded-full animate-spin" />
+        </div>
+      )}
 
-      <ModalButtons
-        onCancel={onCancel}
-        onSubmit={() => onSubmit(formData)}
-        submitText={submitText}
-        cancelText={cancelText}
-      />
+      <div className={isLoading ? "pointer-events-none opacity-60" : ""}>
+        {fields.map(renderField)}
+
+        <ModalButtons
+          onCancel={onCancel}
+          onSubmit={handleSubmitInternal}
+          submitText={isLoading ? "Menyimpan..." : submitText}
+          cancelText={cancelText}
+          isLoading={isLoading}
+        />
+      </div>
     </div>
   );
 };

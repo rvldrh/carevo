@@ -68,7 +68,6 @@ export default function CertificateActionsClient({
 
       const file = values.image as File | undefined;
 
-      // ✅ upload kalau user ganti file
       if (file) {
         const res = await uploadFileMutation.mutateAsync({
           file,

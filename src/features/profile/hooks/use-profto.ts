@@ -43,7 +43,7 @@ export function useGetProfto(username: string) {
     },
     enabled: !!username,
 
-    refetchInterval: 3000,
+    refetchInterval: 500,
     refetchOnWindowFocus: true,
   });
 }

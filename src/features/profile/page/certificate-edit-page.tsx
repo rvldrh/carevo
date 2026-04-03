@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import IconButton from "@/components/ui/button/icon-button";
 import { useEffect, useState } from "react";
 
 import { CertificateGrid } from "@/features/profile/components/certificate/components/certificate-grid";
@@ -80,11 +79,6 @@ export default function EditCertificatesPage() {
 
         <h1 className="text-xl md:text-2xl font-semibold">Certificates</h1>
 
-        <IconButton
-          icon="/icons/plus.svg"
-          alt="add"
-          onClick={() => setOpenAdd(true)}
-        />
       </div>
 
       <CertificateGrid certificates={certificates} />
